@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Lab 3.3 - Attacks are being mitigated &mdash; NGINX App Protect  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Lab 3.2 - Declaratively create a WAF Policy using Swagger file" href="lab2.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> NGINX App Protect
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../class1.html">Class 1 - API Security and Managment with NGINX and F5 solutions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Module 1 - Reviewing the Arcadia application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Module 2 - Nginx API Management</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="module3.html">Module 3 - F5 BIG-IP configuration</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lab1.html">Lab 3.1 - Run attacks on the API Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lab2.html">Lab 3.2 - Declaratively create a WAF Policy using Swagger file</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Lab 3.3 - Attacks are being mitigated</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NGINX App Protect</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../class1.html">Class 1 - API Security and Managment with NGINX and F5 solutions</a> &raquo;</li>
+        
+          <li><a href="module3.html">Module 3 - F5 BIG-IP configuration</a> &raquo;</li>
+        
+      <li>Lab 3.3 - Attacks are being mitigated</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/class1/module3/lab3.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lab-3-3-attacks-are-being-mitigated">
+<h1>Lab 3.3 - Attacks are being mitigated<a class="headerlink" href="#lab-3-3-attacks-are-being-mitigated" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>Objective:</strong> Validate Adv. WAF blocks attacks</p>
+</div>
+<ol class="arabic simple">
+<li>Go to Postman console and open “Post Buy Stocks XSS Attack” in Arcadia collection</li>
+</ol>
+<a class="reference internal image-reference" href="../../_images/Picture110.png"><img alt="../../_images/Picture110.png" class="align-center" src="../../_images/Picture110.png" style="width: 300.0px; height: 196.0px;" /></a>
+<p>2. Validate the XSS attack in action parameter. Click Send.
+Request gets rejected. <strong>Note the Support ID in response</strong></p>
+<a class="reference internal image-reference" href="../../_images/Picture25.png"><img alt="../../_images/Picture25.png" class="align-center" src="../../_images/Picture25.png" style="width: 751.2px; height: 311.2px;" /></a>
+<a class="reference internal image-reference" href="../../_images/Picture32.png"><img alt="../../_images/Picture32.png" class="align-center" src="../../_images/Picture32.png" style="width: 604.8px; height: 232.8px;" /></a>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This beta build 15.1 has an issue in UDF. The asmlogd daemon is failing due to lack of threads, hence you don’t see any logs in the GUI. This only occurs in UDF at the moment. So you can use an irule to get the ASM logs, or use the REST API calls below.</p>
+</div>
+<ol class="arabic simple" start="3">
+<li>Go to Postman Collection Arcadia-REST-WAF . Open GetEventLog</li>
+</ol>
+<a class="reference internal image-reference" href="../../_images/Picture91.png"><img alt="../../_images/Picture91.png" class="align-center" src="../../_images/Picture91.png" style="width: 388.0px; height: 276.0px;" /></a>
+<ol class="arabic simple" start="4">
+<li>Replace the Support ID (by the one collected in step 2) in URL and Send Request. Details for blocking is available in the response.</li>
+</ol>
+<a class="reference internal image-reference" href="../../_images/Picture101.png"><img alt="../../_images/Picture101.png" class="align-center" src="../../_images/Picture101.png" style="width: 751.2px; height: 511.2px;" /></a>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="lab2.html" class="btn btn-neutral float-left" title="Lab 3.2 - Declaratively create a WAF Policy using Swagger file" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Matthieu Dierick
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

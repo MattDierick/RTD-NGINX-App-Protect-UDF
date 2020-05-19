@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Workflow of this lab &mdash; NGINX App Protect  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Deploy Arcadia Finance Application" href="../module3/module3.html" />
+    <link rel="prev" title="Architecture of Acardia Application" href="../module1/module1.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> NGINX App Protect
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../class1.html">Class 1 - Deploy modern application with modern tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Architecture of Acardia Application</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Workflow of this lab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-deploy-and-publish-arcadia-finance-application-in-kubernetes">Step 1 - Deploy and publish Arcadia Finance application in Kubernetes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-publish-arcadia-app-with-a-ngnix-plus-ingress-controller">Step 2 - Publish Arcadia app with a NGNIX Plus Ingress Controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-build-your-first-nap-nginx-app-protect-docker-image">Step 3 - Build your first NAP (NGINX App Protect) docker image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-update-this-image-with-the-latest-waf-signature">Step 4 - Update this image with the latest WAF signature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-check-logs-in-kibana">Step 5 - Check logs in Kibana</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-6-customize-the-waf-policy">Step 6 - Customize the WAF policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-6-deploy-nap-with-a-cicd-a-toolchain">Step 6 - Deploy NAP with a CICD a toolchain</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Deploy Arcadia Finance Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Deploy Arcadia Finance Application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class2/class2.html">Demo - Run the demo in UDF</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NGINX App Protect</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../class1.html">Class 1 - Deploy modern application with modern tools</a> &raquo;</li>
+        
+      <li>Workflow of this lab</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/class1/module2/module2.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="workflow-of-this-lab">
+<h1>Workflow of this lab<a class="headerlink" href="#workflow-of-this-lab" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>The demo is splitted in 7 steps :</dt>
+<dd><ul class="first last simple">
+<li>Deploy and publish Arcadia Finance application in Kubernetes</li>
+<li>Publish Arcadia app with an NGNIX Plus Ingress Controller</li>
+<li>Build your first NAP (NGINX App Protect) docker image</li>
+<li>Update this image with the latest WAF signature</li>
+<li>Check logs in Kibana</li>
+<li>Customize the WAF policy</li>
+<li>Deploy NAP with a CICD a toolchain</li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="step-1-deploy-and-publish-arcadia-finance-application-in-kubernetes">
+<h2>Step 1 - Deploy and publish Arcadia Finance application in Kubernetes<a class="headerlink" href="#step-1-deploy-and-publish-arcadia-finance-application-in-kubernetes" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal is to deploy Arcadia Application in Kubernetes</p>
+</div>
+<p>Tasks:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Run a Kubernetes command (kubectl) that will download Arcadia containers from an external public repo (Gitlab.com), and run them</li>
+<li>Check in Kubernetes Dahsboard if Arcadia is deployed and runnning</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="step-2-publish-arcadia-app-with-a-ngnix-plus-ingress-controller">
+<h2>Step 2 - Publish Arcadia app with a NGNIX Plus Ingress Controller<a class="headerlink" href="#step-2-publish-arcadia-app-with-a-ngnix-plus-ingress-controller" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal is to publish Arcadia application outside the Kubernetes cluster and use NGINX Plus Ingress Controller for that</p>
+</div>
+<p>Tasks:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Run a Kubernetes command (kubectl) that will download and run an NGINX Plus Ingress Controller image from a private repo (Gitlab.com)</li>
+<li>Check how this NIC (NGINX Ingress Controller) is set in order to route packets to the right Arcadia container (pod)</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="step-3-build-your-first-nap-nginx-app-protect-docker-image">
+<h2>Step 3 - Build your first NAP (NGINX App Protect) docker image<a class="headerlink" href="#step-3-build-your-first-nap-nginx-app-protect-docker-image" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal is to build your first NAP docker image and run it</p>
+</div>
+<p>Tasks:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Run a docker build command using a Dockerfile</li>
+<li>Run a docker run command to start this docker container in front of Arcadia application</li>
+<li>Check the signature package included in this image</li>
+<li>Check Aracadia is protected</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="step-4-update-this-image-with-the-latest-waf-signature">
+<h2>Step 4 - Update this image with the latest WAF signature<a class="headerlink" href="#step-4-update-this-image-with-the-latest-waf-signature" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal is to create a new NAP image with the latest Signature package.</p>
+</div>
+<p>Task:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Run the same Docker build command but with a new Dockerfile containing the new RPM signature package</li>
+<li>Destroy the previous NAP container and run a new one from this new image</li>
+<li>Check the signature date</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="step-5-check-logs-in-kibana">
+<h2>Step 5 - Check logs in Kibana<a class="headerlink" href="#step-5-check-logs-in-kibana" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal is to check logs in ELK (Elastic, Logstash, Kibana)</p>
+</div>
+<p>Task:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Connect to Kibana and check logs</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="step-6-customize-the-waf-policy">
+<h2>Step 6 - Customize the WAF policy<a class="headerlink" href="#step-6-customize-the-waf-policy" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal is to customize the WAF policy in front of Aracadia application. By default, a base policy is deployed.</p>
+</div>
+<p>Task:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Run NAP container with a new nginx.conf file refering to the new policies</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="step-6-deploy-nap-with-a-cicd-a-toolchain">
+<h2>Step 6 - Deploy NAP with a CICD a toolchain<a class="headerlink" href="#step-6-deploy-nap-with-a-cicd-a-toolchain" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal is to deploy NAP in a real environment with a CICD toolchain in place.</p>
+</div>
+<p>Task:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Upload a new signature package into the local repo (gitlab)</li>
+<li>Gitlab webhook to trigger a Jenkins Pipeline building a new version of the NAP image with this new signature package</li>
+<li>Deploy and run this new version of the NAP image in front of Arcadia</li>
+<li>Check the signature package date</li>
+</ol>
+</div></blockquote>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../module3/module3.html" class="btn btn-neutral float-right" title="Deploy Arcadia Finance Application" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../module1/module1.html" class="btn btn-neutral float-left" title="Architecture of Acardia Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Matthieu Dierick
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
