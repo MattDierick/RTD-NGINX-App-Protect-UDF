@@ -1,5 +1,5 @@
-Demo - Run the demo in UDF
-##########################
+Class 2 - Protect Arcadia with NGINX App Protect
+################################################
 
 In this section, I demonstrate all the step to deliver the demo
 
@@ -9,6 +9,3 @@ In this section, I demonstrate all the step to deliver the demo
 
    module*/module*
 
-
-|
-|
