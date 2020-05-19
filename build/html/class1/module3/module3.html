@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Module 3 - F5 BIG-IP configuration &mdash; NGINX App Protect  documentation</title>
+  <title>Deploy Arcadia Finance Application &mdash; NGINX App Protect  documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Lab 3.1 - Run attacks on the API Server" href="lab1.html" />
-    <link rel="prev" title="Lab 2.5 - Reporting, logs and audit" href="../module2/lab5.html" /> 
+    <link rel="next" title="Deploy NGINX Plus Ingress Controller" href="../module4/module4.html" />
+    <link rel="prev" title="Workflow of this lab" href="../module2/module2.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,18 +83,14 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../class1.html">Class 1 - Deploy a modern app in K8S</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Module 1 - Reviewing the Arcadia application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Module 2 - Nginx API Management</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Module 3 - F5 BIG-IP configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lab1.html">Lab 3.1 - Run attacks on the API Server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lab2.html">Lab 3.2 - Declaratively create a WAF Policy using Swagger file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lab3.html">Lab 3.3 - Attacks are being mitigated</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../class1.html">Class 1 - Deploy modern application with modern tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Architecture of Acardia Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Workflow of this lab</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Deploy Arcadia Finance Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Deploy NGINX Plus Ingress Controller</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../class2/class2.html">Class 2 - NGINX App Protect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class2/class2.html">Demo - Run the demo in UDF</a></li>
 </ul>
 
             
@@ -140,9 +136,9 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../class1.html">Class 1 - Deploy a modern app in K8S</a> &raquo;</li>
+          <li><a href="../class1.html">Class 1 - Deploy modern application with modern tools</a> &raquo;</li>
         
-      <li>Module 3 - F5 BIG-IP configuration</li>
+      <li>Deploy Arcadia Finance Application</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -161,15 +157,84 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-3-f5-big-ip-configuration">
-<h1>Module 3 - F5 BIG-IP configuration<a class="headerlink" href="#module-3-f5-big-ip-configuration" title="Permalink to this headline">¶</a></h1>
-<p>We will do the following labs:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html">Lab 3.1 - Run attacks on the API Server</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 3.2 - Declaratively create a WAF Policy using Swagger file</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab3.html">Lab 3.3 - Attacks are being mitigated</a></li>
-</ul>
+  <div class="section" id="deploy-arcadia-finance-application">
+<h1>Deploy Arcadia Finance Application<a class="headerlink" href="#deploy-arcadia-finance-application" title="Permalink to this headline">¶</a></h1>
+<p>It’s time to deploy Arcadia Finance application :)</p>
+<p><strong>Deploy Arcadia Application with kubectl command</strong></p>
+<p>With Kubernetes, there are several ways to deploy containers (pods). One way is tu use <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> command with a YAML deployment file.
+I prepared this YAML file below (this is only for mainr app container). You can have a look, and see it will deploy containers from my Gitlab.com repo.</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nt">labels</span><span class="p">:</span>
+    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NodePort</span>
+<span class="nt">ports</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main-80</span>
+    <span class="l l-Scalar l-Scalar-Plain">nodePort</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">30511</span>
+    <span class="l l-Scalar l-Scalar-Plain">port</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+    <span class="l l-Scalar l-Scalar-Plain">protocol</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+    <span class="l l-Scalar l-Scalar-Plain">targetPort</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="nt">selector</span><span class="p">:</span>
+    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nt">labels</span><span class="p">:</span>
+    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
+    <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">selector</span><span class="p">:</span>
+    <span class="nt">matchLabels</span><span class="p">:</span>
+    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
+    <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">template</span><span class="p">:</span>
+    <span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">labels</span><span class="p">:</span>
+        <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+    <span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">containers</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">env</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">service_name</span>
+        <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
+        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">registry.gitlab.com/arcadia-application/main-app/mainapp:latest</span>
+        <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
+        <span class="nt">ports</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+        <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+<span class="nn">---</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To make it simple, it deploys the container from gitlab.com repo, and a service. The service is used later on by the NGINX Plus Ingress Controller.</p>
+</div>
+<p><strong>Steps :</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>SSH (not WebSSH) to CICD Server</li>
+<li>Run this command <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span> <span class="pre">-f</span> <span class="pre">/home/ubuntu/Arcadia_k8S/all_apps.yaml</span></code></li>
+<li>RDP to the jumhost with <code class="docutils literal notranslate"><span class="pre">user:user</span></code> as credentials</li>
+<li>Open Chrome</li>
+<li>Open Kubernetes Dahsboard bookmark (if not already opened)</li>
+<li>Click <code class="docutils literal notranslate"><span class="pre">skip</span></code> on the logon page</li>
+<li>You should see the services and the pods</li>
+</ol>
+</div></blockquote>
+<img alt="../../_images/pods.png" class="align-center" src="../../_images/pods.png" />
+<img alt="../../_images/services.png" class="align-center" src="../../_images/services.png" />
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Arcadia Application is running but not yet available for the customers. We need to publish it.</p>
 </div>
 </div>
 
@@ -181,10 +246,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="lab1.html" class="btn btn-neutral float-right" title="Lab 3.1 - Run attacks on the API Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../module4/module4.html" class="btn btn-neutral float-right" title="Deploy NGINX Plus Ingress Controller" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../module2/lab5.html" class="btn btn-neutral float-left" title="Lab 2.5 - Reporting, logs and audit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../module2/module2.html" class="btn btn-neutral float-left" title="Workflow of this lab" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
