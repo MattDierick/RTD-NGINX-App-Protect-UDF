@@ -85,8 +85,8 @@ Task:
 
 |
 
-Step 6 - Deploy NAP with a CICD a toolchain
-*******************************************
+Step 7 - Deploy NAP with a CICD toolchain
+*****************************************
 
 .. note :: Goal is to deploy NAP in a real environment with a CICD toolchain in place.
 
@@ -102,4 +102,4 @@ Task:
    :maxdepth: 1
    :glob:
 
-   lab*
+   module*

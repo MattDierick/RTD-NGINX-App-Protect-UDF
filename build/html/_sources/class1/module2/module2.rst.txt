@@ -85,8 +85,8 @@ Task:
 
 |
 
-Step 6 - Deploy NAP with a CICD a toolchain
-*******************************************
+Step 7 - Deploy NAP with a CICD toolchain
+*****************************************
 
 .. note :: Goal is to deploy NAP in a real environment with a CICD toolchain in place.
 
@@ -96,10 +96,3 @@ Task:
     #. Gitlab webhook to trigger a Jenkins Pipeline building a new version of the NAP image with this new signature package
     #. Deploy and run this new version of the NAP image in front of Arcadia
     #. Check the signature package date
-
-
-.. toctree::
-   :maxdepth: 1
-   :glob:
-
-   lab*

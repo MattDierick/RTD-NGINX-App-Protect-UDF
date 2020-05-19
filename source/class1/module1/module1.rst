@@ -1,4 +1,4 @@
-Architecture of Acardia Application
+Architecture of Arcadia Application
 ###################################
 
 .. note:: This application is available on Gitlab in case you want to build your own lab : 

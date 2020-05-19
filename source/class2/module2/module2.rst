@@ -1,28 +1,38 @@
-Step 2 - DevOps deploy Money Transfer application
-#################################################
+Step 4 - Update this image with the latest WAF signature
+########################################################
 
-In this module, we will deploy the Money Tranfer container for Arcadia Bank application and we will publish it.
+In this module, we will update the signature packafge in the docker image.
 
-.. note :: At the end of this module, Arcadia Bank application will look like this.
+.. note:: There are several ways to update the signatures. All of them have pro and cons. In this lab, I decided to create a new docker image with the new signature package. And then destroy and run a new docker from this new image in front of Arcadia App.
+
+The signatures are provided by F5 with an RPM package. The best way to update the image is to build a new image from a new Dockerfile refering to this signature package. We will use the Dockerfile below:
+
+.. code-block:: bash
+
+   FROM centos:7.4.1708
+
+   COPY entrypoint.sh app-protect-20.zip app-protect-attack-signatures-* /root/
+   RUN chmod +x /root/entrypoint.sh \
+   && yum install epel-release unzip -y \
+   && cd /root/ \
+   && unzip app-protect-20.zip \
+   && yum install -y openssl \
+   && yum install -y f5* \
+   && yum install -y nginx-plus-20*.rpm \
+   && yum install -y app-protect-plugin-* \
+   && yum install -y app-protect-compiler-* \
+   && yum install -y app-protect-engine-* \
+   && yum install -y nginx-plus-module-appprotect-* \
+   && yum install -y app-protect-20*.rpm \
+   && yum install -y app-protect-attack-signatures-*.rpm
+
+   COPY log-default.json nginx.conf /etc/nginx/
+
+   CMD ["/root/entrypoint.sh"]
 
 
-.. image:: ../pictures/app2.png
-   :align: center
-   :scale: 15%
+.. note:: You can notice one more line versus the previous Dockerfile in Step 3. I added the line ``yum install -y app-protect-attack-signatures-*.rpm``
 
-|
 
-Video of this module :
 
-.. raw :: html
-
-    <div style="text-align: center; margin-bottom: 2em;">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/sTGBKIQdAWw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-
-.. toctree::
-   :maxdepth: 1
-   :glob:
-
-   lab*
 

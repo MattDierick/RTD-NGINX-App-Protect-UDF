@@ -1,5 +1,5 @@
-Deploy NGINX Plus Ingress Controller
-####################################
+Step 2 - Publish Arcadia app with a NGNIX Plus Ingress Controller
+#################################################################
 
 It's time to publish Arcadia application externally from the Kubernetes cluster.
 

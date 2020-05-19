@@ -1,5 +1,5 @@
-Deploy Arcadia Finance Application
-##################################
+Step 1 - Deploy and publish Arcadia Finance application in Kubernetes
+#####################################################################
 
 It's time to deploy Arcadia Finance application :)
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Step 2 - DevOps deploy Money Transfer application &mdash; NGINX App Protect  documentation</title>
+  <title>Step 4 - Update this image with the latest WAF signature &mdash; NGINX App Protect  documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="step 3 - DevOps deploy Refer Friends Application" href="../module3/module3.html" />
-    <link rel="prev" title="Step 1 - DevOps deploy Arcadia Application" href="../module1/module1.html" /> 
+    <link rel="next" title="Step 5 - Check logs in Kibana" href="../module3/module3.html" />
+    <link rel="prev" title="Step 3 - Build your first NAP (NGINX App Protect) docker image" href="../module1/module1.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,13 +84,12 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../class1/class1.html">Class 1 - Deploy modern application with modern tools</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../class2.html">Demo - Run the demo in UDF</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 1 - DevOps deploy Arcadia Application</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 2 - DevOps deploy Money Transfer application</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">step 3 - DevOps deploy Refer Friends Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">step 4 - Protect Arcadia Application</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 3 - Build your first NAP (NGINX App Protect) docker image</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 4 - Update this image with the latest WAF signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Step 5 - Check logs in Kibana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 6 - Customize the WAF policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/module5.html">Step 7 - Deploy NAP with a CICD a toolchain</a></li>
 </ul>
 </li>
 </ul>
@@ -138,9 +137,9 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../class2.html">Demo - Run the demo in UDF</a> &raquo;</li>
+          <li><a href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a> &raquo;</li>
         
-      <li>Step 2 - DevOps deploy Money Transfer application</li>
+      <li>Step 4 - Update this image with the latest WAF signature</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -159,21 +158,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="step-2-devops-deploy-money-transfer-application">
-<h1>Step 2 - DevOps deploy Money Transfer application<a class="headerlink" href="#step-2-devops-deploy-money-transfer-application" title="Permalink to this headline">¶</a></h1>
-<p>In this module, we will deploy the Money Tranfer container for Arcadia Bank application and we will publish it.</p>
+  <div class="section" id="step-4-update-this-image-with-the-latest-waf-signature">
+<h1>Step 4 - Update this image with the latest WAF signature<a class="headerlink" href="#step-4-update-this-image-with-the-latest-waf-signature" title="Permalink to this headline">¶</a></h1>
+<p>In this module, we will update the signature packafge in the docker image.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">At the end of this module, Arcadia Bank application will look like this.</p>
+<p class="last">There are several ways to update the signatures. All of them have pro and cons. In this lab, I decided to create a new docker image with the new signature package. And then destroy and run a new docker from this new image in front of Arcadia App.</p>
 </div>
-<a class="reference internal image-reference" href="../../_images/app21.png"><img alt="../../_images/app21.png" class="align-center" src="../../_images/app21.png" style="width: 570.9px; height: 281.1px;" /></a>
-<div class="line-block">
-<div class="line"><br /></div>
+<p>The signatures are provided by F5 with an RPM package. The best way to update the image is to build a new image from a new Dockerfile refering to this signature package. We will use the Dockerfile below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FROM centos:7.4.1708
+
+COPY entrypoint.sh app-protect-20.zip app-protect-attack-signatures-* /root/
+RUN chmod +x /root/entrypoint.sh <span class="se">\</span>
+<span class="o">&amp;&amp;</span> yum install epel-release unzip -y <span class="se">\</span>
+<span class="o">&amp;&amp;</span> <span class="nb">cd</span> /root/ <span class="se">\</span>
+<span class="o">&amp;&amp;</span> unzip app-protect-20.zip <span class="se">\</span>
+<span class="o">&amp;&amp;</span> yum install -y openssl <span class="se">\</span>
+<span class="o">&amp;&amp;</span> yum install -y f5* <span class="se">\</span>
+<span class="o">&amp;&amp;</span> yum install -y nginx-plus-20*.rpm <span class="se">\</span>
+<span class="o">&amp;&amp;</span> yum install -y app-protect-plugin-* <span class="se">\</span>
+<span class="o">&amp;&amp;</span> yum install -y app-protect-compiler-* <span class="se">\</span>
+<span class="o">&amp;&amp;</span> yum install -y app-protect-engine-* <span class="se">\</span>
+<span class="o">&amp;&amp;</span> yum install -y nginx-plus-module-appprotect-* <span class="se">\</span>
+<span class="o">&amp;&amp;</span> yum install -y app-protect-20*.rpm <span class="se">\</span>
+<span class="o">&amp;&amp;</span> yum install -y app-protect-attack-signatures-*.rpm
+
+COPY log-default.json nginx.conf /etc/nginx/
+
+CMD <span class="o">[</span><span class="s2">&quot;/root/entrypoint.sh&quot;</span><span class="o">]</span>
+</pre></div>
 </div>
-<p>Video of this module :</p>
-<div style="text-align: center; margin-bottom: 2em;">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/sTGBKIQdAWw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div><div class="toctree-wrapper compound">
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can notice one more line versus the previous Dockerfile in Step 3. I added the line <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">app-protect-attack-signatures-*.rpm</span></code></p>
 </div>
 </div>
 
@@ -185,10 +202,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../module3/module3.html" class="btn btn-neutral float-right" title="step 3 - DevOps deploy Refer Friends Application" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../module3/module3.html" class="btn btn-neutral float-right" title="Step 5 - Check logs in Kibana" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../module1/module1.html" class="btn btn-neutral float-left" title="Step 1 - DevOps deploy Arcadia Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../module1/module1.html" class="btn btn-neutral float-left" title="Step 3 - Build your first NAP (NGINX App Protect) docker image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -1,5 +1,5 @@
-step 4 - Protect Arcadia Application
-####################################
+Step 6 - Customize the WAF policy
+#################################
 
 In this module, we will deploy a WAF policy to protect Arcadia Bank application and we will publish it.
 
@@ -45,8 +45,3 @@ Video of this module :
     <iframe width="560" height="315" src="https://www.youtube.com/embed/vKCtsByE9G8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
-.. toctree::
-   :maxdepth: 1
-   :glob:
-
-   lab*

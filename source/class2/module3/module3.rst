@@ -1,5 +1,5 @@
-step 3 - DevOps deploy Refer Friends Application
-################################################
+Step 5 - Check logs in Kibana
+#############################
 
 In this module, we will deploy the Refer Friends container for Arcadia Bank application and we will publish it.
 
@@ -19,9 +19,3 @@ Video of this module :
     <div style="text-align: center; margin-bottom: 2em;">
     <iframe width="560" height="315" src="https://www.youtube.com/embed/Phj3yHnt0HA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-
-.. toctree::
-   :maxdepth: 1
-   :glob:
-
-   lab*
