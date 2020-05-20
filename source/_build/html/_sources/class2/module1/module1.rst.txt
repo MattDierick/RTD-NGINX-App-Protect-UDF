@@ -77,10 +77,3 @@ In this module, we will build manually our first NAP docker image via command li
 
 .. note:: Did you notice the blocking page is similar to ASM and Adv. WAF ?
 
-
-
-.. toctree::
-   :maxdepth: 1
-   :glob:
-
-   lab*
