@@ -1,14 +1,20 @@
 Workflow of this lab
 ####################
 
-The demo is splitted in 7 steps :
-    - Deploy and publish Arcadia Finance application in Kubernetes
-    - Publish Arcadia app with an NGNIX Plus Ingress Controller 
-    - Build your first NAP (NGINX App Protect) docker image
-    - Update this image with the latest WAF signature
-    - Check logs in Kibana
-    - Customize the WAF policy
-    - Deploy NAP with a CICD a toolchain
+The demo is splitted in 3 classes and 9 steps :
+
+    #. Deploy modern application with modern tools
+        #. Deploy and publish Arcadia Finance application in Kubernetes
+        #. Publish Arcadia app with an NGNIX Plus Ingress Controller 
+    #. Protect Arcadia with NGINX App Protect in Docker
+        #. Build your first NAP (NGINX App Protect) docker image
+        #. Update this image with the latest WAF signature
+        #. Check logs in Kibana
+        #. Customize the WAF policy
+        #. Deploy NAP with a CICD a toolchain
+    #. Protect Arcadia with NGINX App Protect in Linux host
+        #. Install the NGINX Plus and App Protect pacakges manually
+        #. Deploy App Protect via CICD pipeline
 
 |
 
@@ -96,3 +102,27 @@ Task:
     #. Gitlab webhook to trigger a Jenkins Pipeline building a new version of the NAP image with this new signature package
     #. Deploy and run this new version of the NAP image in front of Arcadia
     #. Check the signature package date
+
+|
+
+Step 8 - Install the NGINX Plus and App Protect pacakges manually
+*****************************************************************
+
+.. note :: Goal is to deploy NAP and NGINX Plus in a CentOS linux host.
+
+Task:
+
+    #. Install NGINX Plus r20
+    #. Install NGINX App Protect
+    #. Install NGINX App Protect Signature Package
+
+|
+
+Step 9 - Deploy App Protect via CICD pipeline
+*********************************************
+
+.. note :: Goal is to deploy NAP by using a CICD pipeline with automation toolchain packages provided by F5.
+
+Task:
+
+    #. Use CIDC toolchain in order to deploy NAP automatically with the latest signature package.

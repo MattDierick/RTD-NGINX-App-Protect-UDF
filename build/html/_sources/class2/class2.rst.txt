@@ -1,5 +1,5 @@
-Class 2 - Protect Arcadia with NGINX App Protect
-################################################
+Class 2 - Protect Arcadia with NGINX App Protect in Docker
+##########################################################
 
 In this class, we will deploy App Protect with several methods. We will start with a manual method building the dockers images, and we will finish with a full CICD pipeline workflow.
 

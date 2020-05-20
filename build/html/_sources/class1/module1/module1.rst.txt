@@ -8,13 +8,12 @@ First of all, it is important to understand how Arcadia app is splitted between 
 
 **This is how Arcadia App looks like when the 4 microservices are up and running, and you can see how traffic is routed based on URI**
 
-
 .. image:: ../pictures/module1/arcadia-api.png
    :align: center
 
 **But you can deploy Arcadia Step by Step**
 
-If you deploy only Main App and Back End services.
+If you deploy only ``Main App`` and ``Back End`` services.
 
 .. image:: ../pictures/module1/MainApp.png
    :align: center
@@ -23,14 +22,14 @@ If you deploy only Main App and Back End services.
 
 |
 
-If you deploy Main App, Back End and Money Tranfer services.
+If you deploy ``Main App``, ``Back End`` and ``Money Tranfer`` services.
 
 .. image:: ../pictures/module1/app2.png
    :align: center
 
 |
 
-If you deploy Main App, Back End, Money Tranfer and Refer Friend services.
+If you deploy ``Main App``, ``Back End``, ``Money Tranfer`` and ``Refer Friend`` services.
 
 .. image:: ../pictures/module1/app3.png
    :align: center

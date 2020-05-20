@@ -93,13 +93,16 @@
 <li class="toctree-l3"><a class="reference internal" href="#step-5-check-logs-in-kibana">Step 5 - Check logs in Kibana</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-6-customize-the-waf-policy">Step 6 - Customize the WAF policy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-7-deploy-nap-with-a-cicd-toolchain">Step 7 - Deploy NAP with a CICD toolchain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-8-install-the-nginx-plus-and-app-protect-pacakges-manually">Step 8 - Install the NGINX Plus and App Protect pacakges manually</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-9-deploy-app-protect-via-cicd-pipeline">Step 9 - Deploy App Protect via CICD pipeline</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Step 1 - Deploy and publish Arcadia Finance application in Kubernetes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 2 - Publish Arcadia app with a NGNIX Plus Ingress Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 2 - Publish Arcadia app with a NGINX Plus Ingress Controller</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../class2/class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class2/class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class3/class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a></li>
 </ul>
 
             
@@ -168,19 +171,41 @@
             
   <div class="section" id="workflow-of-this-lab">
 <h1>Workflow of this lab<a class="headerlink" href="#workflow-of-this-lab" title="Permalink to this headline">¶</a></h1>
-<dl class="docutils">
-<dt>The demo is splitted in 7 steps :</dt>
-<dd><ul class="first last simple">
+<p>The demo is splitted in 3 classes and 9 steps :</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><dl class="first docutils">
+<dt>Deploy modern application with modern tools</dt>
+<dd><ol class="first last arabic">
 <li>Deploy and publish Arcadia Finance application in Kubernetes</li>
 <li>Publish Arcadia app with an NGNIX Plus Ingress Controller</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Protect Arcadia with NGINX App Protect in Docker</dt>
+<dd><ol class="first last arabic">
 <li>Build your first NAP (NGINX App Protect) docker image</li>
 <li>Update this image with the latest WAF signature</li>
 <li>Check logs in Kibana</li>
 <li>Customize the WAF policy</li>
 <li>Deploy NAP with a CICD a toolchain</li>
-</ul>
+</ol>
 </dd>
 </dl>
+</li>
+<li><dl class="first docutils">
+<dt>Protect Arcadia with NGINX App Protect in Linux host</dt>
+<dd><ol class="first last arabic">
+<li>Install the NGINX Plus and App Protect pacakges manually</li>
+<li>Deploy App Protect via CICD pipeline</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -300,6 +325,40 @@
 <li>Gitlab webhook to trigger a Jenkins Pipeline building a new version of the NAP image with this new signature package</li>
 <li>Deploy and run this new version of the NAP image in front of Arcadia</li>
 <li>Check the signature package date</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="step-8-install-the-nginx-plus-and-app-protect-pacakges-manually">
+<h2>Step 8 - Install the NGINX Plus and App Protect pacakges manually<a class="headerlink" href="#step-8-install-the-nginx-plus-and-app-protect-pacakges-manually" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal is to deploy NAP and NGINX Plus in a CentOS linux host.</p>
+</div>
+<p>Task:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Install NGINX Plus r20</li>
+<li>Install NGINX App Protect</li>
+<li>Install NGINX App Protect Signature Package</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="step-9-deploy-app-protect-via-cicd-pipeline">
+<h2>Step 9 - Deploy App Protect via CICD pipeline<a class="headerlink" href="#step-9-deploy-app-protect-via-cicd-pipeline" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal is to deploy NAP by using a CICD pipeline with automation toolchain packages provided by F5.</p>
+</div>
+<p>Task:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Use CIDC toolchain in order to deploy NAP automatically with the latest signature package.</li>
 </ol>
 </div></blockquote>
 </div>
