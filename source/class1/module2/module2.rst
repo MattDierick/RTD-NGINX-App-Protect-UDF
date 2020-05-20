@@ -105,7 +105,7 @@ Task:
 
 |
 
-Step 8 - Install the NGINX Plus and App Protect pacakges manually
+Step 8 - Install the NGINX Plus and App Protect packages manually
 *****************************************************************
 
 .. note :: Goal is to deploy NAP and NGINX Plus in a CentOS linux host.
