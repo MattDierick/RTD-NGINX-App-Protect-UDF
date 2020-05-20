@@ -20,7 +20,9 @@ If you deploy only Main App and Back End services.
    :align: center
 
 .. note:: You can see App2 (Money Transfer) and App3 (Refer Friend) are not available. There is dynamic content showing a WARNING instead of a 404 or blank frame.
+
 |
+
 If you deploy Main App, Back End and Money Tranfer services.
 
 .. image:: ../pictures/module1/app2.png
