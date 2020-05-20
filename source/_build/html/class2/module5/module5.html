@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Step 7 - Deploy NAP with a CICD a toolchain &mdash; NGINX App Protect  documentation</title>
+  <title>Step 7 - Deploy NAP with a CICD toolchain &mdash; NGINX App Protect  documentation</title>
   
 
   
@@ -88,7 +88,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 4 - Update this image with the latest WAF signature</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Step 5 - Check logs in Kibana</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 6 - Customize the WAF policy</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 7 - Deploy NAP with a CICD a toolchain</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 7 - Deploy NAP with a CICD toolchain</a></li>
 </ul>
 </li>
 </ul>
@@ -138,7 +138,7 @@
         
           <li><a href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a> &raquo;</li>
         
-      <li>Step 7 - Deploy NAP with a CICD a toolchain</li>
+      <li>Step 7 - Deploy NAP with a CICD toolchain</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -157,9 +157,152 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="step-7-deploy-nap-with-a-cicd-a-toolchain">
-<h1>Step 7 - Deploy NAP with a CICD a toolchain<a class="headerlink" href="#step-7-deploy-nap-with-a-cicd-a-toolchain" title="Permalink to this headline">¶</a></h1>
-<p>In this module, we will deploy a WAF policy to protect Arcadia Bank application and we will publish it.</p>
+  <div class="section" id="step-7-deploy-nap-with-a-cicd-toolchain">
+<h1>Step 7 - Deploy NAP with a CICD toolchain<a class="headerlink" href="#step-7-deploy-nap-with-a-cicd-toolchain" title="Permalink to this headline">¶</a></h1>
+<p>In this module, we will deploy deploy NAP with a CICD pipeline. NAP is tied to the app, so when DevOps commit a new app (or a new version), the CICD pipeline has to deploy a new NAP in front. In order to avoid to repeat what we did previously, we will use a Signature package update as a trigger.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When a new signature package is available, the CICD pipeline will build a new version of the image and run it in front of Arcadia Application</p>
+</div>
+<p><strong>This is the workflow we will run</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Upload a new Signature Package in GitLab</li>
+<li>Commit this upload in GitLab</li>
+<li>This commit trigger a webhook with Jenkins</li>
+<li><dl class="first docutils">
+<dt>Jenkins runs the pipeline</dt>
+<dd><ol class="first last arabic">
+<li>Build a new docker NAP image with a new tag <code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">signature</span> <span class="pre">package</span></code></li>
+<li>Destroy the previous running NAP container</li>
+<li>Run a new NAP container with this new Signature Package</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal of this module is not to learn how to do it, but undersatnd how I did it.</p>
+</div>
+<p><strong>Check the Jenkins file</strong></p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">node</span> <span class="o">{</span>
+<span class="kt">def</span> <span class="n">mvnHome</span>
+<span class="nf">stage</span><span class="o">(</span><span class="s1">&#39;Preparation&#39;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Get some code from a GitHub repository</span>
+    <span class="n">git</span> <span class="s1">&#39;http://10.1.20.4/nginx-app-protect/signature-update.git&#39;</span>
+
+<span class="o">}</span>
+<span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Build Docker&#39;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">withEnv</span><span class="o">([</span><span class="s2">&quot;MVN_HOME=$mvnHome&quot;</span><span class="o">])</span> <span class="o">{</span>
+        <span class="c1">// Define the remote docker registry</span>
+        <span class="n">registry</span> <span class="o">=</span> <span class="s2">&quot;10.1.20.7:5000/app-protect&quot;</span>
+        <span class="c1">// Extract the tag from the date of the Signature Package</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="n">sh</span> <span class="o">(</span><span class="nl">script:</span> <span class="s1">&#39;echo -n app-protect-attack-signatures-* | cut -c 31-38&#39;</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
+        <span class="n">echo</span> <span class="s2">&quot;${tag}&quot;</span>
+        <span class="n">script</span> <span class="o">{</span>
+            <span class="c1">// Build the docker image</span>
+            <span class="n">docker</span><span class="o">.</span><span class="na">build</span> <span class="n">registry</span> <span class="o">+</span> <span class="s2">&quot;:${tag}&quot;</span>
+        <span class="o">}</span>
+
+
+        <span class="o">}</span>
+<span class="o">}</span>
+<span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Push Docker&#39;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">withEnv</span><span class="o">([</span><span class="s2">&quot;MVN_HOME=$mvnHome&quot;</span><span class="o">])</span> <span class="o">{</span>
+        <span class="c1">// Push the image into the remote Docker registry</span>
+        <span class="n">sh</span> <span class="s2">&quot;sudo docker push 10.1.20.7:5000/app-protect:${tag}&quot;</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+
+    <span class="n">stage</span> <span class="nl">name:</span> <span class="s1">&#39;Run Docker&#39;</span><span class="o">,</span> <span class="nl">concurrency:</span> <span class="mi">1</span>
+            <span class="n">withEnv</span><span class="o">([</span><span class="s2">&quot;MVN_HOME=$mvnHome&quot;</span><span class="o">])</span> <span class="o">{</span>
+                <span class="c1">// Run the docker container</span>
+                <span class="n">ansiblePlaybook</span> <span class="nl">inventory:</span> <span class="s1">&#39;hosts&#39;</span><span class="o">,</span>
+                <span class="nl">playbook:</span> <span class="s1">&#39;playbook.yaml&#39;</span><span class="o">,</span>
+                <span class="nl">extraVars:</span> <span class="o">[</span><span class="nl">dockertag:</span> <span class="s2">&quot;${tag}&quot;</span><span class="o">]</span>
+            <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The challenge here was to retrieve the date of the package and tag the iamge with this date. In order to have one image per signature package date. Useful if you need to roll back.</p>
+</div>
+<p><strong>Upload a new signature package in Gitlab</strong></p>
+<p>Steps:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">RDP to the Jumphos and open <code class="docutils literal notranslate"><span class="pre">Chrome</span></code></p>
+</li>
+<li><dl class="first docutils">
+<dt>Open 2 tabs <code class="docutils literal notranslate"><span class="pre">Jenkins</span></code> and <code class="docutils literal notranslate"><span class="pre">Gitlab</span></code></dt>
+<dd><ol class="first last arabic simple">
+<li>If Jenkins is not available (502 error), restart the docker. SSH to Gitlab VM and run <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">restart</span> <span class="pre">gitlab</span></code></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p class="first">In Jenkins, open <code class="docutils literal notranslate"><span class="pre">Update_Docker_Signature</span></code> pipeline</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/jenkins_favorite.png"><img alt="../../_images/jenkins_favorite.png" class="align-center" src="../../_images/jenkins_favorite.png" style="width: 452.0px; height: 224.0px;" /></a>
+</div></blockquote>
+</li>
+<li><p class="first">In Gitlab, open <code class="docutils literal notranslate"><span class="pre">NGINX</span> <span class="pre">App</span> <span class="pre">Protect</span> <span class="pre">/</span> <span class="pre">signature-update</span></code> project</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/gitlab_project.png"><img alt="../../_images/gitlab_project.png" class="align-center" src="../../_images/gitlab_project.png" style="width: 691.0px; height: 316.0px;" /></a>
+</div></blockquote>
+</li>
+<li><p class="first">In Gitlab project, click on the <code class="docutils literal notranslate"><span class="pre">+</span></code> icon and <code class="docutils literal notranslate"><span class="pre">upload</span> <span class="pre">file</span></code></p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/upload_file.png"><img alt="../../_images/upload_file.png" class="align-center" src="../../_images/upload_file.png" style="width: 586.0px; height: 481.0px;" /></a>
+</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>Select Signature Package file from the Desktop &gt; NGINX Signature Packages</dt>
+<dd><ol class="first last arabic simple">
+<li>If you can’t click on <code class="docutils literal notranslate"><span class="pre">click</span> <span class="pre">to</span> <span class="pre">upload</span></code>, it is a bug Gitlab</li>
+<li>Workaround is to simulate the creation of a file. Close this upload windows, click on <code class="docutils literal notranslate"><span class="pre">+</span></code> icon <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">file</span></code>, enter anything in the name and click <code class="docutils literal notranslate"><span class="pre">cancel</span></code></li>
+<li>Try to upload file agin, it should work.</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p class="first">Upload the file <code class="docutils literal notranslate"><span class="pre">app-protect-attack-signatures-20200421-1.el7.centos.x86_64.rpm</span></code> from date April 21th 2020. Date is in the name of the file</p>
+</li>
+</ol>
+</div></blockquote>
+<p><strong>Trigger the CICD pipeline</strong></p>
+<p>Steps :</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">In Gitlab, click on <code class="docutils literal notranslate"><span class="pre">tags</span></code> in the left menu</p>
+</li>
+<li><p class="first">Create a new tag and give a name <code class="docutils literal notranslate"><span class="pre">Sig-20200421`</span></code></p>
+</li>
+<li><p class="first">Click <code class="docutils literal notranslate"><span class="pre">create</span> <span class="pre">tag</span></code></p>
+</li>
+<li><p class="first">At this moment, the Jenkins pipeline starts (thanks ot a webhook between Gitlab and Jenkins)</p>
+</li>
+<li><p class="first">In Jenkins, you should see a new <code class="docutils literal notranslate"><span class="pre">RUN</span></code>, click on it</p>
+<blockquote>
+<div><img alt="../../_images/jenkins_run.png" class="align-center" src="../../_images/jenkins_run.png" />
+</div></blockquote>
+</li>
+<li><p class="first">Wait the pipeline to finish. You can click on every task to check the steps</p>
+<blockquote>
+<div><img alt="../../_images/jenkins_pipeline.png" class="align-center" src="../../_images/jenkins_pipeline.png" />
+</div></blockquote>
+</li>
+<li><p class="first">Connect back in SSH to App Protect VM, and check the signature package date running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">app-protect</span> <span class="pre">more</span> <span class="pre">/var/log/nginx/error.log</span></code></p>
+</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Congratulations, you ran a CICD pipeline based on a Gitlab webhook. This webhook was based on a Signature Package update, but it can be tied to an application commit for instance.</p>
+</div>
 </div>
 
 

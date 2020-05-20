@@ -79,11 +79,15 @@ Steps:
          :align: center
          :scale: 50%
 
+|
+
    #. In Kibana, click on ``Dashboard > Overview```
 
       .. image:: ../pictures/module3/ELK_dashboard.png
          :align: center
          :scale: 50%
+
+|
 
    #. At the bottom of the dashboard, you can see the logs. Select one logs and check the content
 
