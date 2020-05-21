@@ -1,20 +1,20 @@
 Workflow of this lab
 ####################
 
-The demo is splitted in 3 classes and 9 steps :
+The demo is split into 3 classes and 9 steps :
 
     #. Deploy modern application with modern tools
         #. Deploy and publish Arcadia Finance application in Kubernetes
         #. Publish Arcadia app with an NGNIX Plus Ingress Controller 
     #. Protect Arcadia with NGINX App Protect in Docker
         #. Build your first NAP (NGINX App Protect) docker image
-        #. Update this image with the latest WAF signature
+        #. Update this image with the latest WAF signatures
         #. Check logs in Kibana
         #. Customize the WAF policy
-        #. Deploy NAP with a CICD a toolchain
+        #. Deploy NAP with a CI/CD a toolchain
     #. Protect Arcadia with NGINX App Protect in Linux host
-        #. Install the NGINX Plus and App Protect pacakges manually
-        #. Deploy App Protect via CICD pipeline
+        #. Install the NGINX Plus and App Protect packages manually
+        #. Deploy App Protect via CI/CD pipeline
 
 |
 
@@ -52,7 +52,7 @@ Tasks:
     #. Run a docker build command using a Dockerfile
     #. Run a docker run command to start this docker container in front of Arcadia application
     #. Check the signature package included in this image
-    #. Check Aracadia is protected
+    #. Check that Aracadia is protected
 
 |
 
@@ -83,7 +83,7 @@ Task:
 Step 6 - Customize the WAF policy
 *********************************
 
-.. note :: Goal is to customize the WAF policy in front of Aracadia application. By default, a base policy is deployed.
+.. note :: Goal is to customize the WAF policy in front of Arcadia application. By default, a base policy is deployed.
 
 Task:
 
@@ -91,10 +91,10 @@ Task:
 
 |
 
-Step 7 - Deploy NAP with a CICD toolchain
-*****************************************
+Step 7 - Deploy NAP with a CI/CD toolchain
+******************************************
 
-.. note :: Goal is to deploy NAP in a real environment with a CICD toolchain in place.
+.. note :: Goal is to deploy NAP in a real environment with a CI/CD toolchain in place.
 
 Task:
 
@@ -118,11 +118,11 @@ Task:
 
 |
 
-Step 9 - Deploy App Protect via CICD pipeline
-*********************************************
+Step 9 - Deploy App Protect via CI/CD pipeline
+**********************************************
 
-.. note :: Goal is to deploy NAP by using a CICD pipeline with automation toolchain packages provided by F5.
+.. note :: Goal is to deploy NAP by using a CI/CD pipeline with automation toolchain packages provided by F5.
 
 Task:
 
-    #. Use CIDC toolchain in order to deploy NAP automatically with the latest signature package.
+    #. Use CI/CD toolchain in order to deploy NAP automatically with the latest signature package.
