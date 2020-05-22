@@ -77,13 +77,18 @@ The pipeline is as below:
     
 }
 
-.. note:: This pipeline executes 3 Ansible playbooks. One playbook to install NGINX Plus et one playbook to install NAP. The last playbook is just there to fix an issue in UDF for the DNS resolver.
+.. note:: This pipeline executes 3 Ansible playbooks. 
+    
+    #. One playbook to install NGINX Plus
+    #. one playbook to install NAP
+    #. The last playbook is just there to fix an issue in UDF for the DNS resolver.
+
+
+.. image:: ../pictures/module2/pipeline-ok.png
+   :align: center
 
 
 When pipeline is finished to execute, make a test with ``Chrome`` and the bookmark ``Arcadia NAP Docker``
-
-        .. image:: ../pictures/module2/pipeline-ok.png
-           :align: center
 
 
 .. note :: Congrats, you deployed NGINX Plus and NAP with a CI/CD pipeline. You can check the pipelines in the GitLab if you are interested to see what has been coded behind the scene. But it is straight forward as Ansible modules are provided by F5/NGINX.

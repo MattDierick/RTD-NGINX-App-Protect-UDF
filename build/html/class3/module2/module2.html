@@ -228,12 +228,15 @@ sudo rm -rf /var/log/nginx
 <p>}</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This pipeline executes 3 Ansible playbooks. One playbook to install NGINX Plus et one playbook to install NAP. The last playbook is just there to fix an issue in UDF for the DNS resolver.</p>
+<p>This pipeline executes 3 Ansible playbooks.</p>
+<ol class="last arabic simple">
+<li>One playbook to install NGINX Plus</li>
+<li>one playbook to install NAP</li>
+<li>The last playbook is just there to fix an issue in UDF for the DNS resolver.</li>
+</ol>
 </div>
+<img alt="../../_images/pipeline-ok.png" class="align-center" src="../../_images/pipeline-ok.png" />
 <p>When pipeline is finished to execute, make a test with <code class="docutils literal notranslate"><span class="pre">Chrome</span></code> and the bookmark <code class="docutils literal notranslate"><span class="pre">Arcadia</span> <span class="pre">NAP</span> <span class="pre">Docker</span></code></p>
-<blockquote>
-<div><img alt="../../_images/pipeline-ok.png" class="align-center" src="../../_images/pipeline-ok.png" />
-</div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Congrats, you deployed NGINX Plus and NAP with a CI/CD pipeline. You can check the pipelines in the GitLab if you are interested to see what has been coded behind the scene. But it is straight forward as Ansible modules are provided by F5/NGINX.</p>
