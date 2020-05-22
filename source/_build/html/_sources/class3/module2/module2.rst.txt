@@ -3,7 +3,8 @@ Step 9 - Deploy App Protect via CI/CD pipeline
 
 In this module, we will install NGINX Plus and App Protect packages on CentOS with a CICD toolchain. NGINX teams created Ansible modules to deploy it easily in few seconds.
 
-.. note:: The official Ansible NAP module is available here https://github.com/nginxinc/ansible-role-nginx-app-protect
+.. note:: The official Ansible NAP module is available here https://github.com/nginxinc/ansible-role-nginx-app-protect and the NGINX Plus here https://github.com/nginxinc/ansible-role-nginx 
+
 
 **Uninstall the previous runnig NAP**
 
@@ -16,6 +17,7 @@ In this module, we will install NGINX Plus and App Protect packages on CentOS wi
 
         .. image:: ../pictures/module2/yum-remove-app-protect.png
            :align: center
+           :scale: 50%
 
     #. Uninstall NGINX Plus packages
 
@@ -26,6 +28,7 @@ In this module, we will install NGINX Plus and App Protect packages on CentOS wi
 
         .. image:: ../pictures/module2/yum-remove-nginx-plus.png
            :align: center
+           :scale: 70%
 
     #. Delete/rename the last directories
 
@@ -86,9 +89,10 @@ The pipeline is as below:
 
 .. image:: ../pictures/module2/pipeline-ok.png
    :align: center
+   :scale: 40%
 
 
 When pipeline is finished to execute, make a test with ``Chrome`` and the bookmark ``Arcadia NAP Docker``
 
 
-.. note :: Congrats, you deployed NGINX Plus and NAP with a CI/CD pipeline. You can check the pipelines in the GitLab if you are interested to see what has been coded behind the scene. But it is straight forward as Ansible modules are provided by F5/NGINX.
+.. note :: Congrats, you deployed ``NGINX Plus`` and ``NAP`` with a CI/CD pipeline. You can check the pipelines in the ``GitLab`` if you are interested to see what has been coded behind the scene. But it is straight forward as Ansible modules are provided by F5/NGINX.
