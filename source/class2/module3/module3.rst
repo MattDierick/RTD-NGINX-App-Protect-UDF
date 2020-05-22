@@ -7,7 +7,7 @@ In this module, we will check the logs in ELK (Elastic, Logstash, Kibana)
 
 Steps:
 
-   #. SSH to App-Protect VM
+   #. SSH to Docker App-Protect VM
    #. In ``/home/ubuntu`` (the default home folder), list the files ``ls -al``
    #. You can see 2 files ``log-default.json`` and ``nginx.conf``
    #. Open log-default.json ``less log-default.json``. You will notice we log all requests.
