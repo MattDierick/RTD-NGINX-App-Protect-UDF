@@ -1,7 +1,7 @@
 Step 8 - Install the NGINX Plus and App Protect packages manually
 #################################################################
 
-In this module, we will install manually NGINX Plus and App Protect packages on CentOS  from the official repo.
+In this module, we will build manually our first NAP docker image via command line.
 
 .. warning:: NGINX Plus private key and cert are already installed on the CentOS. Don't share them.
 
