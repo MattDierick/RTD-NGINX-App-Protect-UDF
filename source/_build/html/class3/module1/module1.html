@@ -298,7 +298,10 @@ http <span class="o">{</span>
 </li>
 </ol>
 </div></blockquote>
-<p><strong>Congrats, now, your CentOS can publish and protect Arcadia application</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Congrats, now, your CentOS can publish and protect Arcadia application</p>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">You can notice we used exactly the same <code class="docutils literal notranslate"><span class="pre">log-default.json</span></code> and <code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code> files as in Docker lab.</p>
@@ -308,9 +311,46 @@ http <span class="o">{</span>
 <blockquote>
 <div><ol class="arabic simple">
 <li>RDP to the Jumphost with credentials <code class="docutils literal notranslate"><span class="pre">user:user`</span></code></li>
-<li>Open Chrome and click</li>
+<li>Open Chrome and click <code class="docutils literal notranslate"><span class="pre">Arcadia</span> <span class="pre">NAP</span> <span class="pre">CentOS</span></code></li>
+<li>Run the same tests as the Docker lab and check the logs in Kibana</li>
 </ol>
 </div></blockquote>
+<p><strong>Last step is to install the latest Signature Package</strong></p>
+<p>Steps:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">To add NGINX Plus App Protect signatures repository, download the file app-protect-signatures-7.repo to /etc/yum.repos.d:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/app-protect-signatures-7.repo
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Update attack signatures:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum install app-protect-attack-signatures
+</pre></div>
+</div>
+<p>To install a specific version, list the available versions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum --showduplicates list app-protect-attack-signatures
+</pre></div>
+</div>
+<p>To upgrade to a specific version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum install app-protect-attack-signatures-2020.04.30
+</pre></div>
+</div>
+<p>To downgrade to a specific version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum downgrade app-protect-attack-signatures-2019.07.16
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Upgrading App Protect does not install new Attack Signatures. You will get the same Attack Signature release after upgrading App Protect. If you want to also upgrade the Attack Signatures, you will have to explicitly update them by the respective command above.</p>
+</div>
 </div>
 
 

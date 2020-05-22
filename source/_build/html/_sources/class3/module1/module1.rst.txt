@@ -138,7 +138,7 @@ Steps:
             2020/05/22 09:13:26 [notice] 6205#6205: APP_PROTECT { "event": "waf_connected", "enforcer_thread_id": 0, "worker_pid": 6205, "mode": "operational", "mode_changed": false}
 
 
-**Congrats, now, your CentOS can publish and protect Arcadia application**
+.. note:: Congrats, now, your CentOS can publish and protect Arcadia application
 
 .. note:: You can notice we used exactly the same ``log-default.json`` and ``nginx.conf`` files as in Docker lab.
 
@@ -149,4 +149,44 @@ Steps:
 
     #. RDP to the Jumphost with credentials ``user:user```
 
-    #. Open Chrome and click
+    #. Open Chrome and click ``Arcadia NAP CentOS``
+
+    #. Run the same tests as the Docker lab and check the logs in Kibana
+
+
+**Last step is to install the latest Signature Package**
+
+Steps:
+
+    #. To add NGINX Plus App Protect signatures repository, download the file app-protect-signatures-7.repo to /etc/yum.repos.d:
+
+        .. code-block:: bash
+            
+            sudo wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/app-protect-signatures-7.repo
+
+    #. Update attack signatures:
+
+        .. code-block:: bash
+
+            sudo yum install app-protect-attack-signatures
+
+        To install a specific version, list the available versions:
+
+        .. code-block:: bash
+
+            sudo yum --showduplicates list app-protect-attack-signatures
+
+        To upgrade to a specific version:
+
+        .. code-block:: bash
+
+            sudo yum install app-protect-attack-signatures-2020.04.30
+
+        To downgrade to a specific version:
+
+        .. code-block:: bash
+
+            sudo yum downgrade app-protect-attack-signatures-2019.07.16
+
+
+.. note:: Upgrading App Protect does not install new Attack Signatures. You will get the same Attack Signature release after upgrading App Protect. If you want to also upgrade the Attack Signatures, you will have to explicitly update them by the respective command above.
