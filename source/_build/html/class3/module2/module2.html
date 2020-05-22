@@ -162,7 +162,7 @@
 <p class="first admonition-title">Note</p>
 <p class="last">The official Ansible NAP module is available here <a class="reference external" href="https://github.com/nginxinc/ansible-role-nginx-app-protect">https://github.com/nginxinc/ansible-role-nginx-app-protect</a></p>
 </div>
-<p>Steps:</p>
+<p><strong>Uninstall the previous runnig NAP</strong></p>
 <blockquote>
 <div><ol class="arabic">
 <li><p class="first">Uninstall the NAP, in order to start from scratch</p>
@@ -184,7 +184,7 @@ sudo yum remove app-protect*
 </li>
 <li><p class="first">Delete/rename the last directories</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo cp -a /etc/nginx /etc/nginx-plus-backup
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo rm -rf /etc/nginx-plus-backup
 sudo cp -a /var/log/nginx /var/log/nginx-plus-backup
 </pre></div>
 </div>
@@ -192,6 +192,52 @@ sudo cp -a /var/log/nginx /var/log/nginx-plus-backup
 </li>
 </ol>
 </div></blockquote>
+<p><strong>Run the CI/CD pipeline from Jenkins</strong></p>
+<p>Steps:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>RDP to the Jumphost with credentials <code class="docutils literal notranslate"><span class="pre">user:user</span></code></li>
+<li>Open <code class="docutils literal notranslate"><span class="pre">Chrome</span></code> and open <code class="docutils literal notranslate"><span class="pre">Jenkins</span></code> (if not already opened)</li>
+<li>Select the pipeline <code class="docutils literal notranslate"><span class="pre">deploy-nap-centos</span></code> and run it</li>
+</ol>
+<a class="reference internal image-reference" href="../../_images/pipeline.png"><img alt="../../_images/pipeline.png" class="align-center" src="../../_images/pipeline.png" style="width: 469.0px; height: 299.0px;" /></a>
+</div></blockquote>
+<p>The pipeline is as below:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">node</span> <span class="o">{</span>
+<span class="n">stage</span> <span class="s1">&#39;Checkout&#39;</span>
+     <span class="c1">// // Get some code from a GitHub repository</span>
+    <span class="n">git</span> <span class="nl">url:</span> <span class="s1">&#39;http://10.1.20.4/nginx-app-protect/ansible_deploy.git&#39;</span>
+    <span class="n">sh</span> <span class="s1">&#39;ansible-galaxy install -r requirements.yml&#39;</span>
+
+<span class="n">stage</span> <span class="nl">name:</span> <span class="s1">&#39;Deploy NGINX Plus&#39;</span><span class="o">,</span> <span class="nl">concurrency:</span> <span class="mi">1</span>
+        <span class="n">dir</span><span class="o">(</span><span class="s2">&quot;${env.WORKSPACE}&quot;</span><span class="o">){</span>
+        <span class="n">ansiblePlaybook</span> <span class="nl">inventory:</span> <span class="s1">&#39;hosts&#39;</span><span class="o">,</span> <span class="nl">playbook:</span> <span class="s1">&#39;install-nginx-plus.yml&#39;</span>
+        <span class="o">}</span>
+
+<span class="n">stage</span> <span class="nl">name:</span> <span class="s1">&#39;Deploy NAP&#39;</span><span class="o">,</span> <span class="nl">concurrency:</span> <span class="mi">1</span>
+        <span class="n">dir</span><span class="o">(</span><span class="s2">&quot;${env.WORKSPACE}&quot;</span><span class="o">){</span>
+        <span class="n">ansiblePlaybook</span> <span class="nl">inventory:</span> <span class="s1">&#39;hosts&#39;</span><span class="o">,</span> <span class="nl">playbook:</span> <span class="s1">&#39;app-protect.yml&#39;</span>
+        <span class="o">}</span>
+
+<span class="n">stage</span> <span class="nl">name:</span> <span class="s1">&#39;Workaround resolver&#39;</span><span class="o">,</span> <span class="nl">concurrency:</span> <span class="mi">1</span>
+        <span class="n">dir</span><span class="o">(</span><span class="s2">&quot;${env.WORKSPACE}&quot;</span><span class="o">){</span>
+        <span class="n">ansiblePlaybook</span> <span class="nl">inventory:</span> <span class="s1">&#39;hosts&#39;</span><span class="o">,</span> <span class="nl">playbook:</span> <span class="s1">&#39;copy-nginx-conf.yml&#39;</span>
+        <span class="o">}</span>
+</pre></div>
+</div>
+<p>}</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This pipeline executes 3 Ansible playbooks. One playbook to install NGINX Plus et one playbook to install NAP. The last playbook is just there to fix an issue in UDF for the DNS resolver.</p>
+</div>
+<p>When pipeline is finished to execute, make a test with <code class="docutils literal notranslate"><span class="pre">Chrome</span></code> and the bookmark <code class="docutils literal notranslate"><span class="pre">Arcadia</span> <span class="pre">NAP</span> <span class="pre">Docker</span></code></p>
+<blockquote>
+<div><img alt="../../_images/pipeline-ok.png" class="align-center" src="../../_images/pipeline-ok.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Congrats, you deployed NGINX Plus and NAP with a CI/CD pipeline. You can check the pipelines in the GitLab if you are interested to see what has been coded behind the scene. But it is straight forward as Ansible modules are provided by F5/NGINX.</p>
+</div>
 </div>
 
 
