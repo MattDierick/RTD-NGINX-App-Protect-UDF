@@ -167,6 +167,23 @@
 <div><ol class="arabic">
 <li><p class="first">Uninstall the NAP, in order to start from scratch</p>
 <blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="o">[</span>Enter<span class="o">]</span>
+sudo yum remove app-protect*
+</pre></div>
+</div>
+<img alt="../../_images/yum-remove-app-protect.png" class="align-center" src="../../_images/yum-remove-app-protect.png" />
+</div></blockquote>
+</li>
+<li><p class="first">Uninstall NGINX Plus packages</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum remove nginx-plus*
+</pre></div>
+</div>
+<img alt="../../_images/yum-remove-nginx-plus.png" class="align-center" src="../../_images/yum-remove-nginx-plus.png" />
+</div></blockquote>
+</li>
+<li><p class="first">Delete/rename the last directories</p>
+<blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo cp -a /etc/nginx /etc/nginx-plus-backup
 sudo cp -a /var/log/nginx /var/log/nginx-plus-backup
 </pre></div>

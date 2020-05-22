@@ -87,9 +87,9 @@ Steps:
 
         .. code-block:: bash
 
-            sudo vi log_default.json
+            sudo vi log-default.json
 
-        Paste the below configuration into ``log_default.json`` and save it
+        Paste the below configuration into ``log-default.json`` and save it
 
         .. code-block:: json
 
@@ -105,7 +105,7 @@ Steps:
             }
 
 
-    #.  Temporarily globally disable SELinux (https://www.nginx.com/blog/using-nginx-plus-with-selinux/?_ga=2.118073737.1001575654.1590004399-760942522.1590004399)
+    #.  Temporarily globally disable SELinux (https://www.nginx.com/blog/using-nginx-plus-with-selinux/?_ga=2.118073737.1001575654.1590004399-760942522.1590004399).
 
         .. code-block:: bash
 

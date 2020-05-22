@@ -11,7 +11,27 @@ Steps:
 
         .. code-block:: bash
 
+            cd [Enter]
+            sudo yum remove app-protect*
+
+        .. image:: ../pictures/module2/yum-remove-app-protect.png
+           :align: center
+
+    #. Uninstall NGINX Plus packages
+
+
+        .. code-block:: bash
+
+            sudo yum remove nginx-plus*
+
+        .. image:: ../pictures/module2/yum-remove-nginx-plus.png
+           :align: center
+
+    #. Delete/rename the last directories
+
+        .. code-block:: bash
+
             sudo cp -a /etc/nginx /etc/nginx-plus-backup
             sudo cp -a /var/log/nginx /var/log/nginx-plus-backup
 
-
+    
