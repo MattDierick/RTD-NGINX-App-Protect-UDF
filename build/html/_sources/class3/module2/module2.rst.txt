@@ -77,8 +77,7 @@ The pipeline is as below:
             dir("${env.WORKSPACE}"){
             ansiblePlaybook inventory: 'hosts', playbook: 'copy-nginx-conf.yml'
             }
-    
-}
+    }
 
 .. note:: This pipeline executes 3 Ansible playbooks. 
     

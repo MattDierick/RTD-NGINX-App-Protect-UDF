@@ -223,9 +223,9 @@ sudo rm -rf /var/log/nginx
         <span class="n">dir</span><span class="o">(</span><span class="s2">&quot;${env.WORKSPACE}&quot;</span><span class="o">){</span>
         <span class="n">ansiblePlaybook</span> <span class="nl">inventory:</span> <span class="s1">&#39;hosts&#39;</span><span class="o">,</span> <span class="nl">playbook:</span> <span class="s1">&#39;copy-nginx-conf.yml&#39;</span>
         <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 </div>
-<p>}</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This pipeline executes 3 Ansible playbooks.</p>
