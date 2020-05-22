@@ -1,5 +1,152 @@
 Step 8 - Install the NGINX Plus and App Protect packages manually
 #################################################################
 
-In this module, we will build manually our first NAP docker image via command line.
+In this module, we will install manually NGINX Plus and App Protect packages on CentOS  from the official repo.
 
+.. warning:: NGINX Plus private key and cert are already installed on the CentOS. Don't share them.
+
+Steps:
+
+    #. SSH to App Protect in CentOS VM
+
+    #. Add NGINX Plus repository by downloading the file ``nginx-plus-7.repo`` to ``/etc/yum.repos.d``:
+
+        .. code-block:: bash
+
+            sudo wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/nginx-plus-7.repo
+
+    #. Install the most recent version of the NGINX Plus App Protect package (which includes NGINX Plus):
+
+        .. code-block:: bash
+
+            sudo yum install app-protect
+
+    #. Check the NGINX binary version to ensure that you have NGINX Plus installed correctly:
+
+        .. code-block:: bash
+
+            sudo nginx -v
+
+    #. Configure the ``nginx.conf`` file. Rename the existing ``nginx.conf`` to ``nginx.conf.old`` and create a new one.
+
+        .. code-block:: bash
+
+            cd /etc/nginx/
+            sudo mv nginx.conf nginx.conf.old
+            sudo vi nginx.conf
+
+        Paste the below configuration into ``nginx.conf`` and save it
+
+        .. code-block:: bash
+
+            user  nginx;
+            worker_processes  auto;
+
+            error_log  /var/log/nginx/error.log notice;
+            pid        /var/run/nginx.pid;
+
+            load_module modules/ngx_http_app_protect_module.so;
+
+            events {
+                worker_connections  1024;
+            }
+
+            http {
+                include          /etc/nginx/mime.types;
+                default_type  application/octet-stream;
+                sendfile        on;
+                keepalive_timeout  65;
+
+                log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                                '$status $body_bytes_sent "$http_referer" '
+                                '"$http_user_agent" "$http_x_forwarded_for"';
+
+                access_log  /var/log/nginx/access.log  main;
+
+                server {
+                listen       80;
+                    server_name  localhost;
+                    proxy_http_version 1.1;
+
+                    app_protect_enable on;
+                    app_protect_policy_file "/etc/nginx/NginxDefaultPolicy.json";
+                    app_protect_security_log_enable on;
+                    app_protect_security_log "/etc/nginx/log-default.json" syslog:server=10.1.20.6:5144;
+
+                    location / {
+                        resolver 10.1.1.9;
+                        resolver_timeout 5s;
+                        client_max_body_size 0;
+                        default_type text/html;
+                        proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
+                    }
+                }
+            }
+        
+    #. Create a log configuration file ``log_default.json`` (still in ``/etc/nginx/``)
+
+        .. code-block:: bash
+
+            sudo vi log_default.json
+
+        Paste the below configuration into ``log_default.json`` and save it
+
+        .. code-block:: json
+
+            {
+                "filter": {
+                    "request_type": "all"
+                },
+                "content": {
+                    "format": "default",
+                    "max_request_size": "any",
+                    "max_message_size": "5k"
+                }
+            }
+
+
+    #.  Temporarily globally disable SELinux (https://www.nginx.com/blog/using-nginx-plus-with-selinux/?_ga=2.118073737.1001575654.1590004399-760942522.1590004399)
+
+        .. code-block:: bash
+
+            sudo setenforce 0
+
+    #. Start the NGINX service:
+
+        .. code-block:: bash
+
+            sudo systemctl start nginx
+
+    #. Check everything is running 
+
+        .. code-block:: bash
+
+            less /var/log/nginx/error.log
+
+        .. code-block:: console
+
+            2020/05/22 09:13:20 [notice] 6195#6195: APP_PROTECT { "event": "configuration_load_start", "configSetFile": "/opt/app_protect/config/config_set.json" }
+            2020/05/22 09:13:20 [notice] 6195#6195: APP_PROTECT policy 'app_protect_default_policy' from: /etc/nginx/NginxDefaultPolicy.json compiled successfully
+            2020/05/22 09:13:20 [notice] 6195#6195: APP_PROTECT { "event": "configuration_load_success", "software_version": "2.52.1", "attack_signatures_package":{"revision_datetime":"2019-07-16T12:21:31Z"},"completed_successfully":true}
+            2020/05/22 09:13:20 [notice] 6195#6195: using the "epoll" event method
+            2020/05/22 09:13:20 [notice] 6195#6195: nginx/1.17.9 (nginx-plus-r21)
+            2020/05/22 09:13:20 [notice] 6195#6195: built by gcc 4.8.5 20150623 (Red Hat 4.8.5-39) (GCC)
+            2020/05/22 09:13:20 [notice] 6195#6195: OS: Linux 3.10.0-1127.8.2.el7.x86_64
+            2020/05/22 09:13:20 [notice] 6195#6195: getrlimit(RLIMIT_NOFILE): 1024:4096
+            2020/05/22 09:13:20 [notice] 6203#6203: start worker processes
+            2020/05/22 09:13:20 [notice] 6203#6203: start worker process 6205
+            2020/05/22 09:13:26 [notice] 6205#6205: APP_PROTECT { "event": "waf_connected", "enforcer_thread_id": 0, "worker_pid": 6205, "mode": "operational", "mode_changed": false}
+
+
+**Congrats, now, your CentOS can publish and protect Arcadia application**
+
+.. note:: You can notice we used exactly the same ``log-default.json`` and ``nginx.conf`` files as in Docker lab.
+
+
+**Now, make a try in the Jumphost**
+
+Steps:
+
+    #. RDP to the Jumphost with credentials ``user:user```
+
+    #. Open Chrome and click
