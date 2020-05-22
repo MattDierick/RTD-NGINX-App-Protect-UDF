@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Step 9 - Deploy App Protect via CICD pipeline &mdash; NGINX App Protect  documentation</title>
+  <title>Step 9 - Deploy App Protect via CI/CD pipeline &mdash; NGINX App Protect  documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="Step 8 - Install the NGINX Plus and App Protect pacakges manually" href="../module1/module1.html" /> 
+    <link rel="prev" title="Step 8 - Install the NGINX Plus and App Protect packages manually" href="../module1/module1.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,8 +85,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../class1/class1.html">Class 1 - Deploy modern application with modern tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../class2/class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 8 - Install the NGINX Plus and App Protect pacakges manually</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 9 - Deploy App Protect via CICD pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 8 - Install the NGINX Plus and App Protect packages manually</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 9 - Deploy App Protect via CI/CD pipeline</a></li>
 </ul>
 </li>
 </ul>
@@ -136,7 +136,7 @@
         
           <li><a href="../class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a> &raquo;</li>
         
-      <li>Step 9 - Deploy App Protect via CICD pipeline</li>
+      <li>Step 9 - Deploy App Protect via CI/CD pipeline</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,9 +155,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="step-9-deploy-app-protect-via-cicd-pipeline">
-<h1>Step 9 - Deploy App Protect via CICD pipeline<a class="headerlink" href="#step-9-deploy-app-protect-via-cicd-pipeline" title="Permalink to this headline">¶</a></h1>
-<p>Coming soon …</p>
+  <div class="section" id="step-9-deploy-app-protect-via-ci-cd-pipeline">
+<h1>Step 9 - Deploy App Protect via CI/CD pipeline<a class="headerlink" href="#step-9-deploy-app-protect-via-ci-cd-pipeline" title="Permalink to this headline">¶</a></h1>
+<p>In this module, we will install NGINX Plus and App Protect packages on CentOS with a CICD toolchain. NGINX teams created Ansible modules to deploy it easily in few seconds.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The official Ansible NAP module is available here <a class="reference external" href="https://github.com/nginxinc/ansible-role-nginx-app-protect">https://github.com/nginxinc/ansible-role-nginx-app-protect</a></p>
+</div>
+<p>Steps:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Uninstall the NAP, in order to start from scratch</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo cp -a /etc/nginx /etc/nginx-plus-backup
+sudo cp -a /var/log/nginx /var/log/nginx-plus-backup
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
 </div>
 
 
@@ -169,7 +186,7 @@
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="../module1/module1.html" class="btn btn-neutral float-left" title="Step 8 - Install the NGINX Plus and App Protect pacakges manually" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../module1/module1.html" class="btn btn-neutral float-left" title="Step 8 - Install the NGINX Plus and App Protect packages manually" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

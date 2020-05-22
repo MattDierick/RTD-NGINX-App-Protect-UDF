@@ -1,11 +1,11 @@
-Step 4 - Update this image with the latest WAF signature
-########################################################
+Step 4 - Update the Docker image with the latest WAF signatures
+###############################################################
 
-In this module, we will update the signature package in the docker image.
+In this module, we will update the signature package in the Docker image.
 
-.. warning:: There are several ways to update the signatures. All of them have pro and cons. In this lab, I decided to create a new docker image with the new signature package. And then destroy and run a new docker container from this new image in front of Arcadia App.
+.. warning:: There are several ways to update the signatures. All of them have pros and cons. In this lab, I decided to create a new Docker image with the new signature package to preserve immutability. And then destroy and run a new Docker container from this new image in front of Arcadia App.
 
-The signatures are provided by F5 with an RPM package. The best way to update the image is to build a new image from a new Dockerfile refering to this signature package (and change the iamge tag). We will use the Dockerfile below:
+The signatures are provided by F5 with an RPM package. The best way to update the image is to build a new image from a new Dockerfile referring to this signature package (and change the image tag). We will use the Dockerfile below:
 
 .. code-block:: bash
 
@@ -31,37 +31,37 @@ The signatures are provided by F5 with an RPM package. The best way to update th
    CMD ["/root/entrypoint.sh"]
 
 
-.. note:: You can notice one more line versus the previous Dockerfile in Step 3. I added the line ``yum install -y app-protect-attack-signatures-*.rpm``
+.. note:: You may notice one more line versus the previous Dockerfile in Step 3. I added the line ``yum install -y app-protect-attack-signatures-*.rpm``
 
 
-**Follow the step below to build the new docker image:**
+**Follow the steps below to build the new Docker image:**
 
    #. SSH to Docker App Protect VM
    #. Run the command ``docker build -t app-protect:20200316 -f Dockerfile-sig .`` <-- Be careful, there is a "." (dot) at the end of the command
    #. Wait ...... till you see ``Successfully tagged app-protect:20200316``
 
-.. note:: Please take a time to understand what we run. You can notice 2 changes. We ran the build with a new Dockerfile ``Dockerfile-sig`` and with a new tag ``20200316`` (date of the signature pacakge)
+.. note:: Please take time to understand what we ran. You may notice 2 changes. We ran the build with a new Dockerfile ``Dockerfile-sig`` and with a new tag ``20200316`` (date of the signature package)
 
 
-**Destroy the previous NAP running container and run a new one based on the new image (tag 20200316)**
+**Destroy the previous running NAP container and run a new one based on the new image (tag 20200316)**
 
-   1. Check if the docker image is available locally ``docker images``. You can notice the new image with the new tag ``20200316``.
+   1. Check if the Docker image is available locally ``docker images``. You will notice the new image with the new tag ``20200316``.
 
       .. image:: ../pictures/module2/docker_images.png
          :align: center
 
 |
 
-   2. Destroy the existing and runnin NAP container ``docker rm -f app-protect``
+   2. Destroy the existing and running NAP container ``docker rm -f app-protect``
    3. Run a new container with this image ``docker run -dit --name app-protect -p 80:80 -v /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf app-protect:20200316``
-   4. Check docker is running ``docker ps``
+   4. Check that the Docker container is running ``docker ps``
 
       .. image:: ../pictures/module2/docker_run.png
          :align: center
 
 |
 
-   5. Check the signature package date included in the new docker container ``docker exec -it app-protect more /var/log/nginx/error.log``
+   5. Check the signature package date included in the new Docker container ``docker exec -it app-protect more /var/log/nginx/error.log``
 
 
    .. code-block:: bash

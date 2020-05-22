@@ -1,5 +1,5 @@
-Step 9 - Deploy App Protect via CICD pipeline
-#############################################
+Step 9 - Deploy App Protect via CI/CD pipeline
+##############################################
 
 In this module, we will install NGINX Plus and App Protect packages on CentOS with a CICD toolchain. NGINX teams created Ansible modules to deploy it easily in few seconds.
 

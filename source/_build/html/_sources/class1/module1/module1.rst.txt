@@ -3,10 +3,10 @@ Architecture of Arcadia Application
 
 .. note:: This application is available on Gitlab in case you want to build your own lab : 
 
-First of all, it is important to understand how Arcadia app is splitted between micro-services
+First of all, it is important to understand how Arcadia app is split between micro-services
 
 
-**This is how Arcadia App looks like when the 4 microservices are up and running, and you can see how traffic is routed based on URI**
+**This is what Arcadia App looks like when the 4 microservices are up and running, and you can see how traffic is routed based on URI**
 
 .. image:: ../pictures/module1/arcadia-api.png
    :align: center

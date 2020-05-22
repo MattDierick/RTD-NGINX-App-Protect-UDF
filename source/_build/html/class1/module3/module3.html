@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Step 2 - Publish Arcadia app with a NGNIX Plus Ingress Controller" href="../module4/module4.html" />
+    <link rel="next" title="Step 2 - Publish Arcadia app with a NGINX Plus Ingress Controller" href="../module4/module4.html" />
     <link rel="prev" title="Workflow of this lab" href="../module2/module2.html" /> 
 </head>
 
@@ -87,10 +87,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Architecture of Arcadia Application</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Workflow of this lab</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Step 1 - Deploy and publish Arcadia Finance application in Kubernetes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 2 - Publish Arcadia app with a NGNIX Plus Ingress Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 2 - Publish Arcadia app with a NGINX Plus Ingress Controller</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../class2/class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class2/class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class3/class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a></li>
 </ul>
 
             
@@ -161,8 +162,8 @@
 <h1>Step 1 - Deploy and publish Arcadia Finance application in Kubernetes<a class="headerlink" href="#step-1-deploy-and-publish-arcadia-finance-application-in-kubernetes" title="Permalink to this headline">¶</a></h1>
 <p>It’s time to deploy Arcadia Finance application :)</p>
 <p><strong>Deploy Arcadia Application with kubectl command</strong></p>
-<p>With Kubernetes, there are several ways to deploy containers (pods). One way is tu use <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> command with a YAML deployment file.
-I prepared this YAML file below (this is only for mainr app container). You can have a look, and see it will deploy containers from my Gitlab.com repo.</p>
+<p>With Kubernetes, there are several ways to deploy containers (pods). One way is to use <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> command with a YAML deployment file.
+I prepared this YAML file below (this is only for the main app container). You can have a look, and see it will deploy containers from my Gitlab.com repo.</p>
 <div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -221,7 +222,7 @@ I prepared this YAML file below (this is only for mainr app container). You can 
 <p><strong>Steps :</strong></p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>SSH (not WebSSH) to CICD Server</li>
+<li>SSH (not WebSSH) to CI/CD Server</li>
 <li>Run this command <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span> <span class="pre">-f</span> <span class="pre">/home/ubuntu/Arcadia_k8S/all_apps.yaml</span></code></li>
 <li>RDP to the jumhost with <code class="docutils literal notranslate"><span class="pre">user:user</span></code> as credentials</li>
 <li>Open Chrome</li>
@@ -246,7 +247,7 @@ I prepared this YAML file below (this is only for mainr app container). You can 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../module4/module4.html" class="btn btn-neutral float-right" title="Step 2 - Publish Arcadia app with a NGNIX Plus Ingress Controller" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../module4/module4.html" class="btn btn-neutral float-right" title="Step 2 - Publish Arcadia app with a NGINX Plus Ingress Controller" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../module2/module2.html" class="btn btn-neutral float-left" title="Workflow of this lab" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

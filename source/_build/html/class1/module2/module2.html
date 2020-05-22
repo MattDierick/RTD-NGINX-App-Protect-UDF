@@ -92,9 +92,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#step-4-update-this-image-with-the-latest-waf-signature">Step 4 - Update this image with the latest WAF signature</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-5-check-logs-in-kibana">Step 5 - Check logs in Kibana</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-6-customize-the-waf-policy">Step 6 - Customize the WAF policy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-7-deploy-nap-with-a-cicd-toolchain">Step 7 - Deploy NAP with a CICD toolchain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-7-deploy-nap-with-a-ci-cd-toolchain">Step 7 - Deploy NAP with a CI/CD toolchain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-8-install-the-nginx-plus-and-app-protect-packages-manually">Step 8 - Install the NGINX Plus and App Protect packages manually</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-9-deploy-app-protect-via-cicd-pipeline">Step 9 - Deploy App Protect via CICD pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-9-deploy-app-protect-via-ci-cd-pipeline">Step 9 - Deploy App Protect via CI/CD pipeline</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Step 1 - Deploy and publish Arcadia Finance application in Kubernetes</a></li>
@@ -171,7 +171,7 @@
             
   <div class="section" id="workflow-of-this-lab">
 <h1>Workflow of this lab<a class="headerlink" href="#workflow-of-this-lab" title="Permalink to this headline">¶</a></h1>
-<p>The demo is splitted in 3 classes and 9 steps :</p>
+<p>The demo is split into 3 classes and 9 steps :</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li><dl class="first docutils">
@@ -187,10 +187,10 @@
 <dt>Protect Arcadia with NGINX App Protect in Docker</dt>
 <dd><ol class="first last arabic">
 <li>Build your first NAP (NGINX App Protect) docker image</li>
-<li>Update this image with the latest WAF signature</li>
+<li>Update this image with the latest WAF signatures</li>
 <li>Check logs in Kibana</li>
 <li>Customize the WAF policy</li>
-<li>Deploy NAP with a CICD a toolchain</li>
+<li>Deploy NAP with a CI/CD a toolchain</li>
 </ol>
 </dd>
 </dl>
@@ -198,8 +198,8 @@
 <li><dl class="first docutils">
 <dt>Protect Arcadia with NGINX App Protect in Linux host</dt>
 <dd><ol class="first last arabic">
-<li>Install the NGINX Plus and App Protect pacakges manually</li>
-<li>Deploy App Protect via CICD pipeline</li>
+<li>Install the NGINX Plus and App Protect packages manually</li>
+<li>Deploy App Protect via CI/CD pipeline</li>
 </ol>
 </dd>
 </dl>
@@ -255,7 +255,7 @@
 <li>Run a docker build command using a Dockerfile</li>
 <li>Run a docker run command to start this docker container in front of Arcadia application</li>
 <li>Check the signature package included in this image</li>
-<li>Check Aracadia is protected</li>
+<li>Check that Aracadia is protected</li>
 </ol>
 </div></blockquote>
 <div class="line-block">
@@ -300,7 +300,7 @@
 <h2>Step 6 - Customize the WAF policy<a class="headerlink" href="#step-6-customize-the-waf-policy" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Goal is to customize the WAF policy in front of Aracadia application. By default, a base policy is deployed.</p>
+<p class="last">Goal is to customize the WAF policy in front of Arcadia application. By default, a base policy is deployed.</p>
 </div>
 <p>Task:</p>
 <blockquote>
@@ -312,11 +312,11 @@
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="step-7-deploy-nap-with-a-cicd-toolchain">
-<h2>Step 7 - Deploy NAP with a CICD toolchain<a class="headerlink" href="#step-7-deploy-nap-with-a-cicd-toolchain" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-7-deploy-nap-with-a-ci-cd-toolchain">
+<h2>Step 7 - Deploy NAP with a CI/CD toolchain<a class="headerlink" href="#step-7-deploy-nap-with-a-ci-cd-toolchain" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Goal is to deploy NAP in a real environment with a CICD toolchain in place.</p>
+<p class="last">Goal is to deploy NAP in a real environment with a CI/CD toolchain in place.</p>
 </div>
 <p>Task:</p>
 <blockquote>
@@ -349,16 +349,16 @@
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="step-9-deploy-app-protect-via-cicd-pipeline">
-<h2>Step 9 - Deploy App Protect via CICD pipeline<a class="headerlink" href="#step-9-deploy-app-protect-via-cicd-pipeline" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-9-deploy-app-protect-via-ci-cd-pipeline">
+<h2>Step 9 - Deploy App Protect via CI/CD pipeline<a class="headerlink" href="#step-9-deploy-app-protect-via-ci-cd-pipeline" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Goal is to deploy NAP by using a CICD pipeline with automation toolchain packages provided by F5.</p>
+<p class="last">Goal is to deploy NAP by using a CI/CD pipeline with automation toolchain packages provided by F5.</p>
 </div>
 <p>Task:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Use CIDC toolchain in order to deploy NAP automatically with the latest signature package.</li>
+<li>Use CI/CD toolchain in order to deploy NAP automatically with the latest signature package.</li>
 </ol>
 </div></blockquote>
 </div>

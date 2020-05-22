@@ -1,9 +1,9 @@
-Step 3 - Build your first NAP (NGINX App Protect) docker image
+Step 3 - Build your first NAP (NGINX App Protect) Docker image
 ##############################################################
 
-In this module, we will build manually our first NAP docker image via command line.
+In this module, we will build manually our first NAP Docker image via command line.
 
-**Follow the step below to build the docker image:**
+**Follow the step below to build the Docker image:**
 
    #. SSH to Docker App Protect VM
    #. Run the command ``docker build -t app-protect:nosig .`` <-- Be careful, there is a "." (dot) at the end of the command
@@ -36,9 +36,9 @@ In this module, we will build manually our first NAP docker image via command li
 
 
 
-**When docker image is built :**
+**When Docker image is built :**
 
-   1. Check if the docker image is available locally ``docker images``
+   1. Check if the Docker image is available locally ``docker images``
 
    .. image:: ../pictures/module1/docker_images.png
       :align: center
@@ -46,7 +46,7 @@ In this module, we will build manually our first NAP docker image via command li
 |
 
    2. Run a container with this image ``docker run -dit --name app-protect -p 80:80 -v /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf app-protect:nosig``
-   3.  Check docker is running ``docker ps``
+   3. Check that the Docker container is running ``docker ps``
 
    .. image:: ../pictures/module1/docker_run.png
       :align: center
@@ -65,7 +65,7 @@ In this module, we will build manually our first NAP docker image via command li
 
    #. In Chrome, click on the bookmark ``Arcadia NAP Docker``
    #. Navigate in the app, and try some attacks like injections or XSS - I let you find the attacks :)
-   #. You will be block and see the default Blocking page
+   #. You will be blocked and see the default Blocking page
 
 .. code-block:: html
 
