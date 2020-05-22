@@ -31,8 +31,8 @@ In this module, we will install NGINX Plus and App Protect packages on CentOS wi
 
         .. code-block:: bash
 
-            sudo rm -rf /etc/nginx-plus-backup
-            sudo cp -a /var/log/nginx /var/log/nginx-plus-backup
+            sudo rm -rf /etc/nginx
+            sudo rm -rf /var/log/nginx
 
 **Run the CI/CD pipeline from Jenkins**
 
