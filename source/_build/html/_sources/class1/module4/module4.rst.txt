@@ -12,9 +12,9 @@ To do so, I prepared a ``kubectl`` Kubernetes Deployment in YAML.
 
 **Steps:**
 
-    #. SSH (not WebSSH) to CICD server
+    #. SSH (not WebSSH) to CI/CD server
     #. Run this command ``kubectl apply -f /home/ubuntu/k8s_ingress/full_ingress_arcadia.yaml``
-    #. You should see a new namesplace and a new ingress
+    #. You should see a new namespace and a new ingress
     #. Check the Ingress ``arcadia-ingress`` by clicking on the 3 dots on the right and ``edit``
     #. Scroll down and check the specs
 
@@ -53,7 +53,7 @@ To do so, I prepared a ``kubectl`` Kubernetes Deployment in YAML.
 
 .. note:: You can see the Ingress is routing the packets to the right service based on the URI.
 
-.. note:: Now, arcadia is available for customers.
+.. note:: Now, Arcadia is available for customers.
 
 **Steps:**
 

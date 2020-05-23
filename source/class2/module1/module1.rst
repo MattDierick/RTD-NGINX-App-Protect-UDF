@@ -63,7 +63,7 @@ In this module, we will build manually our first NAP Docker image via command li
 
 **It's time to test your lab**
 
-   #. In Chrome, click on the bookmark ``Arcadia App Protect``
+   #. In Chrome, click on the bookmark ``Arcadia NAP Docker``
    #. Navigate in the app, and try some attacks like injections or XSS - I let you find the attacks :)
    #. You will be blocked and see the default Blocking page
 

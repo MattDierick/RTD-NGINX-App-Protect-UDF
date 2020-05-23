@@ -7,10 +7,10 @@ In this module, we will check the logs in ELK (Elastic, Logstash, Kibana)
 
 Steps:
 
-   #. SSH to App-Protect VM
+   #. SSH to Docker App-Protect VM
    #. In ``/home/ubuntu`` (the default home folder), list the files ``ls -al``
    #. You can see 2 files ``log-default.json`` and ``nginx.conf``
-   #. Open log-default.json ``less log-default.json``. You can notice we log all requests.
+   #. Open log-default.json ``less log-default.json``. You will notice we log all requests.
 
       .. code-block:: JSON
 
@@ -66,10 +66,10 @@ Steps:
          }
 
 
-.. note:: You can notice in the ``nginx.conf`` file the referer to ``log-default.json`` and the remote syslog server (ELK) ``10.1.20.6:5144``
+.. note:: You will notice in the ``nginx.conf`` file the refererence to ``log-default.json`` and the remote syslog server (ELK) ``10.1.20.6:5144``
 
 
-**Open Kibana in the Jumhost or via UDF access**
+**Open Kibana in the Jumphost or via UDF access**
 
 Steps:
 
@@ -91,6 +91,4 @@ Steps:
 
    #. At the bottom of the dashboard, you can see the logs. Select one logs and check the content
 
-.. note:: You can notice the log content is similar to ASM and Adv. WAF
-
-
+.. note:: You may notice the log content is similar to ASM and Adv. WAF

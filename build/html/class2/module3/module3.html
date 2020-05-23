@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Step 6 - Customize the WAF policy" href="../module4/module4.html" />
-    <link rel="prev" title="Step 4 - Update this image with the latest WAF signature" href="../module2/module2.html" /> 
+    <link rel="prev" title="Step 4 - Update the Docker image with the latest WAF signatures" href="../module2/module2.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,14 +84,15 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../class1/class1.html">Class 1 - Deploy modern application with modern tools</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 3 - Build your first NAP (NGINX App Protect) docker image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 4 - Update this image with the latest WAF signature</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 3 - Build your first NAP (NGINX App Protect) Docker image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 4 - Update the Docker image with the latest WAF signatures</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Step 5 - Check logs in Kibana</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 6 - Customize the WAF policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module5/module5.html">Step 7 - Deploy NAP with a CICD a toolchain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/module5.html">Step 7 - Deploy NAP with a CI/CD toolchain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../class3/class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a></li>
 </ul>
 
             
@@ -137,7 +138,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a> &raquo;</li>
+          <li><a href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a> &raquo;</li>
         
       <li>Step 5 - Check logs in Kibana</li>
     
@@ -165,13 +166,13 @@
 <p>Steps:</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">SSH to App-Protect VM</p>
+<li><p class="first">SSH to Docker App-Protect VM</p>
 </li>
 <li><p class="first">In <code class="docutils literal notranslate"><span class="pre">/home/ubuntu</span></code> (the default home folder), list the files <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-al</span></code></p>
 </li>
 <li><p class="first">You can see 2 files <code class="docutils literal notranslate"><span class="pre">log-default.json</span></code> and <code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code></p>
 </li>
-<li><p class="first">Open log-default.json <code class="docutils literal notranslate"><span class="pre">less</span> <span class="pre">log-default.json</span></code>. You can notice we log all requests.</p>
+<li><p class="first">Open log-default.json <code class="docutils literal notranslate"><span class="pre">less</span> <span class="pre">log-default.json</span></code>. You will notice we log all requests.</p>
 <div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="nt">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span>
    <span class="nt">&quot;request_type&quot;</span><span class="p">:</span> <span class="s2">&quot;all&quot;</span>
@@ -228,9 +229,9 @@ http <span class="o">{</span>
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You can notice in the <code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code> file the referer to <code class="docutils literal notranslate"><span class="pre">log-default.json</span></code> and the remote syslog server (ELK) <code class="docutils literal notranslate"><span class="pre">10.1.20.6:5144</span></code></p>
+<p class="last">You will notice in the <code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code> file the refererence to <code class="docutils literal notranslate"><span class="pre">log-default.json</span></code> and the remote syslog server (ELK) <code class="docutils literal notranslate"><span class="pre">10.1.20.6:5144</span></code></p>
 </div>
-<p><strong>Open Kibana in the Jumhost or via UDF access</strong></p>
+<p><strong>Open Kibana in the Jumphost or via UDF access</strong></p>
 <p>Steps:</p>
 <blockquote>
 <div><ol class="arabic">
@@ -259,7 +260,7 @@ http <span class="o">{</span>
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You can notice the log content is similar to ASM and Adv. WAF</p>
+<p class="last">You may notice the log content is similar to ASM and Adv. WAF</p>
 </div>
 </div>
 
@@ -274,7 +275,7 @@ http <span class="o">{</span>
         <a href="../module4/module4.html" class="btn btn-neutral float-right" title="Step 6 - Customize the WAF policy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../module2/module2.html" class="btn btn-neutral float-left" title="Step 4 - Update this image with the latest WAF signature" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../module2/module2.html" class="btn btn-neutral float-left" title="Step 4 - Update the Docker image with the latest WAF signatures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

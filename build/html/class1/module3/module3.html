@@ -162,8 +162,8 @@
 <h1>Step 1 - Deploy and publish Arcadia Finance application in Kubernetes<a class="headerlink" href="#step-1-deploy-and-publish-arcadia-finance-application-in-kubernetes" title="Permalink to this headline">¶</a></h1>
 <p>It’s time to deploy Arcadia Finance application :)</p>
 <p><strong>Deploy Arcadia Application with kubectl command</strong></p>
-<p>With Kubernetes, there are several ways to deploy containers (pods). One way is tu use <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> command with a YAML deployment file.
-I prepared this YAML file below (this is only for mainr app container). You can have a look, and see it will deploy containers from my Gitlab.com repo.</p>
+<p>With Kubernetes, there are several ways to deploy containers (pods). One way is to use <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> command with a YAML deployment file.
+I prepared this YAML file below (this is only for the main app container). You can have a look, and see it will deploy containers from my Gitlab.com repo.</p>
 <div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -222,7 +222,7 @@ I prepared this YAML file below (this is only for mainr app container). You can 
 <p><strong>Steps :</strong></p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>SSH (not WebSSH) to CICD Server</li>
+<li>SSH (not WebSSH) to CI/CD Server</li>
 <li>Run this command <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span> <span class="pre">-f</span> <span class="pre">/home/ubuntu/Arcadia_k8S/all_apps.yaml</span></code></li>
 <li>RDP to the jumhost with <code class="docutils literal notranslate"><span class="pre">user:user</span></code> as credentials</li>
 <li>Open Chrome</li>

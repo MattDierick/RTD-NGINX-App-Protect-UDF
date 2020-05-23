@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Step 3 - Build your first NAP (NGINX App Protect) docker image &mdash; NGINX App Protect  documentation</title>
+  <title>Step 3 - Build your first NAP (NGINX App Protect) Docker image &mdash; NGINX App Protect  documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Step 4 - Update this image with the latest WAF signature" href="../module2/module2.html" />
-    <link rel="prev" title="Class 2 - Protect Arcadia with NGINX App Protect" href="../class2.html" /> 
+    <link rel="next" title="Step 4 - Update the Docker image with the latest WAF signatures" href="../module2/module2.html" />
+    <link rel="prev" title="Class 2 - Protect Arcadia with NGINX App Protect in Docker" href="../class2.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,14 +84,15 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../class1/class1.html">Class 1 - Deploy modern application with modern tools</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 3 - Build your first NAP (NGINX App Protect) docker image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 4 - Update this image with the latest WAF signature</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 3 - Build your first NAP (NGINX App Protect) Docker image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 4 - Update the Docker image with the latest WAF signatures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Step 5 - Check logs in Kibana</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 6 - Customize the WAF policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module5/module5.html">Step 7 - Deploy NAP with a CICD a toolchain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/module5.html">Step 7 - Deploy NAP with a CI/CD toolchain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../class3/class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a></li>
 </ul>
 
             
@@ -137,9 +138,9 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a> &raquo;</li>
+          <li><a href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a> &raquo;</li>
         
-      <li>Step 3 - Build your first NAP (NGINX App Protect) docker image</li>
+      <li>Step 3 - Build your first NAP (NGINX App Protect) Docker image</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -159,9 +160,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="step-3-build-your-first-nap-nginx-app-protect-docker-image">
-<h1>Step 3 - Build your first NAP (NGINX App Protect) docker image<a class="headerlink" href="#step-3-build-your-first-nap-nginx-app-protect-docker-image" title="Permalink to this headline">¶</a></h1>
-<p>In this module, we will build manually our first NAP docker image via command line.</p>
-<p><strong>Follow the step below to build the docker image:</strong></p>
+<h1>Step 3 - Build your first NAP (NGINX App Protect) Docker image<a class="headerlink" href="#step-3-build-your-first-nap-nginx-app-protect-docker-image" title="Permalink to this headline">¶</a></h1>
+<p>In this module, we will build manually our first NAP Docker image via command line.</p>
+<p><strong>Follow the step below to build the Docker image:</strong></p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>SSH to Docker App Protect VM</li>
@@ -195,10 +196,10 @@ CMD <span class="o">[</span><span class="s2">&quot;/root/entrypoint.sh&quot;</sp
 </pre></div>
 </div>
 </div></blockquote>
-<p><strong>When docker image is built :</strong></p>
+<p><strong>When Docker image is built :</strong></p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Check if the docker image is available locally <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code></li>
+<li>Check if the Docker image is available locally <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code></li>
 </ol>
 <img alt="../../_images/docker_images.png" class="align-center" src="../../_images/docker_images.png" />
 </div></blockquote>
@@ -208,7 +209,7 @@ CMD <span class="o">[</span><span class="s2">&quot;/root/entrypoint.sh&quot;</sp
 <blockquote>
 <div><ol class="arabic simple" start="2">
 <li>Run a container with this image <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-dit</span> <span class="pre">--name</span> <span class="pre">app-protect</span> <span class="pre">-p</span> <span class="pre">80:80</span> <span class="pre">-v</span> <span class="pre">/home/ubuntu/nginx.conf:/etc/nginx/nginx.conf</span> <span class="pre">app-protect:nosig</span></code></li>
-<li>Check docker is running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code></li>
+<li>Check that the Docker container is running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code></li>
 </ol>
 <img alt="../../_images/docker_run.png" class="align-center" src="../../_images/docker_run.png" />
 </div></blockquote>
@@ -226,9 +227,9 @@ CMD <span class="o">[</span><span class="s2">&quot;/root/entrypoint.sh&quot;</sp
 <p><strong>It’s time to test your lab</strong></p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>In Chrome, click on the bookmark <code class="docutils literal notranslate"><span class="pre">Arcadia</span> <span class="pre">App</span> <span class="pre">Protect</span></code></li>
+<li>In Chrome, click on the bookmark <code class="docutils literal notranslate"><span class="pre">Arcadia</span> <span class="pre">NAP</span> <span class="pre">Docker</span></code></li>
 <li>Navigate in the app, and try some attacks like injections or XSS - I let you find the attacks :)</li>
-<li>You will be block and see the default Blocking page</li>
+<li>You will be blocked and see the default Blocking page</li>
 </ol>
 </div></blockquote>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span>The requested URL was rejected. Please consult with your administrator.
@@ -252,10 +253,10 @@ Your support ID is: 14609283746114744748
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../module2/module2.html" class="btn btn-neutral float-right" title="Step 4 - Update this image with the latest WAF signature" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../module2/module2.html" class="btn btn-neutral float-right" title="Step 4 - Update the Docker image with the latest WAF signatures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../class2.html" class="btn btn-neutral float-left" title="Class 2 - Protect Arcadia with NGINX App Protect" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../class2.html" class="btn btn-neutral float-left" title="Class 2 - Protect Arcadia with NGINX App Protect in Docker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -5,8 +5,8 @@ It's time to deploy Arcadia Finance application :)
 
 **Deploy Arcadia Application with kubectl command**
 
-With Kubernetes, there are several ways to deploy containers (pods). One way is tu use ``kubectl`` command with a YAML deployment file.
-I prepared this YAML file below (this is only for mainr app container). You can have a look, and see it will deploy containers from my Gitlab.com repo.
+With Kubernetes, there are several ways to deploy containers (pods). One way is to use ``kubectl`` command with a YAML deployment file.
+I prepared this YAML file below (this is only for the main app container). You can have a look, and see it will deploy containers from my Gitlab.com repo.
 
 .. code-block:: YAML
 
@@ -64,7 +64,7 @@ I prepared this YAML file below (this is only for mainr app container). You can 
 
 **Steps :**
 
-    #. SSH (not WebSSH) to CICD Server
+    #. SSH (not WebSSH) to CI/CD Server
     #. Run this command ``kubectl apply -f /home/ubuntu/Arcadia_k8S/all_apps.yaml``
 
     #. RDP to the jumhost with ``user:user`` as credentials

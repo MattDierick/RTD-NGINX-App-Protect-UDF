@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Step 9 - Deploy App Protect via CICD pipeline &mdash; NGINX App Protect  documentation</title>
+  <title>Step 9 - Deploy App Protect via CI/CD pipeline &mdash; NGINX App Protect  documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="Step 8 - Install the NGINX Plus and App Protect pacakges manually" href="../module1/module1.html" /> 
+    <link rel="prev" title="Step 8 - Install the NGINX Plus and App Protect packages manually" href="../module1/module1.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,8 +85,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../class1/class1.html">Class 1 - Deploy modern application with modern tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../class2/class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 8 - Install the NGINX Plus and App Protect pacakges manually</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 9 - Deploy App Protect via CICD pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 8 - Install the NGINX Plus and App Protect packages manually</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 9 - Deploy App Protect via CI/CD pipeline</a></li>
 </ul>
 </li>
 </ul>
@@ -136,7 +136,7 @@
         
           <li><a href="../class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a> &raquo;</li>
         
-      <li>Step 9 - Deploy App Protect via CICD pipeline</li>
+      <li>Step 9 - Deploy App Protect via CI/CD pipeline</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,9 +155,92 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="step-9-deploy-app-protect-via-cicd-pipeline">
-<h1>Step 9 - Deploy App Protect via CICD pipeline<a class="headerlink" href="#step-9-deploy-app-protect-via-cicd-pipeline" title="Permalink to this headline">¶</a></h1>
-<p>Coming soon …</p>
+  <div class="section" id="step-9-deploy-app-protect-via-ci-cd-pipeline">
+<h1>Step 9 - Deploy App Protect via CI/CD pipeline<a class="headerlink" href="#step-9-deploy-app-protect-via-ci-cd-pipeline" title="Permalink to this headline">¶</a></h1>
+<p>In this module, we will install NGINX Plus and App Protect packages on CentOS with a CICD toolchain. NGINX teams created Ansible modules to deploy it easily in few seconds.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The official Ansible NAP module is available here <a class="reference external" href="https://github.com/nginxinc/ansible-role-nginx-app-protect">https://github.com/nginxinc/ansible-role-nginx-app-protect</a> and the NGINX Plus here <a class="reference external" href="https://github.com/nginxinc/ansible-role-nginx">https://github.com/nginxinc/ansible-role-nginx</a></p>
+</div>
+<p><strong>Uninstall the previous runnig NAP</strong></p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Uninstall the NAP, in order to start from scratch</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="o">[</span>Enter<span class="o">]</span>
+sudo yum remove app-protect*
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../_images/yum-remove-app-protect.png"><img alt="../../_images/yum-remove-app-protect.png" class="align-center" src="../../_images/yum-remove-app-protect.png" style="width: 574.0px; height: 279.0px;" /></a>
+</div></blockquote>
+</li>
+<li><p class="first">Uninstall NGINX Plus packages</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum remove nginx-plus*
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../_images/yum-remove-nginx-plus.png"><img alt="../../_images/yum-remove-nginx-plus.png" class="align-center" src="../../_images/yum-remove-nginx-plus.png" style="width: 667.8px; height: 266.0px;" /></a>
+</div></blockquote>
+</li>
+<li><p class="first">Delete/rename the last directories</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo rm -rf /etc/nginx
+sudo rm -rf /var/log/nginx
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<p><strong>Run the CI/CD pipeline from Jenkins</strong></p>
+<p>Steps:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>RDP to the Jumphost with credentials <code class="docutils literal notranslate"><span class="pre">user:user</span></code></li>
+<li>Open <code class="docutils literal notranslate"><span class="pre">Chrome</span></code> and open <code class="docutils literal notranslate"><span class="pre">Jenkins</span></code> (if not already opened)</li>
+<li>Select the pipeline <code class="docutils literal notranslate"><span class="pre">deploy-nap-centos</span></code> and run it</li>
+</ol>
+<a class="reference internal image-reference" href="../../_images/pipeline.png"><img alt="../../_images/pipeline.png" class="align-center" src="../../_images/pipeline.png" style="width: 469.0px; height: 299.0px;" /></a>
+</div></blockquote>
+<p>The pipeline is as below:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">node</span> <span class="o">{</span>
+<span class="n">stage</span> <span class="s1">&#39;Checkout&#39;</span>
+     <span class="c1">// // Get some code from a GitHub repository</span>
+    <span class="n">git</span> <span class="nl">url:</span> <span class="s1">&#39;http://10.1.20.4/nginx-app-protect/ansible_deploy.git&#39;</span>
+    <span class="n">sh</span> <span class="s1">&#39;ansible-galaxy install -r requirements.yml&#39;</span>
+
+<span class="n">stage</span> <span class="nl">name:</span> <span class="s1">&#39;Deploy NGINX Plus&#39;</span><span class="o">,</span> <span class="nl">concurrency:</span> <span class="mi">1</span>
+        <span class="n">dir</span><span class="o">(</span><span class="s2">&quot;${env.WORKSPACE}&quot;</span><span class="o">){</span>
+        <span class="n">ansiblePlaybook</span> <span class="nl">inventory:</span> <span class="s1">&#39;hosts&#39;</span><span class="o">,</span> <span class="nl">playbook:</span> <span class="s1">&#39;install-nginx-plus.yml&#39;</span>
+        <span class="o">}</span>
+
+<span class="n">stage</span> <span class="nl">name:</span> <span class="s1">&#39;Deploy NAP&#39;</span><span class="o">,</span> <span class="nl">concurrency:</span> <span class="mi">1</span>
+        <span class="n">dir</span><span class="o">(</span><span class="s2">&quot;${env.WORKSPACE}&quot;</span><span class="o">){</span>
+        <span class="n">ansiblePlaybook</span> <span class="nl">inventory:</span> <span class="s1">&#39;hosts&#39;</span><span class="o">,</span> <span class="nl">playbook:</span> <span class="s1">&#39;app-protect.yml&#39;</span>
+        <span class="o">}</span>
+
+<span class="n">stage</span> <span class="nl">name:</span> <span class="s1">&#39;Workaround resolver&#39;</span><span class="o">,</span> <span class="nl">concurrency:</span> <span class="mi">1</span>
+        <span class="n">dir</span><span class="o">(</span><span class="s2">&quot;${env.WORKSPACE}&quot;</span><span class="o">){</span>
+        <span class="n">ansiblePlaybook</span> <span class="nl">inventory:</span> <span class="s1">&#39;hosts&#39;</span><span class="o">,</span> <span class="nl">playbook:</span> <span class="s1">&#39;copy-nginx-conf.yml&#39;</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This pipeline executes 3 Ansible playbooks.</p>
+<ol class="last arabic simple">
+<li>One playbook to install NGINX Plus</li>
+<li>one playbook to install NAP</li>
+<li>The last playbook is just there to fix an issue in UDF for the DNS resolver.</li>
+</ol>
+</div>
+<a class="reference internal image-reference" href="../../_images/pipeline-ok.png"><img alt="../../_images/pipeline-ok.png" class="align-center" src="../../_images/pipeline-ok.png" style="width: 800.0px; height: 304.4px;" /></a>
+<p>When pipeline is finished to execute, make a test with <code class="docutils literal notranslate"><span class="pre">Chrome</span></code> and the bookmark <code class="docutils literal notranslate"><span class="pre">Arcadia</span> <span class="pre">NAP</span> <span class="pre">Docker</span></code></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Congrats, you deployed <code class="docutils literal notranslate"><span class="pre">NGINX</span> <span class="pre">Plus</span></code> and <code class="docutils literal notranslate"><span class="pre">NAP</span></code> with a CI/CD pipeline. You can check the pipelines in the <code class="docutils literal notranslate"><span class="pre">GitLab</span></code> if you are interested to see what has been coded behind the scene. But it is straight forward as Ansible modules are provided by F5/NGINX.</p>
+</div>
 </div>
 
 
@@ -169,7 +252,7 @@
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="../module1/module1.html" class="btn btn-neutral float-left" title="Step 8 - Install the NGINX Plus and App Protect pacakges manually" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../module1/module1.html" class="btn btn-neutral float-left" title="Step 8 - Install the NGINX Plus and App Protect packages manually" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

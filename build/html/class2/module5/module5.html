@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Step 7 - Deploy NAP with a CICD toolchain &mdash; NGINX App Protect  documentation</title>
+  <title>Step 7 - Deploy NAP with a CI/CD toolchain &mdash; NGINX App Protect  documentation</title>
   
 
   
@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Class 3 - Protect Arcadia with NGINX App Protect in Linux host" href="../../class3/class3.html" />
     <link rel="prev" title="Step 6 - Customize the WAF policy" href="../module4/module4.html" /> 
 </head>
 
@@ -83,14 +84,15 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../class1/class1.html">Class 1 - Deploy modern application with modern tools</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 3 - Build your first NAP (NGINX App Protect) docker image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 4 - Update this image with the latest WAF signature</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 3 - Build your first NAP (NGINX App Protect) Docker image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 4 - Update the Docker image with the latest WAF signatures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Step 5 - Check logs in Kibana</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 6 - Customize the WAF policy</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 7 - Deploy NAP with a CICD toolchain</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 7 - Deploy NAP with a CI/CD toolchain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../class3/class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a></li>
 </ul>
 
             
@@ -136,9 +138,9 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect</a> &raquo;</li>
+          <li><a href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a> &raquo;</li>
         
-      <li>Step 7 - Deploy NAP with a CICD toolchain</li>
+      <li>Step 7 - Deploy NAP with a CI/CD toolchain</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -157,23 +159,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="step-7-deploy-nap-with-a-cicd-toolchain">
-<h1>Step 7 - Deploy NAP with a CICD toolchain<a class="headerlink" href="#step-7-deploy-nap-with-a-cicd-toolchain" title="Permalink to this headline">¶</a></h1>
-<p>In this module, we will deploy deploy NAP with a CICD pipeline. NAP is tied to the app, so when DevOps commit a new app (or a new version), the CICD pipeline has to deploy a new NAP in front. In order to avoid to repeat what we did previously, we will use a Signature package update as a trigger.</p>
+  <div class="section" id="step-7-deploy-nap-with-a-ci-cd-toolchain">
+<h1>Step 7 - Deploy NAP with a CI/CD toolchain<a class="headerlink" href="#step-7-deploy-nap-with-a-ci-cd-toolchain" title="Permalink to this headline">¶</a></h1>
+<p>In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to the app, so when DevOps commits a new app (or a new version), the CI/CD pipeline has to deploy a new NAP in front. In order to avoid to repeat what we did previously, we will use a Signature package update as a trigger.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When a new signature package is available, the CICD pipeline will build a new version of the image and run it in front of Arcadia Application</p>
+<p class="last">When a new signature package is available, the CI/CD pipeline will build a new version of the image and run it in front of Arcadia Application</p>
 </div>
 <p><strong>This is the workflow we will run</strong></p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Upload a new Signature Package in GitLab</li>
 <li>Commit this upload in GitLab</li>
-<li>This commit trigger a webhook with Jenkins</li>
+<li>This commit triggers a webhook with Jenkins</li>
 <li><dl class="first docutils">
 <dt>Jenkins runs the pipeline</dt>
 <dd><ol class="first last arabic">
-<li>Build a new docker NAP image with a new tag <code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">signature</span> <span class="pre">package</span></code></li>
+<li>Build a new Docker NAP image with a new tag <code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">signature</span> <span class="pre">package</span></code></li>
 <li>Destroy the previous running NAP container</li>
 <li>Run a new NAP container with this new Signature Package</li>
 </ol>
@@ -184,7 +186,7 @@
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Goal of this module is not to learn how to do it, but undersatnd how I did it.</p>
+<p class="last">Goal of this module is not to learn how to do it, but understand how I did it.</p>
 </div>
 <p><strong>Check the Jenkins file</strong></p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">node</span> <span class="o">{</span>
@@ -228,18 +230,18 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The challenge here was to retrieve the date of the package and tag the iamge with this date. In order to have one image per signature package date. Useful if you need to roll back.</p>
+<p class="last">The challenge here was to retrieve the date of the package and tag the image with this date in order to have one image per signature package date. Useful if you need to roll back to a previous version of the signatures.</p>
 </div>
 <p><strong>Upload a new signature package in Gitlab</strong></p>
 <p>Steps:</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">RDP to the Jumphos and open <code class="docutils literal notranslate"><span class="pre">Chrome</span></code></p>
+<li><p class="first">RDP to the Jumphost and open <code class="docutils literal notranslate"><span class="pre">Chrome</span></code></p>
 </li>
 <li><dl class="first docutils">
 <dt>Open 2 tabs <code class="docutils literal notranslate"><span class="pre">Jenkins</span></code> and <code class="docutils literal notranslate"><span class="pre">Gitlab</span></code></dt>
 <dd><ol class="first last arabic simple">
-<li>If Jenkins is not available (502 error), restart the docker. SSH to Gitlab VM and run <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">restart</span> <span class="pre">gitlab</span></code></li>
+<li>If Jenkins is not available (502 error), restart the GitLab Docker container. SSH to Gitlab VM and run <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">restart</span> <span class="pre">gitlab</span></code></li>
 </ol>
 </dd>
 </dl>
@@ -262,7 +264,7 @@
 <li><dl class="first docutils">
 <dt>Select Signature Package file from the Desktop &gt; NGINX Signature Packages</dt>
 <dd><ol class="first last arabic simple">
-<li>If you can’t click on <code class="docutils literal notranslate"><span class="pre">click</span> <span class="pre">to</span> <span class="pre">upload</span></code>, it is a bug Gitlab</li>
+<li>If you can’t click on <code class="docutils literal notranslate"><span class="pre">click</span> <span class="pre">to</span> <span class="pre">upload</span></code>, this is a bug in Gitlab</li>
 <li>Workaround is to simulate the creation of a file. Close this upload windows, click on <code class="docutils literal notranslate"><span class="pre">+</span></code> icon <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">file</span></code>, enter anything in the name and click <code class="docutils literal notranslate"><span class="pre">cancel</span></code></li>
 <li>Try to upload file agin, it should work.</li>
 </ol>
@@ -273,24 +275,24 @@
 </li>
 </ol>
 </div></blockquote>
-<p><strong>Trigger the CICD pipeline</strong></p>
+<p><strong>Trigger the CI/CD pipeline</strong></p>
 <p>Steps :</p>
 <blockquote>
 <div><ol class="arabic">
 <li><p class="first">In Gitlab, click on <code class="docutils literal notranslate"><span class="pre">tags</span></code> in the left menu</p>
 </li>
-<li><p class="first">Create a new tag and give a name <code class="docutils literal notranslate"><span class="pre">Sig-20200421`</span></code></p>
+<li><p class="first">Create a new tag and give it the name <code class="docutils literal notranslate"><span class="pre">Sig-20200421`</span></code></p>
 </li>
 <li><p class="first">Click <code class="docutils literal notranslate"><span class="pre">create</span> <span class="pre">tag</span></code></p>
 </li>
-<li><p class="first">At this moment, the Jenkins pipeline starts (thanks ot a webhook between Gitlab and Jenkins)</p>
+<li><p class="first">At this moment, the Jenkins pipeline starts (thanks to a webhook between Gitlab and Jenkins)</p>
 </li>
 <li><p class="first">In Jenkins, you should see a new <code class="docutils literal notranslate"><span class="pre">RUN</span></code>, click on it</p>
 <blockquote>
 <div><img alt="../../_images/jenkins_run.png" class="align-center" src="../../_images/jenkins_run.png" />
 </div></blockquote>
 </li>
-<li><p class="first">Wait the pipeline to finish. You can click on every task to check the steps</p>
+<li><p class="first">Wait for the pipeline to finish. You can click on every task to check the steps</p>
 <blockquote>
 <div><img alt="../../_images/jenkins_pipeline.png" class="align-center" src="../../_images/jenkins_pipeline.png" />
 </div></blockquote>
@@ -301,7 +303,7 @@
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Congratulations, you ran a CICD pipeline based on a Gitlab webhook. This webhook was based on a Signature Package update, but it can be tied to an application commit for instance.</p>
+<p class="last">Congratulations, you ran a CI/CD pipeline based on a Gitlab webhook. This webhook was based on a Signature Package update, but it can be tied to an application commit for instance.</p>
 </div>
 </div>
 
@@ -312,6 +314,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../class3/class3.html" class="btn btn-neutral float-right" title="Class 3 - Protect Arcadia with NGINX App Protect in Linux host" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../module4/module4.html" class="btn btn-neutral float-left" title="Step 6 - Customize the WAF policy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
