@@ -36,16 +36,16 @@ The signatures are provided by F5 with an RPM package. The best way to update th
 
 **Follow the steps below to build the new Docker image:**
 
-   #. SSH to Docker App Protect VM
+   #. SSH to Docker App Protect + Docker repo VM
    #. Run the command ``docker build -t app-protect:20200316 -f Dockerfile-sig .`` <-- Be careful, there is a "." (dot) at the end of the command
-   #. Wait ...... till you see ``Successfully tagged app-protect:20200316``
+   #. Wait until you see the message: ``Successfully tagged app-protect:20200316``
 
 .. note:: Please take time to understand what we ran. You may notice 2 changes. We ran the build with a new Dockerfile ``Dockerfile-sig`` and with a new tag ``20200316`` (date of the signature package)
 
 
 **Destroy the previous running NAP container and run a new one based on the new image (tag 20200316)**
 
-   1. Check if the Docker image is available locally ``docker images``. You will notice the new image with the new tag ``20200316``.
+   1. Check if the new app-protect Docker image is available locally by running ``docker images``. You will notice the new image with the new tag ``20200316``.
 
       .. image:: ../pictures/module2/docker_images.png
          :align: center
