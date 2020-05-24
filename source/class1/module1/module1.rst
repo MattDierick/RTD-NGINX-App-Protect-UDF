@@ -1,7 +1,7 @@
 Architecture of Arcadia Application
 ###################################
 
-.. note:: This application is available on Gitlab in case you want to build your own lab : 
+.. note:: This application is available in GitLab in case you want to build your own lab : 
 
 First of all, it is important to understand how Arcadia app is split between micro-services
 

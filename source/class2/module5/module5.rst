@@ -1,15 +1,15 @@
 Step 7 - Deploy NAP with a CI/CD toolchain
 ##########################################
 
-In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to the app, so when DevOps commits a new app (or a new version), the CI/CD pipeline has to deploy a new NAP in front. In order to avoid to repeat what we did previously, we will use a Signature package update as a trigger.
+In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to the app, so when DevOps commits a new app (or a new version), the CI/CD pipeline has to deploy a new NAP component in front. In order to avoid repeating what we did previously, we will use a Signature package update as a trigger.
 
-.. note:: When a new signature package is available, the CI/CD pipeline will build a new version of the image and run it in front of Arcadia Application
+.. note:: When a new signature package is available, the CI/CD pipeline will build a new version of the Docker image and run it in front of Arcadia Application
 
 **This is the workflow we will run**
 
     #. Upload a new Signature Package in GitLab
     #. Commit this upload in GitLab
-    #. This commit triggers a webhook with Jenkins
+    #. This commit triggers a webhook in Jenkins
     #. Jenkins runs the pipeline
         #. Build a new Docker NAP image with a new tag ``date of the signature package``
         #. Destroy the previous running NAP container
@@ -59,50 +59,50 @@ In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to 
                 }
     }
 
-.. note:: The challenge here was to retrieve the date of the package and tag the image with this date in order to have one image per signature package date. Useful if you need to roll back to a previous version of the signatures.
+.. note:: The challenge here was to retrieve the date of the package and tag the image with this date in order to have one image per signature package date. This is useful if you need to roll back to a previous version of the signatures.
 
-**Upload a new signature package in Gitlab**
+**Upload a new signature package in GitLab**
 
 Steps:
 
     #. RDP to the Jumphost and open ``Chrome``
-    #. Open 2 tabs ``Jenkins`` and ``Gitlab``
-        #. If Jenkins is not available (502 error), restart the GitLab Docker container. SSH to Gitlab VM and run ``docker restart gitlab`` 
-    #. In Jenkins, open ``Update_Docker_Signature`` pipeline
+    #. Open 2 tabs ``Dashboard [Jenkins]`` and ``Gitlab``
+        #. If Jenkins is not available (502 error), restart the GitLab Docker container. SSH to the GitLab VM and run ``docker restart gitlab`` 
+    #. In Jenkins, open ``Update_Docker_Signatures`` pipeline
 
         .. image:: ../pictures/module5/jenkins_favorite.png
            :align: center
            :scale: 50%
     
-    #. In Gitlab, open ``NGINX App Protect / signature-update`` project
+    #. In GitLab, open ``NGINX App Protect / signature-update`` project
 
         .. image:: ../pictures/module5/gitlab_project.png
            :align: center
            :scale: 50%
 
-    #. In Gitlab project, click on the ``+`` icon and ``upload file``
+    #. In the GitLab project, click on the ``+`` icon and ``upload file``
 
         .. image:: ../pictures/module5/upload_file.png
            :align: center
            :scale: 50%
 
-    #. Select Signature Package file from the Desktop > NGINX Signature Packages
-        #. If you can't click on ``click to upload``, this is a bug in Gitlab
-        #. Workaround is to simulate the creation of a file. Close this upload windows, click on ``+`` icon ``new file``, enter anything in the name and click ``cancel``
-        #. Try to upload file agin, it should work.
+    #. Select Signature Package file from the Desktop > NGINX Signatures Packages
+        #. If you can't click on ``click to upload``, this is a bug in GitLab
+        #. Workaround is to simulate the creation of a file. Close this upload window, click on ``+`` icon ``New file``, enter anything in the name and click ``Cancel``
+        #. Try to upload the file again, it should work.
 
-    #. Upload the file ``app-protect-attack-signatures-20200421-1.el7.centos.x86_64.rpm`` from date April 21th 2020. Date is in the name of the file
+    #. Upload the file ``app-protect-attack-signatures-20200421-1.el7.centos.x86_64.rpm`` with the date of April 21st, 2020. Date is in the name of the file
 
 
 **Trigger the CI/CD pipeline**
 
 Steps :
 
-    #. In Gitlab, click on ``tags`` in the left menu
-    #. Create a new tag and give it the name ``Sig-20200421```
-    #. Click ``create tag``
-    #. At this moment, the Jenkins pipeline starts (thanks to a webhook between Gitlab and Jenkins)
-    #. In Jenkins, you should see a new ``RUN``, click on it
+    #. In GitLab, click on ``Tags`` in the left menu
+    #. Create a new tag and give it the name ``Sig-20200421``
+    #. Click ``Create tag``
+    #. At this moment, the Jenkins pipeline starts (thanks to a webhook between GitLab and Jenkins)
+    #. In Chrome on the Jenkins tab, you should see a new ``RUN``, click on it
 
         .. image:: ../pictures/module5/jenkins_run.png
            :align: center   
@@ -112,8 +112,8 @@ Steps :
         .. image:: ../pictures/module5/jenkins_pipeline.png
            :align: center 
 
-    #. Connect back in SSH to App Protect VM, and check the signature package date running ``docker exec -it app-protect more /var/log/nginx/error.log``
+    #. Connect in SSH to the Docker App Protect + Docker repo VM, and check the signature package date running ``docker exec -it app-protect more /var/log/nginx/error.log``. You should 
 
 
-.. note:: Congratulations, you ran a CI/CD pipeline based on a Gitlab webhook. This webhook was based on a Signature Package update, but it can be tied to an application commit for instance.
+.. note:: Congratulations, you ran a CI/CD pipeline based on a GitLab webhook. This webhook was based on a Signature Package update, but it could have also been associated with an application commit.
 

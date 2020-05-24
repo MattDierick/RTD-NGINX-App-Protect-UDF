@@ -1,18 +1,19 @@
 Step 9 - Deploy App Protect via CI/CD pipeline
 ##############################################
 
-In this module, we will install NGINX Plus and App Protect packages on CentOS with a CICD toolchain. NGINX teams created Ansible modules to deploy it easily in few seconds.
+In this module, we will install NGINX Plus and App Protect packages on CentOS with a CI/CD toolchain. NGINX teams created Ansible modules to deploy it easily in a few seconds.
 
-.. note:: The official Ansible NAP module is available here https://github.com/nginxinc/ansible-role-nginx-app-protect and the NGINX Plus here https://github.com/nginxinc/ansible-role-nginx 
+.. note:: The official Ansible NAP role is available here https://github.com/nginxinc/ansible-role-nginx-app-protect and the NGINX Plus role here https://github.com/nginxinc/ansible-role-nginx 
 
 
-**Uninstall the previous runnig NAP**
+**Uninstall the previous running NAP**
 
-    #. Uninstall the NAP, in order to start from scratch
+    #. SSH to the App Protect in CentOS VM
+
+    #. Uninstall NAP in order to start from scratch
 
         .. code-block:: bash
 
-            cd [Enter]
             sudo yum remove app-protect*
 
         .. image:: ../pictures/module2/yum-remove-app-protect.png
@@ -30,7 +31,7 @@ In this module, we will install NGINX Plus and App Protect packages on CentOS wi
            :align: center
            :scale: 70%
 
-    #. Delete/rename the last directories
+    #. Delete/rename the directories from the existing deployment
 
         .. code-block:: bash
 
@@ -82,8 +83,8 @@ The pipeline is as below:
 .. note:: This pipeline executes 3 Ansible playbooks. 
     
     #. One playbook to install NGINX Plus
-    #. one playbook to install NAP
-    #. The last playbook is just there to fix an issue in UDF for the DNS resolver.
+    #. One playbook to install NAP
+    #. The last playbook is just there to fix an issue in UDF for the DNS resolver
 
 
 .. image:: ../pictures/module2/pipeline-ok.png
@@ -91,7 +92,7 @@ The pipeline is as below:
    :scale: 40%
 
 
-When pipeline is finished to execute, make a test with ``Chrome`` and the bookmark ``Arcadia NAP Docker``
+When the pipeline is finished executing, perform a browser test within ``Chrome`` using the ``Arcadia NAP Docker`` bookmark
 
 
-.. note :: Congrats, you deployed ``NGINX Plus`` and ``NAP`` with a CI/CD pipeline. You can check the pipelines in the ``GitLab`` if you are interested to see what has been coded behind the scene. But it is straight forward as Ansible modules are provided by F5/NGINX.
+.. note :: Congrats, you deployed ``NGINX Plus`` and ``NAP`` with a CI/CD pipeline. You can check the pipelines in ``GitLab`` if you are interested to see what has been coded behind the scenes. But it is straight forward as the Ansible modules are provided by F5/NGINX.
