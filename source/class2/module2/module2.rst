@@ -45,7 +45,7 @@ The signatures are provided by F5 with an RPM package. The best way to update th
 
 **Destroy the previous running NAP container and run a new one based on the new image (tag 20200316)**
 
-   1. Check if the new app-protect Docker image is available locally by running ``docker images``. You will notice the new image with the new tag ``20200316``.
+   1. Check if the new app-protect Docker image is available locally by running ``docker images``. You will notice the new image with a tag of ``20200316``.
 
       .. image:: ../pictures/module2/docker_images.png
          :align: center
