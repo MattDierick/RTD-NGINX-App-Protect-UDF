@@ -5,9 +5,9 @@ In this module, we will build manually our first NAP Docker image via command li
 
 **Follow the step below to build the Docker image:**
 
-   #. SSH to Docker App Protect VM
+   #. SSH to Docker App Protect + Docker repo VM
    #. Run the command ``docker build -t app-protect:nosig .`` <-- Be careful, there is a "." (dot) at the end of the command
-   #. Wait ...... till you see ``Successfully tagged app-protect:nosig``
+   #. Wait until you see the message: ``Successfully tagged app-protect:nosig``
 
    .. note:: This command execute the Dockerfile below
 
@@ -38,7 +38,7 @@ In this module, we will build manually our first NAP Docker image via command li
 
 **When Docker image is built :**
 
-   1. Check if the Docker image is available locally ``docker images``
+   1. Check if the app-protect Docker image is available locally by running ``docker images``
 
    .. image:: ../pictures/module1/docker_images.png
       :align: center

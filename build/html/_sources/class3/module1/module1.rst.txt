@@ -7,7 +7,7 @@ In this module, we will manually install the NGINX Plus and NGINX App Protect mo
 
 Steps:
 
-    #. SSH to App Protect in CentOS VM
+    #. SSH to the App Protect in CentOS VM
 
     #. Add NGINX Plus repository by downloading the file ``nginx-plus-7.repo`` to ``/etc/yum.repos.d``:
 
@@ -89,7 +89,7 @@ Steps:
 
             sudo vi log-default.json
 
-        Paste the below configuration into ``log-default.json`` and save it
+        Paste the configuration below into ``log-default.json`` and save it
 
         .. code-block:: json
 
@@ -105,7 +105,7 @@ Steps:
             }
 
 
-    #.  Temporarily globally disable SELinux (https://www.nginx.com/blog/using-nginx-plus-with-selinux/?_ga=2.118073737.1001575654.1590004399-760942522.1590004399).
+    #.  Temporarily disable SELinux globally (https://www.nginx.com/blog/using-nginx-plus-with-selinux).
 
         .. code-block:: bash
 
@@ -138,16 +138,16 @@ Steps:
             2020/05/22 09:13:26 [notice] 6205#6205: APP_PROTECT { "event": "waf_connected", "enforcer_thread_id": 0, "worker_pid": 6205, "mode": "operational", "mode_changed": false}
 
 
-.. note:: Congrats, now, your CentOS can publish and protect Arcadia application
+.. note:: Congrats, now your CentOS instance is protecting the Arcadia application
 
-.. note:: You can notice we used exactly the same ``log-default.json`` and ``nginx.conf`` files as in Docker lab.
+.. note:: You may notice we used exactly the same ``log-default.json`` and ``nginx.conf`` files as in the Docker lab.
 
 
-**Now, make a try in the Jumphost**
+**Now, try in the Jumphost**
 
 Steps:
 
-    #. RDP to the Jumphost with credentials ``user:user```
+    #. RDP to the Jumphost with credentials ``user:user``
 
     #. Open Chrome and click ``Arcadia NAP CentOS``
 

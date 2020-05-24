@@ -166,7 +166,7 @@
 <p>Steps:</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">SSH to Docker App-Protect VM</p>
+<li><p class="first">SSH to Docker App Protect + Docker repo VM</p>
 </li>
 <li><p class="first">In <code class="docutils literal notranslate"><span class="pre">/home/ubuntu</span></code> (the default home folder), list the files <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-al</span></code></p>
 </li>
@@ -235,7 +235,7 @@ http <span class="o">{</span>
 <p>Steps:</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">In UDF, search ELK VM and click Access &gt; ELK</p>
+<li><p class="first">In UDF, find the ELK VM and click Access &gt; ELK</p>
 <a class="reference internal image-reference" href="../../_images/ELK_access.png"><img alt="../../_images/ELK_access.png" class="align-center" src="../../_images/ELK_access.png" style="width: 493.0px; height: 358.0px;" /></a>
 </li>
 </ol>
@@ -245,7 +245,7 @@ http <span class="o">{</span>
 </div>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">In Kibana, click on <code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">&gt;</span> <span class="pre">Overview`</span></code></p>
+<li><p class="first">In Kibana, click on <code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">&gt;</span> <span class="pre">Overview</span></code></p>
 <a class="reference internal image-reference" href="../../_images/ELK_dashboard.png"><img alt="../../_images/ELK_dashboard.png" class="align-center" src="../../_images/ELK_dashboard.png" style="width: 1000.0px; height: 651.0px;" /></a>
 </li>
 </ol>
@@ -255,12 +255,16 @@ http <span class="o">{</span>
 </div>
 <blockquote>
 <div><ol class="arabic simple">
-<li>At the bottom of the dashboard, you can see the logs. Select one logs and check the content</li>
+<li>At the bottom of the dashboard, you can see the logs. Select one of the log entries and check the content</li>
 </ol>
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">You may notice the log content is similar to ASM and Adv. WAF</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The default time window in this Kibana dashboard is <strong>Last 15 minutes</strong>. If you do not see any requests, you may need to extend the time window to a larger setting</p>
 </div>
 </div>
 

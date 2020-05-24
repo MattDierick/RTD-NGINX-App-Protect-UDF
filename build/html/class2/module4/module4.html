@@ -166,12 +166,11 @@
 <p>Steps:</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">SSH to the Docker App Protect VM</p>
+<li><p class="first">SSH to the Docker App Protect + Docker repo VM</p>
 </li>
-<li><p class="first">Create a new folder <code class="docutils literal notranslate"><span class="pre">policy-adv`</span></code></p>
+<li><p class="first">In the <code class="docutils literal notranslate"><span class="pre">/home/ubuntu</span></code> directory, create a new folder <code class="docutils literal notranslate"><span class="pre">policy-adv</span></code></p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="o">[</span>enter<span class="o">]</span>
-mkdir policy-adv
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir policy-adv
 </pre></div>
 </div>
 </div></blockquote>
@@ -310,7 +309,7 @@ mkdir policy-adv
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Now, create a new <code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code> in the <code class="docutils literal notranslate"><span class="pre">policy-adv</span></code> folder. Do not overwrite the existing file, we need it for the next labs.</p>
+<li><p class="first">Now, create a new <code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code> in the <code class="docutils literal notranslate"><span class="pre">policy-adv</span></code> folder. Do not overwrite the existing <code class="docutils literal notranslate"><span class="pre">/etc/nginx/nginx.conf</span></code> file, we need it for the next labs.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi ./policy-adv/nginx.conf
 </pre></div>
@@ -380,7 +379,7 @@ http <span class="o">{</span>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Last step is to run a new container (and delete the previous one) refering to these 3 files.</p>
+<li><p class="first">Last step is to run a new container (and delete the previous one) referring to these 3 files.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker rm -f app-protect
 docker run -dit --name app-protect -p <span class="m">80</span>:80 -v /home/ubuntu/policy-adv/nginx.conf:/etc/nginx/nginx.conf -v /home/ubuntu/policy-adv/policy_base.json://etc/nginx/policy/policy_base.json -v /home/ubuntu/policy-adv/policy_mongo_linux_JSON.json:/etc/nginx/policy/policy_mongo_linux_JSON.json  app-protect:20200316
@@ -388,7 +387,7 @@ docker run -dit --name app-protect -p <span class="m">80</span>:80 -v /home/ubun
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Check the container is running</p>
+<li><p class="first">Check that the <code class="docutils literal notranslate"><span class="pre">app-protect:20200316</span></code> container is running</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker ps
 </pre></div>
@@ -405,12 +404,12 @@ docker run -dit --name app-protect -p <span class="m">80</span>:80 -v /home/ubun
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>From now, NAP is using a different WAF policy based on the URI</p>
+<p>From this point on, NAP is using a different WAF policy based on the requested URI:</p>
 <ol class="last arabic simple">
-<li>policy_base for / (the main app)</li>
-<li>policy_mongo_linux_JSON for /files (the back end)</li>
-<li>policy_mongo_linux_JSON for /api (the Money Tranfer)</li>
-<li>policy_mongo_linux_JSON for /app3 (the Refer Friend)</li>
+<li>policy_base for <code class="docutils literal notranslate"><span class="pre">/</span></code> (the main app)</li>
+<li>policy_mongo_linux_JSON for <code class="docutils literal notranslate"><span class="pre">/files</span></code> (the back end)</li>
+<li>policy_mongo_linux_JSON for <code class="docutils literal notranslate"><span class="pre">/api</span></code> (the Money Transfer service)</li>
+<li>policy_mongo_linux_JSON for <code class="docutils literal notranslate"><span class="pre">/app3</span></code> (the Refer Friend service)</li>
 </ol>
 </div>
 </div>

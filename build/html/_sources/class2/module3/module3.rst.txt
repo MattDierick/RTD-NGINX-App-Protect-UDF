@@ -7,7 +7,7 @@ In this module, we will check the logs in ELK (Elastic, Logstash, Kibana)
 
 Steps:
 
-   #. SSH to Docker App-Protect VM
+   #. SSH to Docker App Protect + Docker repo VM
    #. In ``/home/ubuntu`` (the default home folder), list the files ``ls -al``
    #. You can see 2 files ``log-default.json`` and ``nginx.conf``
    #. Open log-default.json ``less log-default.json``. You will notice we log all requests.
@@ -73,7 +73,7 @@ Steps:
 
 Steps:
 
-   #. In UDF, search ELK VM and click Access > ELK
+   #. In UDF, find the ELK VM and click Access > ELK
 
       .. image:: ../pictures/module3/ELK_access.png
          :align: center
@@ -81,7 +81,7 @@ Steps:
 
 |
 
-   #. In Kibana, click on ``Dashboard > Overview```
+   #. In Kibana, click on ``Dashboard > Overview``
 
       .. image:: ../pictures/module3/ELK_dashboard.png
          :align: center
@@ -89,6 +89,8 @@ Steps:
 
 |
 
-   #. At the bottom of the dashboard, you can see the logs. Select one logs and check the content
+   #. At the bottom of the dashboard, you can see the logs. Select one of the log entries and check the content
 
 .. note:: You may notice the log content is similar to ASM and Adv. WAF
+
+.. note:: The default time window in this Kibana dashboard is **Last 15 minutes**. If you do not see any requests, you may need to extend the time window to a larger setting

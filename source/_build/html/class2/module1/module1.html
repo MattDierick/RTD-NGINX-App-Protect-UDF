@@ -165,9 +165,9 @@
 <p><strong>Follow the step below to build the Docker image:</strong></p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>SSH to Docker App Protect VM</li>
+<li>SSH to Docker App Protect + Docker repo VM</li>
 <li>Run the command <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">-t</span> <span class="pre">app-protect:nosig</span> <span class="pre">.</span></code> &lt;– Be careful, there is a “.” (dot) at the end of the command</li>
-<li>Wait …… till you see <code class="docutils literal notranslate"><span class="pre">Successfully</span> <span class="pre">tagged</span> <span class="pre">app-protect:nosig</span></code></li>
+<li>Wait until you see the message: <code class="docutils literal notranslate"><span class="pre">Successfully</span> <span class="pre">tagged</span> <span class="pre">app-protect:nosig</span></code></li>
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -199,7 +199,7 @@ CMD <span class="o">[</span><span class="s2">&quot;/root/entrypoint.sh&quot;</sp
 <p><strong>When Docker image is built :</strong></p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Check if the Docker image is available locally <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code></li>
+<li>Check if the app-protect Docker image is available locally by running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code></li>
 </ol>
 <img alt="../../_images/docker_images.png" class="align-center" src="../../_images/docker_images.png" />
 </div></blockquote>

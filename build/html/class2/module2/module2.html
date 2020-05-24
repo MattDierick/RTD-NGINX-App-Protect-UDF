@@ -196,9 +196,9 @@ CMD <span class="o">[</span><span class="s2">&quot;/root/entrypoint.sh&quot;</sp
 <p><strong>Follow the steps below to build the new Docker image:</strong></p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>SSH to Docker App Protect VM</li>
+<li>SSH to Docker App Protect + Docker repo VM</li>
 <li>Run the command <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">-t</span> <span class="pre">app-protect:20200316</span> <span class="pre">-f</span> <span class="pre">Dockerfile-sig</span> <span class="pre">.</span></code> &lt;– Be careful, there is a “.” (dot) at the end of the command</li>
-<li>Wait …… till you see <code class="docutils literal notranslate"><span class="pre">Successfully</span> <span class="pre">tagged</span> <span class="pre">app-protect:20200316</span></code></li>
+<li>Wait until you see the message: <code class="docutils literal notranslate"><span class="pre">Successfully</span> <span class="pre">tagged</span> <span class="pre">app-protect:20200316</span></code></li>
 </ol>
 </div></blockquote>
 <div class="admonition note">
@@ -208,7 +208,7 @@ CMD <span class="o">[</span><span class="s2">&quot;/root/entrypoint.sh&quot;</sp
 <p><strong>Destroy the previous running NAP container and run a new one based on the new image (tag 20200316)</strong></p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">Check if the Docker image is available locally <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code>. You will notice the new image with the new tag <code class="docutils literal notranslate"><span class="pre">20200316</span></code>.</p>
+<li><p class="first">Check if the new app-protect Docker image is available locally by running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code>. You will notice the new image with a tag of <code class="docutils literal notranslate"><span class="pre">20200316</span></code>.</p>
 <img alt="../../_images/docker_images1.png" class="align-center" src="../../_images/docker_images1.png" />
 </li>
 </ol>

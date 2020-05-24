@@ -99,7 +99,7 @@ Step 7 - Deploy NAP with a CI/CD toolchain
 Task:
 
     #. Upload a new signature package into the local repo (gitlab) 
-    #. Gitlab webhook to trigger a Jenkins Pipeline building a new version of the NAP image with this new signature package
+    #. GitLab webhook to trigger a Jenkins Pipeline building a new version of the NAP image with this new signature package
     #. Deploy and run this new version of the NAP image in front of Arcadia
     #. Check the signature package date
 

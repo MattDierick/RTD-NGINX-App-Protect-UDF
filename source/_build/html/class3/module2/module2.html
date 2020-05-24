@@ -157,18 +157,19 @@
             
   <div class="section" id="step-9-deploy-app-protect-via-ci-cd-pipeline">
 <h1>Step 9 - Deploy App Protect via CI/CD pipeline<a class="headerlink" href="#step-9-deploy-app-protect-via-ci-cd-pipeline" title="Permalink to this headline">¶</a></h1>
-<p>In this module, we will install NGINX Plus and App Protect packages on CentOS with a CICD toolchain. NGINX teams created Ansible modules to deploy it easily in few seconds.</p>
+<p>In this module, we will install NGINX Plus and App Protect packages on CentOS with a CI/CD toolchain. NGINX teams created Ansible modules to deploy it easily in a few seconds.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The official Ansible NAP module is available here <a class="reference external" href="https://github.com/nginxinc/ansible-role-nginx-app-protect">https://github.com/nginxinc/ansible-role-nginx-app-protect</a> and the NGINX Plus here <a class="reference external" href="https://github.com/nginxinc/ansible-role-nginx">https://github.com/nginxinc/ansible-role-nginx</a></p>
+<p class="last">The official Ansible NAP role is available here <a class="reference external" href="https://github.com/nginxinc/ansible-role-nginx-app-protect">https://github.com/nginxinc/ansible-role-nginx-app-protect</a> and the NGINX Plus role here <a class="reference external" href="https://github.com/nginxinc/ansible-role-nginx">https://github.com/nginxinc/ansible-role-nginx</a></p>
 </div>
-<p><strong>Uninstall the previous runnig NAP</strong></p>
+<p><strong>Uninstall the previous running NAP</strong></p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">Uninstall the NAP, in order to start from scratch</p>
+<li><p class="first">SSH to the App Protect in CentOS VM</p>
+</li>
+<li><p class="first">Uninstall NAP in order to start from scratch</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="o">[</span>Enter<span class="o">]</span>
-sudo yum remove app-protect*
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum remove app-protect*
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../../_images/yum-remove-app-protect.png"><img alt="../../_images/yum-remove-app-protect.png" class="align-center" src="../../_images/yum-remove-app-protect.png" style="width: 574.0px; height: 279.0px;" /></a>
@@ -182,7 +183,7 @@ sudo yum remove app-protect*
 <a class="reference internal image-reference" href="../../_images/yum-remove-nginx-plus.png"><img alt="../../_images/yum-remove-nginx-plus.png" class="align-center" src="../../_images/yum-remove-nginx-plus.png" style="width: 667.8px; height: 266.0px;" /></a>
 </div></blockquote>
 </li>
-<li><p class="first">Delete/rename the last directories</p>
+<li><p class="first">Delete/rename the directories from the existing deployment</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo rm -rf /etc/nginx
 sudo rm -rf /var/log/nginx
@@ -231,15 +232,15 @@ sudo rm -rf /var/log/nginx
 <p>This pipeline executes 3 Ansible playbooks.</p>
 <ol class="last arabic simple">
 <li>One playbook to install NGINX Plus</li>
-<li>one playbook to install NAP</li>
-<li>The last playbook is just there to fix an issue in UDF for the DNS resolver.</li>
+<li>One playbook to install NAP</li>
+<li>The last playbook is just there to fix an issue in UDF for the DNS resolver</li>
 </ol>
 </div>
 <a class="reference internal image-reference" href="../../_images/pipeline-ok.png"><img alt="../../_images/pipeline-ok.png" class="align-center" src="../../_images/pipeline-ok.png" style="width: 800.0px; height: 304.4px;" /></a>
-<p>When pipeline is finished to execute, make a test with <code class="docutils literal notranslate"><span class="pre">Chrome</span></code> and the bookmark <code class="docutils literal notranslate"><span class="pre">Arcadia</span> <span class="pre">NAP</span> <span class="pre">Docker</span></code></p>
+<p>When the pipeline is finished executing, perform a browser test within <code class="docutils literal notranslate"><span class="pre">Chrome</span></code> using the <code class="docutils literal notranslate"><span class="pre">Arcadia</span> <span class="pre">NAP</span> <span class="pre">Docker</span></code> bookmark</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Congrats, you deployed <code class="docutils literal notranslate"><span class="pre">NGINX</span> <span class="pre">Plus</span></code> and <code class="docutils literal notranslate"><span class="pre">NAP</span></code> with a CI/CD pipeline. You can check the pipelines in the <code class="docutils literal notranslate"><span class="pre">GitLab</span></code> if you are interested to see what has been coded behind the scene. But it is straight forward as Ansible modules are provided by F5/NGINX.</p>
+<p class="last">Congrats, you deployed <code class="docutils literal notranslate"><span class="pre">NGINX</span> <span class="pre">Plus</span></code> and <code class="docutils literal notranslate"><span class="pre">NAP</span></code> with a CI/CD pipeline. You can check the pipelines in <code class="docutils literal notranslate"><span class="pre">GitLab</span></code> if you are interested to see what has been coded behind the scenes. But it is straight forward as the Ansible modules are provided by F5/NGINX.</p>
 </div>
 </div>
 
