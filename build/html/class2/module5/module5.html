@@ -297,9 +297,12 @@
 <div><img alt="../../_images/jenkins_pipeline.png" class="align-center" src="../../_images/jenkins_pipeline.png" />
 </div></blockquote>
 </li>
+<li><p class="first">Connect in SSH to the Docker App Protect + Docker repo VM, and check the signature package date running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">app-protect</span> <span class="pre">more</span> <span class="pre">/var/log/nginx/error.log</span></code>.</p>
+</li>
 </ol>
-<p>#. Connect in SSH to the Docker App Protect + Docker repo VM, and check the signature package date running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">app-protect</span> <span class="pre">more</span> <span class="pre">/var/log/nginx/error.log</span></code>. You should see a log entry similar to:
-<code class="docutils literal notranslate"><span class="pre">APP_PROTECT</span> <span class="pre">{</span> <span class="pre">&quot;event&quot;:</span> <span class="pre">&quot;configuration_load_success&quot;,</span> <span class="pre">&quot;attack_signatures_package&quot;:{&quot;revision_datetime&quot;:&quot;2020-04-21T10:43:02Z&quot;,&quot;</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2020</span>/05/24 <span class="m">20</span>:49:39 <span class="o">[</span>notice<span class="o">]</span> <span class="m">12</span><span class="c1">#12: APP_PROTECT { &quot;event&quot;: &quot;configuration_load_success&quot;, &quot;attack_signatures_package&quot;:{&quot;revision_datetime&quot;:&quot;2020-04-21T10:43:02Z&quot;,&quot;version&quot;:&quot;2020.04.21&quot;},&quot;completed_successfully&quot;:true}</span>
+</pre></div>
+</div>
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>

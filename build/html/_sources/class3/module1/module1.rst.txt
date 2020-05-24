@@ -19,7 +19,7 @@ Steps:
 
         .. code-block:: bash
 
-            sudo yum install app-protect
+            sudo yum install -y app-protect
 
     #. Check the NGINX binary version to ensure that you have NGINX Plus installed correctly:
 
@@ -168,7 +168,7 @@ Steps:
 
         .. code-block:: bash
 
-            sudo yum install app-protect-attack-signatures
+            sudo yum install -y app-protect-attack-signatures
 
         To install a specific version, list the available versions:
 
@@ -180,7 +180,7 @@ Steps:
 
         .. code-block:: bash
 
-            sudo yum install app-protect-attack-signatures-2020.04.30
+            sudo yum install -y app-protect-attack-signatures-2020.04.30
 
         To downgrade to a specific version:
 

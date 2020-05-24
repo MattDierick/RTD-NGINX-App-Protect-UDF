@@ -14,7 +14,7 @@ In this module, we will install NGINX Plus and App Protect packages on CentOS wi
 
         .. code-block:: bash
 
-            sudo yum remove app-protect*
+            sudo yum remove -y app-protect*
 
         .. image:: ../pictures/module2/yum-remove-app-protect.png
            :align: center
@@ -25,7 +25,7 @@ In this module, we will install NGINX Plus and App Protect packages on CentOS wi
 
         .. code-block:: bash
 
-            sudo yum remove nginx-plus*
+            sudo yum remove -y nginx-plus*
 
         .. image:: ../pictures/module2/yum-remove-nginx-plus.png
            :align: center
