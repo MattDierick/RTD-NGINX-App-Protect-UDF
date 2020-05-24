@@ -7,12 +7,11 @@ In this lab, we will customize the policy and push a new config file to the dock
 
 Steps:
 
-    #. SSH to the Docker App Protect VM
-    #. Create a new folder ``policy-adv```
+    #. SSH to the Docker App Protect + Docker repo VM
+    #. In the ``/home/ubuntu`` directory, create a new folder ``policy-adv``
 
         .. code-block:: bash
 
-            cd [enter]
             mkdir policy-adv
 
     #. Create a new policy file named ``policy_base.json`` and paste the content below
@@ -149,7 +148,7 @@ Steps:
         .. note:: you can notice the difference between the ``base`` and the ``advanced`` policy.
 
 
-    #. Now, create a new ``nginx.conf`` in the ``policy-adv`` folder. Do not overwrite the existing file, we need it for the next labs.
+    #. Now, create a new ``nginx.conf`` in the ``policy-adv`` folder. Do not overwrite the existing ``/etc/nginx/nginx.conf`` file, we need it for the next labs.
 
         .. code-block:: bash
 
@@ -219,14 +218,14 @@ Steps:
                 }
             }
 
-    #. Last step is to run a new container (and delete the previous one) refering to these 3 files.
+    #. Last step is to run a new container (and delete the previous one) referring to these 3 files.
 
         .. code-block:: bash
 
             docker rm -f app-protect
             docker run -dit --name app-protect -p 80:80 -v /home/ubuntu/policy-adv/nginx.conf:/etc/nginx/nginx.conf -v /home/ubuntu/policy-adv/policy_base.json://etc/nginx/policy/policy_base.json -v /home/ubuntu/policy-adv/policy_mongo_linux_JSON.json:/etc/nginx/policy/policy_mongo_linux_JSON.json  app-protect:20200316
 
-    #. Check the container is running 
+    #. Check that the ``app-protect:20200316`` container is running 
 
         .. code-block:: bash
 
@@ -241,11 +240,9 @@ Steps:
            :align: center
 
 
-.. note:: From now, NAP is using a different WAF policy based on the URI 
+.. note:: From this point on, NAP is using a different WAF policy based on the requested URI:
 
-    #. policy_base for / (the main app)
-    #. policy_mongo_linux_JSON for /files (the back end)
-    #. policy_mongo_linux_JSON for /api (the Money Tranfer)
-    #. policy_mongo_linux_JSON for /app3 (the Refer Friend)
-
-
+    #. policy_base for ``/`` (the main app)
+    #. policy_mongo_linux_JSON for ``/files`` (the back end)
+    #. policy_mongo_linux_JSON for ``/api`` (the Money Transfer service)
+    #. policy_mongo_linux_JSON for ``/app3`` (the Refer Friend service)
