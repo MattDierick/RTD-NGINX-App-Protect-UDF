@@ -112,8 +112,11 @@ Steps :
         .. image:: ../pictures/module5/jenkins_pipeline.png
            :align: center 
 
-    #. Connect in SSH to the Docker App Protect + Docker repo VM, and check the signature package date running ``docker exec -it app-protect more /var/log/nginx/error.log``. You should see a log entry similar to: 
-    ``APP_PROTECT { "event": "configuration_load_success", "attack_signatures_package":{"revision_datetime":"2020-04-21T10:43:02Z","``
+    #. Connect in SSH to the Docker App Protect + Docker repo VM, and check the signature package date running ``docker exec -it app-protect more /var/log/nginx/error.log``.
+    
+    .. code-block:: bash
+       
+       2020/05/24 20:49:39 [notice] 12#12: APP_PROTECT { "event": "configuration_load_success", "attack_signatures_package":{"revision_datetime":"2020-04-21T10:43:02Z","version":"2020.04.21"},"completed_successfully":true}
 
 
 .. note:: Congratulations, you ran a CI/CD pipeline based on a GitLab webhook. This webhook was based on a Signature Package update, but it could have also been associated with an application commit.
