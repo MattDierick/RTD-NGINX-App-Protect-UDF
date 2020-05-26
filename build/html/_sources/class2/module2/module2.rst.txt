@@ -70,7 +70,7 @@ The signatures are provided by F5 with an RPM package. The best way to update th
 
 .. note:: Congrats, you are running a new version of NAP with an updated signature package.
 
-**Video of this module**
+**Video of this module (force HD 1080p in the video settings)**
 
 .. raw:: html
 

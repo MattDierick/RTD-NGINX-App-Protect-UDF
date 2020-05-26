@@ -83,7 +83,7 @@ I prepared this YAML file below (this is only for the main app container). You c
 
 .. warning:: Arcadia Application is running but not yet available for the customers. We need to publish it.
 
-**Video of this module**
+**Video of this module (force HD 1080p in the video settings)**
 
 .. raw:: html
 

@@ -77,7 +77,7 @@ In this module, we will build manually our first NAP Docker image via command li
 
 .. note:: Did you notice the blocking page is similar to ASM and Adv. WAF ?
 
-**Video of this module**
+**Video of this module (force HD 1080p in the video settings)**
 
 .. raw:: html
 
