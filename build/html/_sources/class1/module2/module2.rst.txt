@@ -26,7 +26,7 @@ Step 1 - Deploy and publish Arcadia Finance application in Kubernetes
 Tasks:
 
     #. Run a Kubernetes command (kubectl) that will download Arcadia containers from an external public repo (Gitlab.com), and run them
-    #. Check in Kubernetes Dahsboard if Arcadia is deployed and runnning
+    #. Check in Kubernetes Dashboard if Arcadia is deployed and runnning
 
 |
 
