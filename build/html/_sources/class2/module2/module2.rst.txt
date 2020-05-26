@@ -69,3 +69,11 @@ The signatures are provided by F5 with an RPM package. The best way to update th
       2020/05/20 09:30:20 [notice] 12#12: APP_PROTECT { "event": "configuration_load_success", "attack_signatures_package":{"revision_datetime":"2020-03-16T14:11:52Z","version":"2020.03.16"},"completed_successfully":true}
 
 .. note:: Congrats, you are running a new version of NAP with an updated signature package.
+
+**Video of this module**
+
+.. raw:: html
+
+    <div style="text-align: center; margin-bottom: 2em;">
+    <iframe width="1120" height="630" src="https://www.youtube.com/embed/7o1g-nY2gNY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>

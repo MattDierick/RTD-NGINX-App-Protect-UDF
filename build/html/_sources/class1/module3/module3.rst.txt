@@ -82,3 +82,12 @@ I prepared this YAML file below (this is only for the main app container). You c
 
 
 .. warning:: Arcadia Application is running but not yet available for the customers. We need to publish it.
+
+**Video of this module**
+
+.. raw:: html
+
+    <div style="text-align: center; margin-bottom: 2em;">
+    <iframe width="1120" height="630" src="https://www.youtube.com/embed/Qb5YyQrc7mk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
