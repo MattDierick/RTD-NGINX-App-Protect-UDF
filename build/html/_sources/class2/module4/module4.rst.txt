@@ -251,7 +251,6 @@ Steps:
 .. raw:: html
 
     <div style="text-align: center; margin-bottom: 2em;">
-    <iframe width="1120" height="630" src="https://youtu.be/BQTSf4-iqGo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="1120" height="630" src="https://www.youtube.com/embed/gHaauG3E1kI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
-    
