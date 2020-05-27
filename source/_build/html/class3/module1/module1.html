@@ -345,6 +345,20 @@ http <span class="o">{</span>
 </div>
 </div></blockquote>
 </li>
+<li><p class="first">Restart NGINX process to apply the new signatures:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo systemctl restart nginx
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Check the <strong>new</strong> signatures package date:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>less /var/log/nginx/error.log
+</pre></div>
+</div>
+</div></blockquote>
+</li>
 </ol>
 </div></blockquote>
 <div class="admonition note">
