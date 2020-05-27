@@ -247,6 +247,7 @@ Steps:
     #. policy_mongo_linux_JSON for ``/api`` (the Money Transfer service)
     #. policy_mongo_linux_JSON for ``/app3`` (the Refer Friend service)
 
+**Video of this module (force HD 1080p in the video settings)**
 
 .. raw:: html
 

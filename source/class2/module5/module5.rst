@@ -121,6 +121,7 @@ Steps :
 
 .. note:: Congratulations, you ran a CI/CD pipeline based on a GitLab webhook. This webhook was based on a Signature Package update, but it could have also been associated with an application commit.
 
+**Video of this module (force HD 1080p in the video settings)**
 
 .. raw:: html
 

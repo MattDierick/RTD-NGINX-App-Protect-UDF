@@ -95,6 +95,8 @@ Steps:
 
 .. note:: The default time window in this Kibana dashboard is **Last 15 minutes**. If you do not see any requests, you may need to extend the time window to a larger setting
 
+**Video of this module (force HD 1080p in the video settings)**
+
 .. raw:: html
 
     <div style="text-align: center; margin-bottom: 2em;">

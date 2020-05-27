@@ -97,6 +97,7 @@ When the pipeline is finished executing, perform a browser test within ``Chrome`
 
 .. note :: Congrats, you deployed ``NGINX Plus`` and ``NAP`` with a CI/CD pipeline. You can check the pipelines in ``GitLab`` if you are interested to see what has been coded behind the scenes. But it is straight forward as the Ansible modules are provided by F5/NGINX.
 
+**Video of this module (force HD 1080p in the video settings)**
 
 .. raw:: html
 

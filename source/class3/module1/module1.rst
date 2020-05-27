@@ -202,6 +202,7 @@ Steps:
 
 .. note:: Upgrading App Protect does not install new Attack Signatures. You will get the same Attack Signature release after upgrading App Protect. If you want to also upgrade the Attack Signatures, you will have to explicitly update them by the respective command above.
 
+**Video of this module (force HD 1080p in the video settings)**
 
 .. raw:: html
 
