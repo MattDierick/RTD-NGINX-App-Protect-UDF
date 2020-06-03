@@ -48,7 +48,7 @@ Steps:
             load_module modules/ngx_http_app_protect_module.so;
 
             events {
-                worker_connections  1024;
+                worker_connections 1024;
             }
 
             http {
