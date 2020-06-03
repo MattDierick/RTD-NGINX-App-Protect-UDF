@@ -111,6 +111,14 @@ Steps :
 
         .. image:: ../pictures/module5/jenkins_pipeline.png
            :align: center 
+    
+    #. Check if the new image created and pushed by the pipeline is available in the Docker Registry.
+        #. In ``Chrome`` open bookmark ``Docker Registry UI``
+        #. Click on ``App Protect`` Repository
+        #. You can see your new image with the tag ``20200421``
+
+        .. image:: ../pictures/module5/registry-ui.png
+           :align: center 
 
     #. Connect in SSH to the Docker App Protect + Docker repo VM, and check the signature package date running ``docker exec -it app-protect more /var/log/nginx/error.log``.
     

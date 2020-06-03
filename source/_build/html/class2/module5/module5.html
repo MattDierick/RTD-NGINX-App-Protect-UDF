@@ -297,6 +297,17 @@
 <div><img alt="../../_images/jenkins_pipeline.png" class="align-center" src="../../_images/jenkins_pipeline.png" />
 </div></blockquote>
 </li>
+<li><dl class="first docutils">
+<dt>Check if the new image created and pushed by the pipeline is available in the Docker Registry.</dt>
+<dd><ol class="first arabic simple">
+<li>In <code class="docutils literal notranslate"><span class="pre">Chrome</span></code> open bookmark <code class="docutils literal notranslate"><span class="pre">Docker</span> <span class="pre">Registry</span> <span class="pre">UI</span></code></li>
+<li>Click on <code class="docutils literal notranslate"><span class="pre">App</span> <span class="pre">Protect</span></code> Repository</li>
+<li>You can see your new image with the tag <code class="docutils literal notranslate"><span class="pre">20200421</span></code></li>
+</ol>
+<img alt="../../_images/registry-ui.png" class="last align-center" src="../../_images/registry-ui.png" />
+</dd>
+</dl>
+</li>
 <li><p class="first">Connect in SSH to the Docker App Protect + Docker repo VM, and check the signature package date running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">app-protect</span> <span class="pre">more</span> <span class="pre">/var/log/nginx/error.log</span></code>.</p>
 </li>
 </ol>
