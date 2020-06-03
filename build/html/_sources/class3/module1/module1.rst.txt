@@ -105,7 +105,7 @@ Steps:
             }
 
 
-    #.  Temporarily disable SELinux globally (https://www.nginx.com/blog/using-nginx-plus-with-selinux).
+    #.  Temporarily make SELinux permissive globally (https://www.nginx.com/blog/using-nginx-plus-with-selinux).
 
         .. code-block:: bash
 
