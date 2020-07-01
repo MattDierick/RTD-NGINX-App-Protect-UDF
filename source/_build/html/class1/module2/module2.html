@@ -90,11 +90,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#step-2-publish-arcadia-app-with-a-ngnix-plus-ingress-controller">Step 2 - Publish Arcadia app with a NGNIX Plus Ingress Controller</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-3-build-your-first-nap-nginx-app-protect-docker-image">Step 3 - Build your first NAP (NGINX App Protect) docker image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-4-update-this-image-with-the-latest-waf-signature">Step 4 - Update this image with the latest WAF signature</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-5-check-logs-in-kibana">Step 5 - Check logs in Kibana</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-6-customize-the-waf-policy">Step 6 - Customize the WAF policy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-7-deploy-nap-with-a-ci-cd-toolchain">Step 7 - Deploy NAP with a CI/CD toolchain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-8-install-the-nginx-plus-and-app-protect-packages-manually">Step 8 - Install the NGINX Plus and App Protect packages manually</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-9-deploy-app-protect-via-ci-cd-pipeline">Step 9 - Deploy App Protect via CI/CD pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-update-the-docker-image-with-the-threat-campaign-package">Step 5 - Update the Docker image with the Threat Campaign package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-6-check-logs-in-kibana">Step 6 - Check logs in Kibana</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-7-customize-the-waf-policy">Step 7 - Customize the WAF policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-8-deploy-nap-with-a-ci-cd-toolchain">Step 8 - Deploy NAP with a CI/CD toolchain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-9-install-the-nginx-plus-and-app-protect-packages-manually">Step 9 - Install the NGINX Plus and App Protect packages manually</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-10-deploy-app-protect-via-ci-cd-pipeline">Step 10 - Deploy App Protect via CI/CD pipeline</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Step 1 - Deploy and publish Arcadia Finance application in Kubernetes</a></li>
@@ -271,7 +272,7 @@
 <p>Task:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Run the same Docker build command but with a new Dockerfile containing the new RPM signature package</li>
+<li>Run the same Docker build command but with a new Dockerfile containing the new repo with the signatures</li>
 <li>Destroy the previous NAP container and run a new one from this new image</li>
 <li>Check the signature date</li>
 </ol>
@@ -280,8 +281,26 @@
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="step-5-check-logs-in-kibana">
-<h2>Step 5 - Check logs in Kibana<a class="headerlink" href="#step-5-check-logs-in-kibana" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-5-update-the-docker-image-with-the-threat-campaign-package">
+<h2>Step 5 - Update the Docker image with the Threat Campaign package<a class="headerlink" href="#step-5-update-the-docker-image-with-the-threat-campaign-package" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Goal is to create a new NAP image with the latest Threat Campaign package ruleset.</p>
+</div>
+<p>Task:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Run the same Docker build command but with a new Dockerfile containing the new package to install</li>
+<li>Destroy the previous NAP container and run a new one from this new image</li>
+<li>Check the Threat Campaign ruleset date</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="step-6-check-logs-in-kibana">
+<h2>Step 6 - Check logs in Kibana<a class="headerlink" href="#step-6-check-logs-in-kibana" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Goal is to check logs in ELK (Elastic, Logstash, Kibana)</p>
@@ -296,8 +315,8 @@
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="step-6-customize-the-waf-policy">
-<h2>Step 6 - Customize the WAF policy<a class="headerlink" href="#step-6-customize-the-waf-policy" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-7-customize-the-waf-policy">
+<h2>Step 7 - Customize the WAF policy<a class="headerlink" href="#step-7-customize-the-waf-policy" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Goal is to customize the WAF policy in front of Arcadia application. By default, a base policy is deployed.</p>
@@ -312,8 +331,8 @@
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="step-7-deploy-nap-with-a-ci-cd-toolchain">
-<h2>Step 7 - Deploy NAP with a CI/CD toolchain<a class="headerlink" href="#step-7-deploy-nap-with-a-ci-cd-toolchain" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-8-deploy-nap-with-a-ci-cd-toolchain">
+<h2>Step 8 - Deploy NAP with a CI/CD toolchain<a class="headerlink" href="#step-8-deploy-nap-with-a-ci-cd-toolchain" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Goal is to deploy NAP in a real environment with a CI/CD toolchain in place.</p>
@@ -331,8 +350,8 @@
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="step-8-install-the-nginx-plus-and-app-protect-packages-manually">
-<h2>Step 8 - Install the NGINX Plus and App Protect packages manually<a class="headerlink" href="#step-8-install-the-nginx-plus-and-app-protect-packages-manually" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-9-install-the-nginx-plus-and-app-protect-packages-manually">
+<h2>Step 9 - Install the NGINX Plus and App Protect packages manually<a class="headerlink" href="#step-9-install-the-nginx-plus-and-app-protect-packages-manually" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Goal is to deploy NAP and NGINX Plus in a CentOS linux host.</p>
@@ -349,8 +368,8 @@
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="step-9-deploy-app-protect-via-ci-cd-pipeline">
-<h2>Step 9 - Deploy App Protect via CI/CD pipeline<a class="headerlink" href="#step-9-deploy-app-protect-via-ci-cd-pipeline" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-10-deploy-app-protect-via-ci-cd-pipeline">
+<h2>Step 10 - Deploy App Protect via CI/CD pipeline<a class="headerlink" href="#step-10-deploy-app-protect-via-ci-cd-pipeline" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Goal is to deploy NAP by using a CI/CD pipeline with automation toolchain packages provided by F5.</p>

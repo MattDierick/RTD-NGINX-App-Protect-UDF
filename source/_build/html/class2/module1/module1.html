@@ -87,9 +87,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Step 3 - Build your first NAP (NGINX App Protect) Docker image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 4 - Update the Docker image with the latest WAF signatures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Step 5 - Check logs in Kibana</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 6 - Customize the WAF policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module5/module5.html">Step 7 - Deploy NAP with a CI/CD toolchain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Step 5 - Update the Docker image with the Threat Campaign package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 6 - Check logs in Kibana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/module5.html">Step 7 - Customize the WAF policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/module6.html">Step 8 - Deploy NAP with a CI/CD toolchain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../class3/class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a></li>
@@ -173,26 +174,34 @@
 <p class="first admonition-title">Note</p>
 <p class="last">This command execute the Dockerfile below</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FROM centos:7.4.1708
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#For CentOS 7</span>
+FROM centos:7.4.1708
 
-COPY entrypoint.sh app-protect-20.zip /root/
-RUN chmod +x /root/entrypoint.sh <span class="se">\</span>
-<span class="o">&amp;&amp;</span> yum install epel-release unzip -y <span class="se">\</span>
-<span class="o">&amp;&amp;</span> <span class="nb">cd</span> /root/ <span class="se">\</span>
-<span class="o">&amp;&amp;</span> unzip app-protect-20.zip -d r20 <span class="se">\</span>
-<span class="o">&amp;&amp;</span> <span class="nb">cd</span> r20 <span class="se">\</span>
-<span class="o">&amp;&amp;</span> yum install -y openssl <span class="se">\</span>
-<span class="o">&amp;&amp;</span> yum install -y f5* <span class="se">\</span>
-<span class="o">&amp;&amp;</span> yum install -y nginx-plus-20*.rpm <span class="se">\</span>
-<span class="o">&amp;&amp;</span> yum install -y app-protect-plugin-* <span class="se">\</span>
-<span class="o">&amp;&amp;</span> yum install -y app-protect-compiler-* <span class="se">\</span>
-<span class="o">&amp;&amp;</span> yum install -y app-protect-engine-* <span class="se">\</span>
-<span class="o">&amp;&amp;</span> yum install -y nginx-plus-module-appprotect-* <span class="se">\</span>
-<span class="o">&amp;&amp;</span> yum install -y app-protect-20*.rpm
+<span class="c1"># Download certificate and key from the customer portal (https://cs.nginx.com)</span>
+<span class="c1"># and copy to the build context</span>
+COPY nginx-repo.crt nginx-repo.key /etc/ssl/nginx/
 
-COPY log-default.json nginx.conf /etc/nginx/
+<span class="c1"># Install prerequisite packages</span>
+RUN yum -y install wget ca-certificates epel-release
 
-CMD <span class="o">[</span><span class="s2">&quot;/root/entrypoint.sh&quot;</span><span class="o">]</span>
+<span class="c1"># Add NGINX Plus repo to yum</span>
+RUN wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/nginx-plus-7.repo
+
+<span class="c1"># Install NGINX App Protect</span>
+RUN yum -y install app-protect <span class="se">\</span>
+   <span class="o">&amp;&amp;</span> yum clean all <span class="se">\</span>
+   <span class="o">&amp;&amp;</span> rm -rf /var/cache/yum <span class="se">\</span>
+   <span class="o">&amp;&amp;</span> rm -rf /etc/ssl/nginx
+
+<span class="c1"># Forward request logs to Docker log collector</span>
+<span class="c1">#RUN ln -sf /dev/stdout /var/log/nginx/access.log \</span>
+<span class="c1">#    &amp;&amp; ln -sf /dev/stderr /var/log/nginx/error.log</span>
+
+<span class="c1"># Copy configuration files</span>
+COPY nginx.conf log-default.json /etc/nginx/
+COPY entrypoint.sh  ./
+
+CMD <span class="o">[</span><span class="s2">&quot;sh&quot;</span>, <span class="s2">&quot;/entrypoint.sh&quot;</span><span class="o">]</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -244,6 +253,10 @@ Your support ID is: 14609283746114744748
 <p class="last">Did you notice the blocking page is similar to ASM and Adv. WAF ?</p>
 </div>
 <p><strong>Video of this module (force HD 1080p in the video settings)</strong></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You can notice some differences between the video and the lab. When I did the video, the dockerfile was different. But the concept remains the same.</p>
+</div>
 <div style="text-align: center; margin-bottom: 2em;">
 <iframe width="1120" height="630" src="https://www.youtube.com/embed/hltSycmXFU0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div></div>

@@ -13,26 +13,34 @@ In this module, we will build manually our first NAP Docker image via command li
 
    .. code-block:: bash
 
-      FROM centos:7.4.1708
+         #For CentOS 7
+         FROM centos:7.4.1708
 
-      COPY entrypoint.sh app-protect-20.zip /root/
-      RUN chmod +x /root/entrypoint.sh \
-      && yum install epel-release unzip -y \
-      && cd /root/ \
-      && unzip app-protect-20.zip -d r20 \
-      && cd r20 \
-      && yum install -y openssl \
-      && yum install -y f5* \
-      && yum install -y nginx-plus-20*.rpm \
-      && yum install -y app-protect-plugin-* \
-      && yum install -y app-protect-compiler-* \
-      && yum install -y app-protect-engine-* \
-      && yum install -y nginx-plus-module-appprotect-* \
-      && yum install -y app-protect-20*.rpm
+         # Download certificate and key from the customer portal (https://cs.nginx.com)
+         # and copy to the build context
+         COPY nginx-repo.crt nginx-repo.key /etc/ssl/nginx/
 
-      COPY log-default.json nginx.conf /etc/nginx/
+         # Install prerequisite packages
+         RUN yum -y install wget ca-certificates epel-release
 
-      CMD ["/root/entrypoint.sh"]
+         # Add NGINX Plus repo to yum
+         RUN wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/nginx-plus-7.repo
+
+         # Install NGINX App Protect
+         RUN yum -y install app-protect \
+            && yum clean all \
+            && rm -rf /var/cache/yum \
+            && rm -rf /etc/ssl/nginx
+
+         # Forward request logs to Docker log collector
+         #RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+         #    && ln -sf /dev/stderr /var/log/nginx/error.log
+
+         # Copy configuration files
+         COPY nginx.conf log-default.json /etc/nginx/
+         COPY entrypoint.sh  ./
+
+         CMD ["sh", "/entrypoint.sh"]
 
 
 
@@ -78,6 +86,8 @@ In this module, we will build manually our first NAP Docker image via command li
 .. note:: Did you notice the blocking page is similar to ASM and Adv. WAF ?
 
 **Video of this module (force HD 1080p in the video settings)**
+
+.. warning :: You can notice some differences between the video and the lab. When I did the video, the dockerfile was different. But the concept remains the same.
 
 .. raw:: html
 

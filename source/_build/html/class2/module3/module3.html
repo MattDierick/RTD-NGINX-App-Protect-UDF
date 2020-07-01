@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Step 5 - Check logs in Kibana &mdash; NGINX App Protect  documentation</title>
+  <title>Step 5 - Update the Docker image with the Threat Campaign package &mdash; NGINX App Protect  documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Step 6 - Customize the WAF policy" href="../module4/module4.html" />
+    <link rel="next" title="Step 6 - Check logs in Kibana" href="../module4/module4.html" />
     <link rel="prev" title="Step 4 - Update the Docker image with the latest WAF signatures" href="../module2/module2.html" /> 
 </head>
 
@@ -87,9 +87,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">Step 3 - Build your first NAP (NGINX App Protect) Docker image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 4 - Update the Docker image with the latest WAF signatures</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 5 - Check logs in Kibana</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 6 - Customize the WAF policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module5/module5.html">Step 7 - Deploy NAP with a CI/CD toolchain</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 5 - Update the Docker image with the Threat Campaign package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 6 - Check logs in Kibana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/module5.html">Step 7 - Customize the WAF policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/module6.html">Step 8 - Deploy NAP with a CI/CD toolchain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../class3/class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a></li>
@@ -140,7 +141,7 @@
         
           <li><a href="../class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a> &raquo;</li>
         
-      <li>Step 5 - Check logs in Kibana</li>
+      <li>Step 5 - Update the Docker image with the Threat Campaign package</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -159,116 +160,129 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="step-5-check-logs-in-kibana">
-<h1>Step 5 - Check logs in Kibana<a class="headerlink" href="#step-5-check-logs-in-kibana" title="Permalink to this headline">¶</a></h1>
-<p>In this module, we will check the logs in ELK (Elastic, Logstash, Kibana)</p>
-<p><strong>Check how logs are sent and how to set the destination syslog server</strong></p>
-<p>Steps:</p>
-<blockquote>
-<div><ol class="arabic">
-<li><p class="first">SSH to Docker App Protect + Docker repo VM</p>
-</li>
-<li><p class="first">In <code class="docutils literal notranslate"><span class="pre">/home/ubuntu</span></code> (the default home folder), list the files <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-al</span></code></p>
-</li>
-<li><p class="first">You can see 2 files <code class="docutils literal notranslate"><span class="pre">log-default.json</span></code> and <code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code></p>
-</li>
-<li><p class="first">Open log-default.json <code class="docutils literal notranslate"><span class="pre">less</span> <span class="pre">log-default.json</span></code>. You will notice we log all requests.</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="nt">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span>
-   <span class="nt">&quot;request_type&quot;</span><span class="p">:</span> <span class="s2">&quot;all&quot;</span>
-      <span class="p">},</span>
-<span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
-   <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;max_request_size&quot;</span><span class="p">:</span> <span class="s2">&quot;any&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;max_message_size&quot;</span><span class="p">:</span> <span class="s2">&quot;5k&quot;</span>
-      <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">Open nginx.conf <code class="docutils literal notranslate"><span class="pre">less</span> <span class="pre">nginx.conf</span></code></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>user nginx<span class="p">;</span>
-
-worker_processes <span class="m">1</span><span class="p">;</span>
-load_module modules/ngx_http_app_protect_module.so<span class="p">;</span>
-
-error_log /var/log/nginx/error.log debug<span class="p">;</span>
-
-events <span class="o">{</span>
-   worker_connections  <span class="m">1024</span><span class="p">;</span>
-<span class="o">}</span>
-
-http <span class="o">{</span>
-   include       /etc/nginx/mime.types<span class="p">;</span>
-   default_type  application/octet-stream<span class="p">;</span>
-   sendfile        on<span class="p">;</span>
-   keepalive_timeout  <span class="m">65</span><span class="p">;</span>
-
-   server <span class="o">{</span>
-      listen       <span class="m">80</span><span class="p">;</span>
-      server_name  localhost<span class="p">;</span>
-      proxy_http_version <span class="m">1</span>.1<span class="p">;</span>
-
-      app_protect_enable on<span class="p">;</span>
-      app_protect_security_log_enable on<span class="p">;</span>
-      app_protect_security_log <span class="s2">&quot;/etc/nginx/log-default.json&quot;</span> syslog:server<span class="o">=</span><span class="m">10</span>.1.20.6:5144<span class="p">;</span>
-
-      location / <span class="o">{</span>
-            resolver <span class="m">10</span>.1.1.9<span class="p">;</span>
-            resolver_timeout 5s<span class="p">;</span>
-            client_max_body_size <span class="m">0</span><span class="p">;</span>
-            default_type text/html<span class="p">;</span>
-            proxy_pass http://k8s.arcadia-finance.io:30274<span class="nv">$request_uri</span><span class="p">;</span>
-      <span class="o">}</span>
-   <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-</li>
-</ol>
-</div></blockquote>
+  <div class="section" id="step-5-update-the-docker-image-with-the-threat-campaign-package">
+<h1>Step 5 - Update the Docker image with the Threat Campaign package<a class="headerlink" href="#step-5-update-the-docker-image-with-the-threat-campaign-package" title="Permalink to this headline">¶</a></h1>
+<p>In this module, we will install the package Threat Campaign into a new Docker image.</p>
+<p>Threat Campaign is a <strong>feed</strong> from F5 Threat Intelligence team. This team is collecting 24/7 threats from internet and darknet.
+They use several bots and honeypotting networks in order to know in advance what the hackers (humans or robots) will target and how.</p>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">signatures</span></code>, Threat Campaign provides with <code class="docutils literal notranslate"><span class="pre">ruleset</span></code>. A signature uses patterns and keywords like <code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">or</span></code> or <code class="docutils literal notranslate"><span class="pre">1=1</span></code>. Threat Campaign uses <code class="docutils literal notranslate"><span class="pre">rules</span></code> that match perfectly an attack detected by our Threat Intelligence team.</p>
+<p>For instance, if we notice a hacker managed to enter into our Struts2 system, we will do forensics and analyse the packet that used the breach. Then, this team creates the <code class="docutils literal notranslate"><span class="pre">rule</span></code> for this request.
+A <code class="docutils literal notranslate"><span class="pre">rule</span></code> <strong>can</strong> contains all the HTTP L7 payload (headers, cookies, payload …)</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You will notice in the <code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code> file the refererence to <code class="docutils literal notranslate"><span class="pre">log-default.json</span></code> and the remote syslog server (ELK) <code class="docutils literal notranslate"><span class="pre">10.1.20.6:5144</span></code></p>
+<p class="last">Unlike signatures that can generate False Positives due to low accuracy patterns, Threat Campaign is very accurate and reduces drastically the False Positives.</p>
 </div>
-<p><strong>Open Kibana in the Jumphost or via UDF access</strong></p>
-<p>Steps:</p>
-<blockquote>
-<div><ol class="arabic">
-<li><p class="first">In UDF, find the ELK VM and click Access &gt; ELK</p>
-<a class="reference internal image-reference" href="../../_images/ELK_access.png"><img alt="../../_images/ELK_access.png" class="align-center" src="../../_images/ELK_access.png" style="width: 493.0px; height: 358.0px;" /></a>
-</li>
-</ol>
-</div></blockquote>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">NAP provides with high accuracy Signatures + Threat Campaign ruleset. The best of bread to reduce FP.</p>
 </div>
-<blockquote>
-<div><ol class="arabic">
-<li><p class="first">In Kibana, click on <code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">&gt;</span> <span class="pre">Overview</span></code></p>
-<a class="reference internal image-reference" href="../../_images/ELK_dashboard.png"><img alt="../../_images/ELK_dashboard.png" class="align-center" src="../../_images/ELK_dashboard.png" style="width: 1000.0px; height: 651.0px;" /></a>
-</li>
-</ol>
-</div></blockquote>
-<div class="line-block">
-<div class="line"><br /></div>
+<p>Threat Campaign package is available with the <code class="docutils literal notranslate"><span class="pre">app-protect-signatures-7.repo</span></code> repository. It is provided with the NAP subscription.</p>
+<p>In order to install this package, we need to update our <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>. I created another Dockerfile named <code class="docutils literal notranslate"><span class="pre">Dockerfile-sig-tc</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#For CentOS 7</span>
+FROM centos:7.4.1708
+
+<span class="c1"># Download certificate and key from the customer portal (https://cs.nginx.com)</span>
+<span class="c1"># and copy to the build context</span>
+COPY nginx-repo.crt nginx-repo.key /etc/ssl/nginx/
+
+<span class="c1"># Install prerequisite packages</span>
+RUN yum -y install wget ca-certificates epel-release
+
+<span class="c1"># Add NGINX Plus repo to yum</span>
+RUN wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/nginx-plus-7.repo
+RUN wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/app-protect-signatures-7.repo
+
+<span class="c1"># Install NGINX App Protect</span>
+RUN yum -y install app-protect app-protect-attack-signatures app-protect-threat-campaigns<span class="se">\</span>
+   <span class="o">&amp;&amp;</span> yum clean all <span class="se">\</span>
+   <span class="o">&amp;&amp;</span> rm -rf /var/cache/yum <span class="se">\</span>
+   <span class="o">&amp;&amp;</span> rm -rf /etc/ssl/nginx
+
+<span class="c1"># Forward request logs to Docker log collector</span>
+<span class="c1">#RUN ln -sf /dev/stdout /var/log/nginx/access.log \</span>
+<span class="c1">#    &amp;&amp; ln -sf /dev/stderr /var/log/nginx/error.log</span>
+
+<span class="c1"># Copy configuration files</span>
+COPY nginx.conf log-default.json /etc/nginx/
+COPY entrypoint.sh  ./
+
+CMD <span class="o">[</span><span class="s2">&quot;sh&quot;</span>, <span class="s2">&quot;/entrypoint.sh&quot;</span><span class="o">]</span>
+</pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You may notice one more package versus the previous Dockerfile in Step 4. I added the package installation <code class="docutils literal notranslate"><span class="pre">app-protect-threat-campaigns</span></code></p>
+</div>
+<p><strong>Follow the steps below to build the new Docker image:</strong></p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>At the bottom of the dashboard, you can see the logs. Select one of the log entries and check the content</li>
+<li>SSH to Docker App Protect + Docker repo VM</li>
+<li>Run the command <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">-t</span> <span class="pre">app-protect:tc</span> <span class="pre">-f</span> <span class="pre">Dockerfile-sig-tc</span> <span class="pre">.</span></code> &lt;– Be careful, there is a “.” (dot) at the end of the command</li>
+<li>Wait until you see the message: <code class="docutils literal notranslate"><span class="pre">Successfully</span> <span class="pre">tagged</span> <span class="pre">app-protect:tc</span></code></li>
 </ol>
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You may notice the log content is similar to ASM and Adv. WAF</p>
+<p class="last">Please take time to understand what we ran. You may notice 2 changes. We ran the build with a new Dockerfile <code class="docutils literal notranslate"><span class="pre">Dockerfile-sig-tc</span></code> and with a new tag <code class="docutils literal notranslate"><span class="pre">tc</span></code>. You can choose another tag like <code class="docutils literal notranslate"><span class="pre">tcdate</span></code> where date is the date of today. We don’t know yet the date of the TC package ruleset.</p>
 </div>
+<p><strong>Destroy the previous running NAP container and run a new one based on the new image (tag tc)</strong></p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Check if the new app-protect Docker image is available locally by running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code>. You will notice the new image with a tag of <code class="docutils literal notranslate"><span class="pre">tc</span></code>.</p>
+<img alt="../../_images/docker_images2.png" class="align-center" src="../../_images/docker_images2.png" />
+</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><ol class="arabic" start="2">
+<li><p class="first">Destroy the existing and running NAP container <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span> <span class="pre">-f</span> <span class="pre">app-protect</span></code></p>
+</li>
+<li><p class="first">Run a new container with this image <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-dit</span> <span class="pre">--name</span> <span class="pre">app-protect</span> <span class="pre">-p</span> <span class="pre">80:80</span> <span class="pre">-v</span> <span class="pre">/home/ubuntu/nginx.conf:/etc/nginx/nginx.conf</span> <span class="pre">app-protect:tc</span></code></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you decided to change the tag <code class="docutils literal notranslate"><span class="pre">tc</span></code> by another tag, change your command line accordingly</p>
+</div>
+</li>
+<li><p class="first">Check that the Docker container is running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code></p>
+<img alt="../../_images/docker_run2.png" class="align-center" src="../../_images/docker_run2.png" />
+</li>
+</ol>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><ol class="arabic" start="5">
+<li><p class="first">Check the Threat Campaign ruleset date included in the new Docker container <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">app-protect</span> <span class="pre">cat</span> <span class="pre">/var/log/nginx/error.log</span></code></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The default time window in this Kibana dashboard is <strong>Last 15 minutes</strong>. If you do not see any requests, you may need to extend the time window to a larger setting</p>
+<p class="last">You can notice in one line of log, you get the <code class="docutils literal notranslate"><span class="pre">Signature</span> <span class="pre">date</span></code> and the <code class="docutils literal notranslate"><span class="pre">Threat</span> <span class="pre">Campaign</span> <span class="pre">date</span></code>.</p>
+</div>
+</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2020</span>/07/01 <span class="m">17</span>:03:14 <span class="o">[</span>notice<span class="o">]</span> <span class="m">12</span><span class="c1">#12: APP_PROTECT { &quot;event&quot;: &quot;configuration_load_success&quot;, &quot;software_version&quot;: &quot;3.74.0&quot;, &quot;attack_signatures_package&quot;:{&quot;revision_datetime&quot;:&quot;2020-06-28T15:30:59Z&quot;,&quot;version&quot;:&quot;2020.06.28&quot;},&quot;completed_successfully&quot;:true,&quot;threat_campaigns_package&quot;:{&quot;revision_datetime&quot;:&quot;2020-06-25T19:13:36Z&quot;,&quot;version&quot;:&quot;2020.06.25&quot;}}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Simulate a Threat Campaign attack</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>RDP to the <code class="docutils literal notranslate"><span class="pre">Jumphost</span></code> (user / user)</li>
+<li>Open <code class="docutils literal notranslate"><span class="pre">Postman</span></code> and select the collection <code class="docutils literal notranslate"><span class="pre">NAP</span> <span class="pre">-</span> <span class="pre">Threat</span> <span class="pre">Campaign</span></code></li>
+<li>Run the 3 calls. They will trigger 3 different Threat Campaign rules.</li>
+<li>In the next module, we will check the logs in Kibana.</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Congrats, you are running a new version of NAP with the latest Threat Campaign package and ruleset.</p>
 </div>
 <p><strong>Video of this module (force HD 1080p in the video settings)</strong></p>
 <div style="text-align: center; margin-bottom: 2em;">
-<iframe width="1120" height="630" src="https://www.youtube.com/embed/kWfRBhrH8k8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="1120" height="630" src="https://youtu.be/fwHe0sp-5gA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div></div>
 
 
@@ -279,7 +293,7 @@ http <span class="o">{</span>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../module4/module4.html" class="btn btn-neutral float-right" title="Step 6 - Customize the WAF policy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../module4/module4.html" class="btn btn-neutral float-right" title="Step 6 - Check logs in Kibana" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../module2/module2.html" class="btn btn-neutral float-left" title="Step 4 - Update the Docker image with the latest WAF signatures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

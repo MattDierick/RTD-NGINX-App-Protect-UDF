@@ -63,13 +63,26 @@ Step 4 - Update this image with the latest WAF signature
 
 Task:
 
-    #. Run the same Docker build command but with a new Dockerfile containing the new RPM signature package
+    #. Run the same Docker build command but with a new Dockerfile containing the new repo with the signatures
     #. Destroy the previous NAP container and run a new one from this new image
     #. Check the signature date
 
 |
 
-Step 5 - Check logs in Kibana
+Step 5 - Update the Docker image with the Threat Campaign package
+*****************************************************************
+
+.. note :: Goal is to create a new NAP image with the latest Threat Campaign package ruleset.
+
+Task:
+
+    #. Run the same Docker build command but with a new Dockerfile containing the new package to install
+    #. Destroy the previous NAP container and run a new one from this new image
+    #. Check the Threat Campaign ruleset date
+
+|
+
+Step 6 - Check logs in Kibana
 *****************************
 
 .. note :: Goal is to check logs in ELK (Elastic, Logstash, Kibana)
@@ -80,7 +93,7 @@ Task:
 
 |
 
-Step 6 - Customize the WAF policy
+Step 7 - Customize the WAF policy
 *********************************
 
 .. note :: Goal is to customize the WAF policy in front of Arcadia application. By default, a base policy is deployed.
@@ -91,7 +104,7 @@ Task:
 
 |
 
-Step 7 - Deploy NAP with a CI/CD toolchain
+Step 8 - Deploy NAP with a CI/CD toolchain
 ******************************************
 
 .. note :: Goal is to deploy NAP in a real environment with a CI/CD toolchain in place.
@@ -105,7 +118,7 @@ Task:
 
 |
 
-Step 8 - Install the NGINX Plus and App Protect packages manually
+Step 9 - Install the NGINX Plus and App Protect packages manually
 *****************************************************************
 
 .. note :: Goal is to deploy NAP and NGINX Plus in a CentOS linux host.
@@ -118,7 +131,7 @@ Task:
 
 |
 
-Step 9 - Deploy App Protect via CI/CD pipeline
+Step 10 - Deploy App Protect via CI/CD pipeline
 **********************************************
 
 .. note :: Goal is to deploy NAP by using a CI/CD pipeline with automation toolchain packages provided by F5.

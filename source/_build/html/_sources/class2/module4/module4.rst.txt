@@ -1,257 +1,104 @@
-Step 6 - Customize the WAF policy
-#################################
+Step 6 - Check logs in Kibana
+#############################
 
-So far, we have been using the default NGINX App Protect policy. As you notices in the previous lab (Step 5), the ``nginx.conf`` does not file any reference to a WAF policy. It uses the default WAF policy.
+In this module, we will check the logs in ELK (Elastic, Logstash, Kibana)
 
-In this lab, we will customize the policy and push a new config file to the docker container.
+**Check how logs are sent and how to set the destination syslog server**
 
 Steps:
 
-    #. SSH to the Docker App Protect + Docker repo VM
-    #. In the ``/home/ubuntu`` directory, create a new folder ``policy-adv``
+   #. SSH to Docker App Protect + Docker repo VM
+   #. In ``/home/ubuntu`` (the default home folder), list the files ``ls -al``
+   #. You can see 2 files ``log-default.json`` and ``nginx.conf``
+   #. Open log-default.json ``less log-default.json``. You will notice we log all requests.
 
-        .. code-block:: bash
+      .. code-block:: JSON
 
-            mkdir policy-adv
+         {
+         "filter": {
+            "request_type": "all"
+               },
+         "content": {
+            "format": "default",
+            "max_request_size": "any",
+            "max_message_size": "5k"
+               }
+         }
 
-    #. Create a new policy file named ``policy_base.json`` and paste the content below
-        
-        .. code-block:: bash
+   #. Open nginx.conf ``less nginx.conf``
 
-            vi ./policy-adv/policy_base.json
+      .. code-block:: bash
 
-        .. code-block:: json
+         user nginx;
 
-            {
-                "name": "policy_name",
-                "template": { "name": "POLICY_TEMPLATE_NGINX_BASE" },
-                "applicationLanguage": "utf-8",
-                "enforcementMode": "blocking"
+         worker_processes 1;
+         load_module modules/ngx_http_app_protect_module.so;
+
+         error_log /var/log/nginx/error.log debug;
+
+         events {
+            worker_connections  1024;
+         }
+
+         http {
+            include       /etc/nginx/mime.types;
+            default_type  application/octet-stream;
+            sendfile        on;
+            keepalive_timeout  65;
+
+            server {
+               listen       80;
+               server_name  localhost;
+               proxy_http_version 1.1;
+
+               app_protect_enable on;
+               app_protect_security_log_enable on;
+               app_protect_security_log "/etc/nginx/log-default.json" syslog:server=10.1.20.6:5144;
+
+               location / {
+                     resolver 10.1.1.9;
+                     resolver_timeout 5s;
+                     client_max_body_size 0;
+                     default_type text/html;
+                     proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
+               }
             }
-
-    #. Create another policy file named ``policy_mongo_linux_JSON.json`` and paste the content below
-
-        .. code-block:: bash
-
-            vi ./policy-adv/policy_mongo_linux_JSON.json
-
-        .. code-block:: json
-
-            {
-                "policy":{
-                "name":"evasions_enabled",
-                "template":{
-                    "name":"POLICY_TEMPLATE_NGINX_BASE"
-                },
-                "applicationLanguage":"utf-8",
-                "enforcementMode":"blocking",
-                "blocking-settings":{
-                    "violations":[
-                        { 
-                            "name":"VIOL_JSON_FORMAT",
-                            "alarm":true,
-                            "block":true
-                        },
-                        {
-                            "name":"VIOL_EVASION",
-                            "alarm":true,
-                            "block":true
-                        },
-                        {
-                            "name": "VIOL_ATTACK_SIGNATURE",
-                            "alarm": true,
-                            "block": true
-                        }
-                    ],
-                    "evasions":[
-                        {
-                            "description":"Bad unescape",
-                            "enabled":true,
-                            "learn":false
-                        },
-                        {
-                            "description":"Directory traversals",
-                            "enabled":true,
-                            "learn":false
-                        },
-                        {
-                            "description":"Bare byte decoding",
-                            "enabled":true,
-                            "learn":false
-                        },
-                        {
-                            "description":"Apache whitespace",
-                            "enabled":true,
-                            "learn":false
-                        },
-                        {
-                            "description":"Multiple decoding",
-                            "enabled":true,
-                            "learn":false,
-                            "maxDecodingPasses":2
-                        },
-                        {
-                            "description":"IIS Unicode codepoints",
-                            "enabled":true,
-                            "learn":false
-                        },
-                        {
-                            "description":"IIS backslashes",
-                            "enabled":true,
-                            "learn":false
-                        },
-                        {
-                            "description":"%u decoding",
-                            "enabled":true,
-                            "learn":false
-                        }
-                    ]
-                },
-                "json-profiles":[
-                        {
-                            "defenseAttributes":{
-                                "maximumTotalLengthOfJSONData":"any",
-                                "maximumArrayLength":"any",
-                                "maximumStructureDepth":"any",
-                                "maximumValueLength":"any",
-                                "tolerateJSONParsingWarnings":true
-                            },
-                            "name":"Default",
-                            "handleJsonValuesAsParameters":false,
-                            "validationFiles":[
-                        
-                            ],
-                            "description":"Default JSON Profile"
-                        }
-                    ],
-                "signature-settings": {
-                        "signatureStaging": false,
-                        "placeSignaturesInStaging": false,
-                        "attackSignatureFalsePositiveMode": "disabled",
-                        "minimumAccuracyForAutoAddedSignatures": "low"
-                },
-                "server-technologies": [
-                        {
-                            "serverTechnologyName": "MongoDB"
-                        },
-                        {
-                            "serverTechnologyName": "Unix/Linux"
-                        },
-                                    {
-                            "serverTechnologyName": "PHP"
-                        }
-                ]
-                }
-            }
+         }
 
 
-        .. note:: you can notice the difference between the ``base`` and the ``advanced`` policy.
+.. note:: You will notice in the ``nginx.conf`` file the refererence to ``log-default.json`` and the remote syslog server (ELK) ``10.1.20.6:5144``
 
 
-    #. Now, create a new ``nginx.conf`` in the ``policy-adv`` folder. Do not overwrite the existing ``/etc/nginx/nginx.conf`` file, we need it for the next labs.
+**Open Kibana in the Jumphost or via UDF access**
 
-        .. code-block:: bash
+Steps:
 
-            vi ./policy-adv/nginx.conf
+   #. In UDF, find the ELK VM and click Access > ELK
 
-        .. code-block:: bash
+      .. image:: ../pictures/module4/ELK_access.png
+         :align: center
+         :scale: 50%
 
-            user nginx;
+|
 
-            worker_processes 1;
-            load_module modules/ngx_http_app_protect_module.so;
+   #. In Kibana, click on ``Dashboard > Overview``
 
-            error_log /var/log/nginx/error.log debug;
+      .. image:: ../pictures/module4/ELK_dashboard.png
+         :align: center
+         :scale: 50%
 
-            events {
-                worker_connections  1024;
-            }
+|
 
-            http {
-                include       /etc/nginx/mime.types;
-                default_type  application/octet-stream;
-                sendfile        on;
-                keepalive_timeout  65;
+   #. At the bottom of the dashboard, you can see the logs. Select one of the log entries and check the content
 
-                server {
-                    listen       80;
-                    server_name  localhost;
-                    proxy_http_version 1.1;
+.. note:: You may notice the log content is similar to ASM and Adv. WAF
 
-                    app_protect_enable on;
-                    app_protect_security_log_enable on;
-                    app_protect_security_log "/etc/nginx/log-default.json" syslog:server=10.1.20.6:5144;
-
-                    location / {
-                        resolver 10.1.1.9;
-                        resolver_timeout 5s;
-                        client_max_body_size 0;
-                        default_type text/html;
-                        app_protect_policy_file "/etc/nginx/policy/policy_base.json";
-                        proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
-                    }
-                    location /files {
-                        resolver 10.1.1.9;
-                        resolver_timeout 5s;
-                        client_max_body_size 0;
-                        default_type text/html;
-                        app_protect_policy_file "/etc/nginx/policy/policy_mongo_linux_JSON.json";
-                        proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
-                    }
-                    location /api {
-                        resolver 10.1.1.9;
-                        resolver_timeout 5s;
-                        client_max_body_size 0;
-                        default_type text/html;
-                        app_protect_policy_file "/etc/nginx/policy/policy_mongo_linux_JSON.json";
-                        proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
-                    }
-                    location /app3 {
-                        resolver 10.1.1.9;
-                        resolver_timeout 5s;
-                        client_max_body_size 0;
-                        default_type text/html;
-                        app_protect_policy_file "/etc/nginx/policy/policy_mongo_linux_JSON.json";
-                        proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
-                    }
-
-                }
-            }
-
-    #. Last step is to run a new container (and delete the previous one) referring to these 3 files.
-
-        .. code-block:: bash
-
-            docker rm -f app-protect
-            docker run -dit --name app-protect -p 80:80 -v /home/ubuntu/policy-adv/nginx.conf:/etc/nginx/nginx.conf -v /home/ubuntu/policy-adv/policy_base.json:/etc/nginx/policy/policy_base.json -v /home/ubuntu/policy-adv/policy_mongo_linux_JSON.json:/etc/nginx/policy/policy_mongo_linux_JSON.json  app-protect:20200316
-
-    #. Check that the ``app-protect:20200316`` container is running 
-
-        .. code-block:: bash
-
-            docker ps
-
-        .. image:: ../pictures/module4/docker-ps.png
-           :align: center
-
-    #. RDP to the Jumhost as ``user:user`` and click on bookmark ``Arcadia NAP Docker``
-
-        .. image:: ../pictures/module4/arcadia-adv.png
-           :align: center
-
-
-.. note:: From this point on, NAP is using a different WAF policy based on the requested URI:
-
-    #. policy_base for ``/`` (the main app)
-    #. policy_mongo_linux_JSON for ``/files`` (the back end)
-    #. policy_mongo_linux_JSON for ``/api`` (the Money Transfer service)
-    #. policy_mongo_linux_JSON for ``/app3`` (the Refer Friend service)
+.. note:: The default time window in this Kibana dashboard is **Last 15 minutes**. If you do not see any requests, you may need to extend the time window to a larger setting
 
 **Video of this module (force HD 1080p in the video settings)**
 
 .. raw:: html
 
     <div style="text-align: center; margin-bottom: 2em;">
-    <iframe width="1120" height="630" src="https://www.youtube.com/embed/gHaauG3E1kI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="1120" height="630" src="https://www.youtube.com/embed/kWfRBhrH8k8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-
