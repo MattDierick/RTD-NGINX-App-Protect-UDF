@@ -342,13 +342,13 @@ Steps :
 
         docker run -dit --name app-protect -p 80:80 -v /home/ubuntu/policy-adv/nginx.conf:/etc/nginx/nginx.conf -v /home/ubuntu/policy-adv/policy_base.json:/etc/nginx/policy/policy_base.json -v /home/ubuntu/policy-adv/policy_mongo_linux_JSON.json:/etc/nginx/policy/policy_mongo_linux_JSON.json  app-protect:tc       
 
-#. In the ``Jumphost``, open ``Chroime`` and connect to ``Arcadia NAP Docker`` bookmark
+#. In the ``Jumphost``, open ``Chrome`` and connect to ``Arcadia NAP Docker`` bookmark
 
 #. Enter this URL with a XSS attack ``http://app-protect.arcadia-finance.io/?a=<script>``
 
-#. You can see your new custom blockig page
+#. You can see your new custom blocking page
 
-#. Extra lab - modify this page in Gitlab and run a new docker. The policy is modified accordingly without modifying the ``./policy-adv/policy_base.json`` file.
+#. Extra lab if you have time - modify this page in Gitlab and run a new docker. The policy is modified accordingly without modifying the ``./policy-adv/policy_base.json`` file.
 
 |
 
