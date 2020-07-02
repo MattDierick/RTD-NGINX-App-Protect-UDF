@@ -5,6 +5,9 @@ So far, we have been using the default NGINX App Protect policy. As you notices 
 
 In this lab, we will customize the policy and push a new config file to the docker container.
 
+Use a custom WAF policy and assign it per location
+**************************************************
+
 Steps:
 
     #. SSH to the Docker App Protect + Docker repo VM
@@ -246,6 +249,108 @@ Steps:
     #. policy_mongo_linux_JSON for ``/files`` (the back end)
     #. policy_mongo_linux_JSON for ``/api`` (the Money Transfer service)
     #. policy_mongo_linux_JSON for ``/app3`` (the Refer Friend service)
+
+|
+
+Use External References to make your policy dynamic
+***************************************************
+
+External references in policy are defined as any code blocks that can be used as part of the policy without being explicitly pasted within the policy file. This means that you can have a set of pre-defined configurations for parts of the policy, and you can incorporate them as part of the policy by simply referencing them. This would save a lot of overhead having to concentrate everything into a single policy file.
+
+A perfect use case for external references is when you wish to build a dynamic policy that depends on moving parts. You can have code create and populate specific files with the configuration relevant to your policy, and then compile the policy to include the latest version of these files, ensuring that your policy is always up-to-date when it comes to a constantly changing environment.
+
+.. note :: To use the external references capability, in the policy file the direct property is replaced by “xxxReference” property, where xxx defines the replacement text for the property. For example, “modifications” section is replaced by “modificationsReference”.
+
+In this lab, we will create a ``custom blocking page`` and host this page in Gitlab. 
+
+.. note :: In this configuration, we are completely satisfied with the basic base policy we created previously ``/policy-adv/policy_base.json``, and we wish to use it as is. However, we wish to define a custom response page using an external file located on an HTTP web server (Gitlab). The external reference file contains our custom response page configuration.
+
+As a remidner, this is the base policy we created:
+
+    .. code-block:: json
+
+        {
+            "name": "policy_name",
+            "template": { "name": "POLICY_TEMPLATE_NGINX_BASE" },
+            "applicationLanguage": "utf-8",
+            "enforcementMode": "blocking"
+        }
+
+Steps :
+
+#. RDP to ``Jumphost`` and connect to ``GitLab`` (root / F5twister$)
+#. Enter in the project ``NGINX App Protect / reference-blocking-page```
+
+    .. image:: ../pictures/module5/gitlab-1.png
+       :align: center
+       :scale: 50%
+
+#. Add a new file and name it ``blocking-custom-1.txt``
+
+    .. image:: ../pictures/module5/gitlab-2.png
+       :align: center
+       :scale: 50%
+
+#. Paste the text below
+
+    .. code-block :: JSON
+
+        [
+            {
+                "responseContent": "<html><head><title>Custom Reject Page</title></head><body><p>This is a <strong>custom response page</strong>, it is supposed to overwrite the default page for the <strong>base NAP policy.&nbsp;</strong></p><p>This page can be <strong>modified</strong> by a <strong>dedicated</strong> team, which does not have access to the WAF policy.<br /><br /></p><p><img src=https://media.giphy.com/media/12NUbkX6p4xOO4/giphy.gif></p><br>Your support ID is: <%TS.request.ID()%><br><br><a href='javascript:history.back();'>[Go Back]</a></body></html>",
+                "responseHeader": "HTTP/1.1 302 OK\\r\\nCache-Control: no-cache\\r\\nPragma: no-cache\\r\\nConnection: close",
+                "responseActionType": "custom",
+                "responsePageType": "default"
+            }
+        ]
+
+#. Click ``Commit Changes``
+
+#. SSH to ``Docker App Protect + Docker repo`` VM
+
+#. Delete the running docker
+
+    .. code-block:: bash
+
+            docker rm -f app-protect
+
+#. Modify the base policy created previously
+
+    .. code-block:: bash
+
+       vi ./policy-adv/policy_base.json
+
+#. Modify the JSON as below
+
+    .. code-block:: bash
+
+        {
+            "name": "policy_name",
+            "template": { "name": "POLICY_TEMPLATE_NGINX_BASE" },
+            "applicationLanguage": "utf-8",
+            "enforcementMode": "blocking",
+            "responsePageReference": {
+                "link": "http://10.1.20.4/nginx-app-protect/reference-blocking-page/-/raw/master/blocking-custom-1.txt"
+            }
+        }
+
+    .. note :: You can notice the reference to the TXT file in Gitlab
+
+#. Run a new docker refering to this new JSON policy
+
+    .. code-block:: bash
+
+        docker run -dit --name app-protect -p 80:80 -v /home/ubuntu/policy-adv/nginx.conf:/etc/nginx/nginx.conf -v /home/ubuntu/policy-adv/policy_base.json:/etc/nginx/policy/policy_base.json -v /home/ubuntu/policy-adv/policy_mongo_linux_JSON.json:/etc/nginx/policy/policy_mongo_linux_JSON.json  app-protect:tc       
+
+#. In the ``Jumphost``, open ``Chroime`` and connect to ``Arcadia NAP Docker`` bookmark
+
+#. Enter this URL with a XSS attack ``http://app-protect.arcadia-finance.io/?a=<script>``
+
+#. You can see your new custom blockig page
+
+#. Extra lab - modify this page in Gitlab and run a new docker. The policy is modified accordingly without modifying the ``./policy-adv/policy_base.json`` file.
+
+|
 
 **Video of this module (force HD 1080p in the video settings)**
 

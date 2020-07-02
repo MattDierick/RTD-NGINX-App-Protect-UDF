@@ -89,7 +89,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 4 - Update the Docker image with the latest WAF signatures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">Step 5 - Update the Docker image with the Threat Campaign package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module4/module4.html">Step 6 - Check logs in Kibana</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 7 - Customize the WAF policy</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Step 7 - Customize the WAF policy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#use-a-custom-waf-policy-and-assign-it-per-location">Use a custom WAF policy and assign it per location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-external-references-to-make-your-policy-dynamic">Use External References to make your policy dynamic</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../module6/module6.html">Step 8 - Deploy NAP with a CI/CD toolchain</a></li>
 </ul>
 </li>
@@ -164,6 +168,8 @@
 <h1>Step 7 - Customize the WAF policy<a class="headerlink" href="#step-7-customize-the-waf-policy" title="Permalink to this headline">¶</a></h1>
 <p>So far, we have been using the default NGINX App Protect policy. As you notices in the previous lab (Step 5), the <code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code> does not file any reference to a WAF policy. It uses the default WAF policy.</p>
 <p>In this lab, we will customize the policy and push a new config file to the docker container.</p>
+<div class="section" id="use-a-custom-waf-policy-and-assign-it-per-location">
+<h2>Use a custom WAF policy and assign it per location<a class="headerlink" href="#use-a-custom-waf-policy-and-assign-it-per-location" title="Permalink to this headline">¶</a></h2>
 <p>Steps:</p>
 <blockquote>
 <div><ol class="arabic">
@@ -413,10 +419,123 @@ docker run -dit --name app-protect -p <span class="m">80</span>:80 -v /home/ubun
 <li>policy_mongo_linux_JSON for <code class="docutils literal notranslate"><span class="pre">/app3</span></code> (the Refer Friend service)</li>
 </ol>
 </div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="use-external-references-to-make-your-policy-dynamic">
+<h2>Use External References to make your policy dynamic<a class="headerlink" href="#use-external-references-to-make-your-policy-dynamic" title="Permalink to this headline">¶</a></h2>
+<p>External references in policy are defined as any code blocks that can be used as part of the policy without being explicitly pasted within the policy file. This means that you can have a set of pre-defined configurations for parts of the policy, and you can incorporate them as part of the policy by simply referencing them. This would save a lot of overhead having to concentrate everything into a single policy file.</p>
+<p>A perfect use case for external references is when you wish to build a dynamic policy that depends on moving parts. You can have code create and populate specific files with the configuration relevant to your policy, and then compile the policy to include the latest version of these files, ensuring that your policy is always up-to-date when it comes to a constantly changing environment.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To use the external references capability, in the policy file the direct property is replaced by “xxxReference” property, where xxx defines the replacement text for the property. For example, “modifications” section is replaced by “modificationsReference”.</p>
+</div>
+<p>In this lab, we will create a <code class="docutils literal notranslate"><span class="pre">custom</span> <span class="pre">blocking</span> <span class="pre">page</span></code> and host this page in Gitlab.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In this configuration, we are completely satisfied with the basic base policy we created previously <code class="docutils literal notranslate"><span class="pre">/policy-adv/policy_base.json</span></code>, and we wish to use it as is. However, we wish to define a custom response page using an external file located on an HTTP web server (Gitlab). The external reference file contains our custom response page configuration.</p>
+</div>
+<p>As a remidner, this is the base policy we created:</p>
+<blockquote>
+<div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;policy_name&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;template&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;POLICY_TEMPLATE_NGINX_BASE&quot;</span> <span class="p">},</span>
+    <span class="nt">&quot;applicationLanguage&quot;</span><span class="p">:</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;enforcementMode&quot;</span><span class="p">:</span> <span class="s2">&quot;blocking&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Steps :</p>
+<ol class="arabic">
+<li><p class="first">RDP to <code class="docutils literal notranslate"><span class="pre">Jumphost</span></code> and connect to <code class="docutils literal notranslate"><span class="pre">GitLab</span></code> (root / F5twister$)</p>
+</li>
+<li><p class="first">Enter in the project <code class="docutils literal notranslate"><span class="pre">NGINX</span> <span class="pre">App</span> <span class="pre">Protect</span> <span class="pre">/</span> <span class="pre">reference-blocking-page`</span></code></p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/gitlab-1.png"><img alt="../../_images/gitlab-1.png" class="align-center" src="../../_images/gitlab-1.png" style="width: 500.0px; height: 363.0px;" /></a>
+</div></blockquote>
+</li>
+<li><p class="first">Add a new file and name it <code class="docutils literal notranslate"><span class="pre">blocking-custom-1.txt</span></code></p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/gitlab-2.png"><img alt="../../_images/gitlab-2.png" class="align-center" src="../../_images/gitlab-2.png" style="width: 500.0px; height: 357.0px;" /></a>
+</div></blockquote>
+</li>
+<li><p class="first">Paste the text below</p>
+<blockquote>
+<div><div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;responseContent&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;html&gt;&lt;head&gt;&lt;title&gt;Custom Reject Page&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;This is a &lt;strong&gt;custom response page&lt;/strong&gt;, it is supposed to overwrite the default page for the &lt;strong&gt;base NAP policy.&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This page can be &lt;strong&gt;modified&lt;/strong&gt; by a &lt;strong&gt;dedicated&lt;/strong&gt; team, which does not have access to the WAF policy.&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=https://media.giphy.com/media/12NUbkX6p4xOO4/giphy.gif&gt;&lt;/p&gt;&lt;br&gt;Your support ID is: &lt;%TS.request.ID()%&gt;&lt;br&gt;&lt;br&gt;&lt;a href=&#39;javascript:history.back();&#39;&gt;[Go Back]&lt;/a&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;responseHeader&quot;</span><span class="p">:</span> <span class="s2">&quot;HTTP/1.1 302 OK\\r\\nCache-Control: no-cache\\r\\nPragma: no-cache\\r\\nConnection: close&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;responseActionType&quot;</span><span class="p">:</span> <span class="s2">&quot;custom&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;responsePageType&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Click <code class="docutils literal notranslate"><span class="pre">Commit</span> <span class="pre">Changes</span></code></p>
+</li>
+<li><p class="first">SSH to <code class="docutils literal notranslate"><span class="pre">Docker</span> <span class="pre">App</span> <span class="pre">Protect</span> <span class="pre">+</span> <span class="pre">Docker</span> <span class="pre">repo</span></code> VM</p>
+</li>
+<li><p class="first">Delete the running docker</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker rm -f app-protect
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Modify the base policy created previously</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi ./policy-adv/policy_base.json
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Modify the JSON as below</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
+    <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;policy_name&quot;</span>,
+    <span class="s2">&quot;template&quot;</span>: <span class="o">{</span> <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;POLICY_TEMPLATE_NGINX_BASE&quot;</span> <span class="o">}</span>,
+    <span class="s2">&quot;applicationLanguage&quot;</span>: <span class="s2">&quot;utf-8&quot;</span>,
+    <span class="s2">&quot;enforcementMode&quot;</span>: <span class="s2">&quot;blocking&quot;</span>,
+    <span class="s2">&quot;responsePageReference&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;link&quot;</span>: <span class="s2">&quot;http://10.1.20.4/nginx-app-protect/reference-blocking-page/-/raw/master/blocking-custom-1.txt&quot;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can notice the reference to the TXT file in Gitlab</p>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Run a new docker refering to this new JSON policy</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -dit --name app-protect -p <span class="m">80</span>:80 -v /home/ubuntu/policy-adv/nginx.conf:/etc/nginx/nginx.conf -v /home/ubuntu/policy-adv/policy_base.json:/etc/nginx/policy/policy_base.json -v /home/ubuntu/policy-adv/policy_mongo_linux_JSON.json:/etc/nginx/policy/policy_mongo_linux_JSON.json  app-protect:tc
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">In the <code class="docutils literal notranslate"><span class="pre">Jumphost</span></code>, open <code class="docutils literal notranslate"><span class="pre">Chroime</span></code> and connect to <code class="docutils literal notranslate"><span class="pre">Arcadia</span> <span class="pre">NAP</span> <span class="pre">Docker</span></code> bookmark</p>
+</li>
+<li><p class="first">Enter this URL with a XSS attack <code class="docutils literal notranslate"><span class="pre">http://app-protect.arcadia-finance.io/?a=&lt;script&gt;</span></code></p>
+</li>
+<li><p class="first">You can see your new custom blockig page</p>
+</li>
+<li><p class="first">Extra lab - modify this page in Gitlab and run a new docker. The policy is modified accordingly without modifying the <code class="docutils literal notranslate"><span class="pre">./policy-adv/policy_base.json</span></code> file.</p>
+</li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p><strong>Video of this module (force HD 1080p in the video settings)</strong></p>
 <div style="text-align: center; margin-bottom: 2em;">
 <iframe width="1120" height="630" src="https://www.youtube.com/embed/gHaauG3E1kI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div></div>
+</div>
 
 
            </div>
