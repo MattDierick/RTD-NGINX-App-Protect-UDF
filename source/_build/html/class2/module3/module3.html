@@ -166,6 +166,10 @@
 <p>Threat Campaign is a <strong>feed</strong> from F5 Threat Intelligence team. This team is collecting 24/7 threats from internet and darknet.
 They use several bots and honeypotting networks in order to know in advance what the hackers (humans or robots) will target and how.</p>
 <p>Unlike <code class="docutils literal notranslate"><span class="pre">signatures</span></code>, Threat Campaign provides with <code class="docutils literal notranslate"><span class="pre">ruleset</span></code>. A signature uses patterns and keywords like <code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">or</span></code> or <code class="docutils literal notranslate"><span class="pre">1=1</span></code>. Threat Campaign uses <code class="docutils literal notranslate"><span class="pre">rules</span></code> that match perfectly an attack detected by our Threat Intelligence team.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The App Protect installation does not come with a built-in Threat campaigns package like Attack Signatures. Threat campaigns Updates are released periodically whenever new campaigns and vectors are discovered, so you might want to update your Threat campaigns from time to time. You can upgrade the Threat campaigns by updating the package any time after installing App Protect. We recommend you upgrade to the latest Threat campaigns version right after installing App Protect.</p>
+</div>
 <p>For instance, if we notice a hacker managed to enter into our Struts2 system, we will do forensics and analyse the packet that used the breach. Then, this team creates the <code class="docutils literal notranslate"><span class="pre">rule</span></code> for this request.
 A <code class="docutils literal notranslate"><span class="pre">rule</span></code> <strong>can</strong> contains all the HTTP L7 payload (headers, cookies, payload …)</p>
 <div class="admonition note">

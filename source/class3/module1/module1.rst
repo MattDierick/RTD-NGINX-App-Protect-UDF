@@ -154,7 +154,7 @@ Steps:
     #. Run the same tests as the Docker lab and check the logs in Kibana
 
 
-**Last step is to install the latest Signature Package**
+**Next step is to install the latest Signature Package**
 
 Steps:
 
@@ -201,6 +201,39 @@ Steps:
             less /var/log/nginx/error.log
 
 .. note:: Upgrading App Protect does not install new Attack Signatures. You will get the same Attack Signature release after upgrading App Protect. If you want to also upgrade the Attack Signatures, you will have to explicitly update them by the respective command above.
+
+|
+
+**Last step is to install the Threat Campaign package**
+
+.. note :: The App Protect installation does not come with a built-in Threat campaigns package like Attack Signatures. Threat campaigns Updates are released periodically whenever new campaigns and vectors are discovered, so you might want to update your Threat campaigns from time to time. You can upgrade the Threat campaigns by updating the package any time after installing App Protect. We recommend you upgrade to the latest Threat campaigns version right after installing App Protect.
+
+.. note :: After having updated the Threat campaigns package you have to reload the configuration in order for the new version of the Threat campaigns to take effect. Until then App Protect will run with the old version, if exists. This is useful when creating an environment with a specific tested version of the Threat campaigns.
+
+
+Steps :
+
+    #. As the repo has been already added, no need to add it. TC and Signatures use the same repo ``https://cs.nginx.com/static/files/app-protect-signatures-7.repo``
+
+    #. Install the package 
+
+        .. code-block :: bash
+
+            sudo yum install app-protect-threat-campaigns
+    
+    #. Restart NGINX process to apply the new signatures:
+
+        .. code-block:: bash
+
+            sudo systemctl restart nginx
+
+    #. Check the **new** Threat Campaign package date:
+
+        .. code-block:: bash
+
+            less /var/log/nginx/error.log    
+
+.. note :: We don't spend more time on Threat Campaign in this lab as we did it already in the Docker lab (Class 2 - Step 5)
 
 **Video of this module (force HD 1080p in the video settings)**
 

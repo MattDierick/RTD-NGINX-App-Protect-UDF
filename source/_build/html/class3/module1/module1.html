@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Step 9 - Deploy App Protect via CI/CD pipeline" href="../module2/module2.html" />
+    <link rel="next" title="Step 10 - Deploy App Protect via CI/CD pipeline" href="../module2/module2.html" />
     <link rel="prev" title="Class 3 - Protect Arcadia with NGINX App Protect in Linux host" href="../class3.html" /> 
 </head>
 
@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../class2/class2.html">Class 2 - Protect Arcadia with NGINX App Protect in Docker</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../class3.html">Class 3 - Protect Arcadia with NGINX App Protect in Linux host</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Step 9 - Install the NGINX Plus and App Protect packages manually</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 9 - Deploy App Protect via CI/CD pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">Step 10 - Deploy App Protect via CI/CD pipeline</a></li>
 </ul>
 </li>
 </ul>
@@ -315,7 +315,7 @@ http <span class="o">{</span>
 <li>Run the same tests as the Docker lab and check the logs in Kibana</li>
 </ol>
 </div></blockquote>
-<p><strong>Last step is to install the latest Signature Package</strong></p>
+<p><strong>Next step is to install the latest Signature Package</strong></p>
 <p>Steps:</p>
 <blockquote>
 <div><ol class="arabic">
@@ -365,6 +365,50 @@ http <span class="o">{</span>
 <p class="first admonition-title">Note</p>
 <p class="last">Upgrading App Protect does not install new Attack Signatures. You will get the same Attack Signature release after upgrading App Protect. If you want to also upgrade the Attack Signatures, you will have to explicitly update them by the respective command above.</p>
 </div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Last step is to install the Threat Campaign package</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The App Protect installation does not come with a built-in Threat campaigns package like Attack Signatures. Threat campaigns Updates are released periodically whenever new campaigns and vectors are discovered, so you might want to update your Threat campaigns from time to time. You can upgrade the Threat campaigns by updating the package any time after installing App Protect. We recommend you upgrade to the latest Threat campaigns version right after installing App Protect.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After having updated the Threat campaigns package you have to reload the configuration in order for the new version of the Threat campaigns to take effect. Until then App Protect will run with the old version, if exists. This is useful when creating an environment with a specific tested version of the Threat campaigns.</p>
+</div>
+<p>Steps :</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">As the repo has been already added, no need to add it. TC and Signatures use the same repo <code class="docutils literal notranslate"><span class="pre">https://cs.nginx.com/static/files/app-protect-signatures-7.repo</span></code></p>
+</li>
+<li><p class="first">Install the package</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum install app-protect-threat-campaigns
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Restart NGINX process to apply the new signatures:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo systemctl restart nginx
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Check the <strong>new</strong> Threat Campaign package date:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>less /var/log/nginx/error.log
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We don’t spend more time on Threat Campaign in this lab as we did it already in the Docker lab (Class 2 - Step 5)</p>
+</div>
 <p><strong>Video of this module (force HD 1080p in the video settings)</strong></p>
 <div style="text-align: center; margin-bottom: 2em;">
 <iframe width="1120" height="630" src="https://www.youtube.com/embed/xVmxWOeJ5Cc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -378,7 +422,7 @@ http <span class="o">{</span>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../module2/module2.html" class="btn btn-neutral float-right" title="Step 9 - Deploy App Protect via CI/CD pipeline" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../module2/module2.html" class="btn btn-neutral float-right" title="Step 10 - Deploy App Protect via CI/CD pipeline" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../class3.html" class="btn btn-neutral float-left" title="Class 3 - Protect Arcadia with NGINX App Protect in Linux host" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
