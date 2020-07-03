@@ -1,6 +1,8 @@
 Step 8 - Deploy NAP with a CI/CD toolchain
 ##########################################
 
+.. warning :: This module is not up to date, due to changes in signature udpate process in the GA release. In this lab, we will upload manually the signature package. Now, with the GA, this package is available in the public repo. I will update this lab soon accordingly.
+
 In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to the app, so when DevOps commits a new app (or a new version), the CI/CD pipeline has to deploy a new NAP component in front. In order to avoid repeating what we did previously, we will use a Signature package update as a trigger.
 
 .. note:: When a new signature package is available, the CI/CD pipeline will build a new version of the Docker image and run it in front of Arcadia Application
