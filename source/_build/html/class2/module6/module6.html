@@ -162,10 +162,6 @@
             
   <div class="section" id="step-8-deploy-nap-with-a-ci-cd-toolchain">
 <h1>Step 8 - Deploy NAP with a CI/CD toolchain<a class="headerlink" href="#step-8-deploy-nap-with-a-ci-cd-toolchain" title="Permalink to this headline">¶</a></h1>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This module is not up to date, due to changes in signature udpate process in the GA release. In this lab, we will upload manually the signature package. Now, with the GA, this package is available in the public repo. I will update this lab soon accordingly.</p>
-</div>
 <p>In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to the app, so when DevOps commits a new app (or a new version), the CI/CD pipeline has to deploy a new NAP component in front. In order to avoid repeating what we did previously, we will use a Signature package update as a trigger.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -173,19 +169,21 @@
 </div>
 <p><strong>This is the workflow we will run</strong></p>
 <blockquote>
+<div><ol class="arabic">
+<li><p class="first">Check if a new Signature Package is available</p>
+</li>
+<li><p class="first">Simulate a Commit in GitLab (Goal is to simulate a full automated process checking Signature Package date every day)</p>
+</li>
+<li><p class="first">This commit triggers a webhook in Jenkins</p>
+</li>
+<li><p class="first">Jenkins runs the pipeline</p>
+<blockquote>
 <div><ol class="arabic simple">
-<li>Upload a new Signature Package in GitLab</li>
-<li>Commit this upload in GitLab</li>
-<li>This commit triggers a webhook in Jenkins</li>
-<li><dl class="first docutils">
-<dt>Jenkins runs the pipeline</dt>
-<dd><ol class="first last arabic">
 <li>Build a new Docker NAP image with a new tag <code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">signature</span> <span class="pre">package</span></code></li>
 <li>Destroy the previous running NAP container</li>
 <li>Run a new NAP container with this new Signature Package</li>
 </ol>
-</dd>
-</dl>
+</div></blockquote>
 </li>
 </ol>
 </div></blockquote>
@@ -202,34 +200,30 @@
 
 <span class="o">}</span>
 <span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Build Docker&#39;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Build the Docker image with the date of the signature package as a docker tag</span>
     <span class="n">withEnv</span><span class="o">([</span><span class="s2">&quot;MVN_HOME=$mvnHome&quot;</span><span class="o">])</span> <span class="o">{</span>
-        <span class="c1">// Define the remote docker registry</span>
         <span class="n">registry</span> <span class="o">=</span> <span class="s2">&quot;10.1.20.7:5000/app-protect&quot;</span>
-        <span class="c1">// Extract the tag from the date of the Signature Package</span>
-        <span class="n">tag</span> <span class="o">=</span> <span class="n">sh</span> <span class="o">(</span><span class="nl">script:</span> <span class="s1">&#39;echo -n app-protect-attack-signatures-* | cut -c 31-38&#39;</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
+        <span class="c1">// Define the docker tag by requesting information of the yum package (signature date)</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="n">sh</span> <span class="o">(</span><span class="nl">script:</span> <span class="s2">&quot;yum info app-protect-attack-signatures | grep Version | cut -d&#39;:&#39; -f2&quot;</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
         <span class="n">echo</span> <span class="s2">&quot;${tag}&quot;</span>
         <span class="n">script</span> <span class="o">{</span>
-            <span class="c1">// Build the docker image</span>
-            <span class="n">docker</span><span class="o">.</span><span class="na">build</span> <span class="n">registry</span> <span class="o">+</span> <span class="s2">&quot;:${tag}&quot;</span>
+        <span class="n">docker</span><span class="o">.</span><span class="na">build</span> <span class="n">registry</span> <span class="o">+</span> <span class="s2">&quot;:${tag}&quot;</span>
         <span class="o">}</span>
-
-
-        <span class="o">}</span>
+    <span class="o">}</span>
 <span class="o">}</span>
 <span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Push Docker&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">withEnv</span><span class="o">([</span><span class="s2">&quot;MVN_HOME=$mvnHome&quot;</span><span class="o">])</span> <span class="o">{</span>
-        <span class="c1">// Push the image into the remote Docker registry</span>
         <span class="n">sh</span> <span class="s2">&quot;sudo docker push 10.1.20.7:5000/app-protect:${tag}&quot;</span>
         <span class="o">}</span>
 <span class="o">}</span>
 
     <span class="n">stage</span> <span class="nl">name:</span> <span class="s1">&#39;Run Docker&#39;</span><span class="o">,</span> <span class="nl">concurrency:</span> <span class="mi">1</span>
             <span class="n">withEnv</span><span class="o">([</span><span class="s2">&quot;MVN_HOME=$mvnHome&quot;</span><span class="o">])</span> <span class="o">{</span>
-                <span class="c1">// Run the docker container</span>
-                <span class="n">ansiblePlaybook</span> <span class="nl">inventory:</span> <span class="s1">&#39;hosts&#39;</span><span class="o">,</span>
-                <span class="nl">playbook:</span> <span class="s1">&#39;playbook.yaml&#39;</span><span class="o">,</span>
-                <span class="nl">extraVars:</span> <span class="o">[</span><span class="nl">dockertag:</span> <span class="s2">&quot;${tag}&quot;</span><span class="o">]</span>
+            <span class="n">ansiblePlaybook</span> <span class="nl">inventory:</span> <span class="s1">&#39;hosts&#39;</span><span class="o">,</span>
+            <span class="nl">playbook:</span> <span class="s1">&#39;playbook.yaml&#39;</span><span class="o">,</span>
+            <span class="nl">extraVars:</span> <span class="o">[</span><span class="nl">dockertag:</span> <span class="s2">&quot;${tag}&quot;</span><span class="o">]</span>
             <span class="o">}</span>
+
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -237,19 +231,18 @@
 <p class="first admonition-title">Note</p>
 <p class="last">The challenge here was to retrieve the date of the package and tag the image with this date in order to have one image per signature package date. This is useful if you need to roll back to a previous version of the signatures.</p>
 </div>
-<p><strong>Upload a new signature package in GitLab</strong></p>
+<p><strong>Simulate an automated task detecting a new Signature Package has been release by F5</strong></p>
 <p>Steps:</p>
 <blockquote>
 <div><ol class="arabic">
 <li><p class="first">RDP to the Jumphost and open <code class="docutils literal notranslate"><span class="pre">Chrome</span></code></p>
 </li>
-<li><dl class="first docutils">
-<dt>Open 2 tabs <code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">[Jenkins]</span></code> and <code class="docutils literal notranslate"><span class="pre">Gitlab</span></code></dt>
-<dd><ol class="first last arabic simple">
+<li><p class="first">Open 2 tabs <code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">[Jenkins]</span></code> and <code class="docutils literal notranslate"><span class="pre">Gitlab</span></code></p>
+<blockquote>
+<div><ol class="arabic simple">
 <li>If Jenkins is not available (502 error), restart the GitLab Docker container. SSH to the GitLab VM and run <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">restart</span> <span class="pre">gitlab</span></code></li>
 </ol>
-</dd>
-</dl>
+</div></blockquote>
 </li>
 <li><p class="first">In Jenkins, open <code class="docutils literal notranslate"><span class="pre">Update_Docker_Signatures</span></code> pipeline</p>
 <blockquote>
@@ -261,22 +254,14 @@
 <div><a class="reference internal image-reference" href="../../_images/gitlab_project.png"><img alt="../../_images/gitlab_project.png" class="align-center" src="../../_images/gitlab_project.png" style="width: 691.0px; height: 316.0px;" /></a>
 </div></blockquote>
 </li>
-<li><p class="first">In the GitLab project, click on the <code class="docutils literal notranslate"><span class="pre">+</span></code> icon and <code class="docutils literal notranslate"><span class="pre">upload</span> <span class="pre">file</span></code></p>
+<li><p class="first">SSH (or WebSSH) to <code class="docutils literal notranslate"><span class="pre">CICD</span> <span class="pre">server</span> <span class="pre">(Jenkins,</span> <span class="pre">Terraform,</span> <span class="pre">Ansible)</span> <span class="pre">+</span> <span class="pre">Bind</span></code></p>
 <blockquote>
-<div><a class="reference internal image-reference" href="../../_images/upload_file.png"><img alt="../../_images/upload_file.png" class="align-center" src="../../_images/upload_file.png" style="width: 586.0px; height: 481.0px;" /></a>
-</div></blockquote>
-</li>
-<li><dl class="first docutils">
-<dt>Select Signature Package file from the Desktop &gt; NGINX Signatures Packages</dt>
-<dd><ol class="first last arabic simple">
-<li>If you can’t click on <code class="docutils literal notranslate"><span class="pre">click</span> <span class="pre">to</span> <span class="pre">upload</span></code>, this is a bug in GitLab</li>
-<li>Workaround is to simulate the creation of a file. Close this upload window, click on <code class="docutils literal notranslate"><span class="pre">+</span></code> icon <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">file</span></code>, enter anything in the name and click <code class="docutils literal notranslate"><span class="pre">Cancel</span></code></li>
-<li>Try to upload the file again, it should work.</li>
+<div><ol class="arabic simple">
+<li>Run this command in order to know the latest Signature Package date <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">info</span> <span class="pre">app-protect-attack-signatures</span></code></li>
+<li>You can notice the vesion date. In my case, when I write this lab <code class="docutils literal notranslate"><span class="pre">2020.06.30</span></code>. We will use this date as a Docker tag, but this will be done automatically but the CI/CD pipeline.</li>
 </ol>
-</dd>
-</dl>
-</li>
-<li><p class="first">Upload the file <code class="docutils literal notranslate"><span class="pre">app-protect-attack-signatures-20200421-1.el7.centos.x86_64.rpm</span></code> with the date of April 21st, 2020. Date is in the name of the file</p>
+<a class="reference internal image-reference" href="../../_images/yum-date.png"><img alt="../../_images/yum-date.png" class="align-center" src="../../_images/yum-date.png" style="width: 507.0px; height: 182.0px;" /></a>
+</div></blockquote>
 </li>
 </ol>
 </div></blockquote>
@@ -284,9 +269,9 @@
 <p>Steps :</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">In GitLab, click on <code class="docutils literal notranslate"><span class="pre">Tags</span></code> in the left menu</p>
+<li><p class="first">In GitLab, click on <code class="docutils literal notranslate"><span class="pre">Repository</span></code> and <code class="docutils literal notranslate"><span class="pre">Tags</span></code> in the left menu</p>
 </li>
-<li><p class="first">Create a new tag and give it the name <code class="docutils literal notranslate"><span class="pre">Sig-20200421</span></code></p>
+<li><p class="first">Create a new tag and give it a name like <code class="docutils literal notranslate"><span class="pre">Sig-Version_Date</span></code> Change <code class="docutils literal notranslate"><span class="pre">Version-Date</span></code> by the package version information. But it does not matter, you can put everything you want.</p>
 </li>
 <li><p class="first">Click <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">tag</span></code></p>
 </li>
@@ -307,16 +292,16 @@
 <dd><ol class="first arabic simple">
 <li>In <code class="docutils literal notranslate"><span class="pre">Chrome</span></code> open bookmark <code class="docutils literal notranslate"><span class="pre">Docker</span> <span class="pre">Registry</span> <span class="pre">UI</span></code></li>
 <li>Click on <code class="docutils literal notranslate"><span class="pre">App</span> <span class="pre">Protect</span></code> Repository</li>
-<li>You can see your new image with the tag <code class="docutils literal notranslate"><span class="pre">20200421</span></code></li>
+<li>You can see your new image with the tag <code class="docutils literal notranslate"><span class="pre">2020.06.30</span></code></li>
 </ol>
 <img alt="../../_images/registry-ui.png" class="last align-center" src="../../_images/registry-ui.png" />
 </dd>
 </dl>
 </li>
-<li><p class="first">Connect in SSH to the Docker App Protect + Docker repo VM, and check the signature package date running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">app-protect</span> <span class="pre">more</span> <span class="pre">/var/log/nginx/error.log</span></code>.</p>
+<li><p class="first">Connect in SSH to the Docker App Protect + Docker repo VM, and check the signature package date running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">app-protect</span> <span class="pre">more</span> <span class="pre">/var/log/nginx/error.log</span></code></p>
 </li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2020</span>/05/24 <span class="m">20</span>:49:39 <span class="o">[</span>notice<span class="o">]</span> <span class="m">12</span><span class="c1">#12: APP_PROTECT { &quot;event&quot;: &quot;configuration_load_success&quot;, &quot;attack_signatures_package&quot;:{&quot;revision_datetime&quot;:&quot;2020-04-21T10:43:02Z&quot;,&quot;version&quot;:&quot;2020.04.21&quot;},&quot;completed_successfully&quot;:true}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2020</span>/07/06 <span class="m">09</span>:32:05 <span class="o">[</span>notice<span class="o">]</span> <span class="m">12</span><span class="c1">#12: APP_PROTECT { &quot;event&quot;: &quot;configuration_load_success&quot;, &quot;software_version&quot;: &quot;3.74.0&quot;, &quot;attack_signatures_package&quot;:{&quot;revision_datetime&quot;:&quot;2020-06-30T10:08:35Z&quot;,&quot;version&quot;:&quot;2020.06.30&quot;},&quot;completed_successfully&quot;:true,&quot;threat_campaigns_package&quot;:{}}</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -324,10 +309,7 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Congratulations, you ran a CI/CD pipeline based on a GitLab webhook. This webhook was based on a Signature Package update, but it could have also been associated with an application commit.</p>
 </div>
-<p><strong>Video of this module (force HD 1080p in the video settings)</strong></p>
-<div style="text-align: center; margin-bottom: 2em;">
-<iframe width="1120" height="630" src="https://www.youtube.com/embed/BQTSf4-iqGo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div></div>
+</div>
 
 
            </div>
