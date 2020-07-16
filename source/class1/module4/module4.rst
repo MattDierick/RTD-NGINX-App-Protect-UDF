@@ -12,7 +12,7 @@ To do so, I prepared a ``kubectl`` Kubernetes Deployment in YAML.
 
 **Steps:**
 
-    #. SSH (not WebSSH) to CICD server
+    #. SSH (or WebSSH and ``cd /home/ubuntu/``) to CICD Server
     #. Run this command ``kubectl apply -f /home/ubuntu/k8s_ingress/full_ingress_arcadia.yaml``
     #. You should now see a new namespace ``nginx-ingress`` and a new ingress in the Kubernetes Dashboard on the Jumphost
     #. Check the Ingress ``arcadia-ingress`` by clicking on the 3 dots on the right and ``edit``
