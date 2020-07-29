@@ -62,7 +62,7 @@ The pipeline is as below:
     stage 'Checkout'
          // // Get some code from a GitHub repository
         git url: 'http://10.1.20.4/nginx-app-protect/ansible_deploy.git'
-        sh 'ansible-galaxy install -r requirements.yml'
+        sh 'ansible-galaxy install -r requirements.yml --force'
    
     stage name: 'Deploy NGINX Plus', concurrency: 1
             dir("${env.WORKSPACE}"){
@@ -79,6 +79,8 @@ The pipeline is as below:
             ansiblePlaybook inventory: 'hosts', playbook: 'copy-nginx-conf.yml'
             }
     }
+
+.. note:: As you can notice, the ``Checkout`` stage installs the ``requirements``. We use the parameter ``--force`` in order to be sure we download and install the latest version of the module.
 
 .. note:: This pipeline executes 3 Ansible playbooks. 
     
