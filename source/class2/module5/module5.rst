@@ -277,7 +277,7 @@ As a reminder, this is the base policy we created:
 Steps :
 
 #. RDP to ``Jumphost`` and connect to ``GitLab`` (root / F5twister$)
-#. Enter in the project ``NGINX App Protect / reference-blocking-page``
+#. Click on the project named ``NGINX App Protect / reference-blocking-page``
 
     .. image:: ../pictures/module5/gitlab-1.png
        :align: center
