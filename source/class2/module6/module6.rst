@@ -67,7 +67,7 @@ Steps:
     #. Open 2 tabs ``Dashboard [Jenkins]`` and ``Gitlab``
 
         #. If Jenkins is not available (502 error), restart the GitLab Docker container. SSH to the GitLab VM and run ``docker restart gitlab`` 
-    #. In Jenkins, open ``Update_Docker_Signatures`` pipeline
+    #. In Jenkins, open ``Update_Docker_signatures`` pipeline
 
         .. image:: ../pictures/module6/jenkins_favorite.png
            :align: center
@@ -81,8 +81,8 @@ Steps:
 
     #. SSH (or WebSSH) to ``CICD server (Jenkins, Terraform, Ansible) + Bind``
 
-        #. Run this command in order to know the latest Signature Package date ``yum info app-protect-attack-signatures``
-        #. You can notice the vesion date. In my case, when I write this lab ``2020.06.30``. We will use this date as a Docker tag, but this will be done automatically but the CI/CD pipeline.
+        #. Run this command in order to determine the latest Signature Package date: ``yum info app-protect-attack-signatures``
+        #. You may notice the version date. In my case, when I write this lab ``2020.06.30`` was the most recent version of the signatures package. We will use this date as a Docker tag, but this will be done automatically by the CI/CD pipeline.
 
         .. image:: ../pictures/module6/yum-date.png
            :align: center
@@ -96,7 +96,7 @@ Steps:
 Steps :
 
     #. In GitLab, click on ``Repository`` and ``Tags`` in the left menu
-    #. Create a new tag and give it a name like ``Sig-Version_Date`` Change ``Version-Date`` by the package version information. But it does not matter, you can put everything you want.
+    #. Create a new tag and give it a name like ``Sig-<version date>`` where ideally ``<version_date>`` should be replaced by the package version information found in the result of the ``yum info`` step above. But it does not matter, you can put anything you want in this tag.
     #. Click ``Create tag``
     #. At this moment, the Jenkins pipeline starts (thanks to a webhook between GitLab and Jenkins)
     #. In Chrome on the Jenkins tab, you should see a new ``RUN``, click on it
