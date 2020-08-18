@@ -128,8 +128,6 @@ Steps:
                         }
                     ],
                 "signature-settings": {
-                        "signatureStaging": false,
-                        "placeSignaturesInStaging": false,
                         "attackSignatureFalsePositiveMode": "disabled",
                         "minimumAccuracyForAutoAddedSignatures": "low"
                 },
@@ -265,7 +263,7 @@ In this lab, we will create a ``custom blocking page`` and host this page in Git
 
 .. note :: In this configuration, we are completely satisfied with the basic base policy we created previously ``/policy-adv/policy_base.json``, and we wish to use it as is. However, we wish to define a custom response page using an external file located on an HTTP web server (Gitlab). The external reference file contains our custom response page configuration.
 
-As a remidner, this is the base policy we created:
+As a reminder, this is the base policy we created:
 
     .. code-block:: json
 
@@ -279,7 +277,7 @@ As a remidner, this is the base policy we created:
 Steps :
 
 #. RDP to ``Jumphost`` and connect to ``GitLab`` (root / F5twister$)
-#. Enter in the project ``NGINX App Protect / reference-blocking-page```
+#. Click on the project named ``NGINX App Protect / reference-blocking-page``
 
     .. image:: ../pictures/module5/gitlab-1.png
        :align: center
