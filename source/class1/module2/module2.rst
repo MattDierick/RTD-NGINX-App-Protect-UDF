@@ -30,7 +30,7 @@ Tasks:
 
 |
 
-Step 2 - Publish Arcadia app with a NGNIX Plus Ingress Controller
+Step 2 - Publish Arcadia app with a NGINX Plus Ingress Controller
 *****************************************************************
 
 .. note :: Goal is to publish Arcadia application outside the Kubernetes cluster and use NGINX Plus Ingress Controller for that
@@ -132,10 +132,20 @@ Task:
 |
 
 Step 10 - Deploy App Protect via CI/CD pipeline
-**********************************************
+***********************************************
 
 .. note :: Goal is to deploy NAP by using a CI/CD pipeline with automation toolchain packages provided by F5.
 
 Task:
 
     #. Use CI/CD toolchain in order to deploy NAP automatically with the latest signature package.
+
+Step 11 - Deploy a new version of the NGINX Plus Ingress Controller
+*******************************************************************
+
+.. note :: Goal is to deploy NAP in the Kubernetes Ingress Controller. Since NAP v1.3, NAP can be deployed in a KIC with NGINX+
+
+Task:
+
+    #. Pull NGINX+ KIC image from my private Gitlab repo
+    #. Deploy a new Ingress configuration with NAP annotations and configuration
