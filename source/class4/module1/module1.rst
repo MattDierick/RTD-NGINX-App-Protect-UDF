@@ -3,7 +3,15 @@ Step 11 - Deploy a new version of the NGINX Plus Ingress Controller
 
 As a reminder, in ``Step 2 - Publish Arcadia App with a NGINX Plus Ingress Controller`` we deployed a NGINX Plus intance as an Ingress Controller in our Kubernetes cluster.
 
-Now, with NAP v1.3, we can deploy this NGINX Plus instance with the NAP module enabled. To do so, we will:
+.. image:: ../pictures/module1/NAP_index.png
+   :align: center
+
+Now, with NAP v1.3, we can deploy this NGINX Plus instance with the NAP module enabled. 
+
+.. image:: ../pictures/module1/nap_kic.png
+   :align: center
+
+To do so, we will:
 
 #. Deploy a new version of the Pod (NGINX r22 + NAP v1.3)
 #. Deploy a new Ingress configuration template (with NAP configuration files)
@@ -64,10 +72,10 @@ As you can notice, we added few lines in our Ingress declaration. To do so, I fo
 
 Please a make a new test by clicking on ``Arcadia k8s`` Chrome bookmark.
 
-    #. Open ``Chrome```
+    #. Open ``Chrome``
     #. Click on ``Arcadia k8s`` bookmark
     #. Now, you are connecting to Arcadia App from a new KIC with NAP enabled
-    #. Make an attack (like a XSS in the address bar) by appending ``?a=<script>``
+    #. Send an attack (like a XSS in the address bar) by appending ``?a=<script>``
     #. Attack is blocked
     #. Open ELK and check your logs
 
