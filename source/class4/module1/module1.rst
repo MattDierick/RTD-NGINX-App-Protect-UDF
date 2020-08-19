@@ -1,7 +1,7 @@
 Step 11 - Deploy a new version of the NGINX Plus Ingress Controller
 ###################################################################
 
-As a reminder, in ``Step 2 - Publish Arcadia App with a NGINX Plus Ingress Controller`` we deployed a NGINX Plus intance as an Ingress Controller in our Kubernetes cluster.
+As a reminder, in ``Step 2 - Publish Arcadia App with a NGINX Plus Ingress Controller`` we deployed a NGINX Plus instance as an Ingress Controller in our Kubernetes cluster.
 
 .. image:: ../pictures/module1/NAP_index.png
    :align: center
