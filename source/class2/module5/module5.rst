@@ -350,6 +350,201 @@ Steps :
 
 |
 
+Create an OWASP Top 10 policy for NAP
+*************************************
+
+So far, we created basic and custom policy (per location) and used external references. Now it is time to deploy an OWASP Top 10 policy.
+The policy not 100% OWASP Top 10 as several attacks can't be blocked just with a negative policy, we will cover a big part of OWASP Top 10.
+
+Steps:
+
+    #. SSH to the Docker App Protect + Docker repo VM
+    #. In the ``/home/ubuntu`` directory, create a new folder ``policy_owasp_top10``
+
+        .. code-block:: bash
+
+            mkdir policy_owasp_top10
+
+    #. Create a new policy file named ``policy_owasp_top10.json`` and paste the content below
+        
+        .. code-block:: bash
+
+            vi ./policy_owasp_top10/policy_owasp_top10.json
+
+        .. code-block:: json
+
+                {
+                "policy": {
+                    "name": "Complete_OWASP_Top_Ten",
+                    "description": "A generic, OWASP Top 10 protection items v1.0",
+                    "template": {
+                    "name": "POLICY_TEMPLATE_NGINX_BASE"
+                    },
+                    "fullPath": "/Common/Complete_OWASP_Top_Ten",
+                    "enforcementMode":"blocking",
+                    "signature-settings":{
+                        "signatureStaging": false,
+                        "minimumAccuracyForAutoAddedSignatures": "high"
+                    },
+                    "caseInsensitive": true,
+                    "general": {
+                    "trustXff": true
+                    },
+                    "data-guard": {
+                    "enabled": true
+                    },
+                    "blocking-settings": {
+                    "violations": [
+                        {
+                        "alarm": true,
+                        "block": true,
+                        "description": "Modified NAP cookie",
+                        "learn": false,
+                        "name": "VIOL_ASM_COOKIE_MODIFIED"
+                        },
+                        {
+                        "alarm": true,
+                        "block": true,
+                        "description": "XML data does not comply with format settings",
+                        "learn": false,
+                        "name": "VIOL_XML_FORMAT"
+                        },
+                        {
+                        "name": "VIOL_FILETYPE",
+                        "alarm": true,
+                        "block": true,
+                        "learn": false
+                        }
+                    ],
+                    "evasions": [
+                        {
+                        "description": "Bad unescape",
+                        "enabled": true,
+                        "learn": false
+                        },
+                        {
+                        "description": "Apache whitespace",
+                        "enabled": true,
+                        "learn": false
+                        },
+                        {
+                        "description": "Bare byte decoding",
+                        "enabled": true,
+                        "learn": false
+                        },
+                        {
+                        "description": "IIS Unicode codepoints",
+                        "enabled": true,
+                        "learn": false
+                        },
+                        {
+                        "description": "IIS backslashes",
+                        "enabled": true,
+                        "learn": false
+                        },
+                        {
+                        "description": "%u decoding",
+                        "enabled": true,
+                        "learn": false
+                        },
+                        {
+                        "description": "Multiple decoding",
+                        "enabled": true,
+                        "learn": false,
+                        "maxDecodingPasses": 3
+                        },
+                        {
+                        "description": "Directory traversals",
+                        "enabled": true,
+                        "learn": false
+                        }
+                    ]
+                    },
+                    "xml-profiles": [
+                    {
+                        "name": "Default",
+                        "defenseAttributes": {
+                        "allowDTDs": false,
+                        "allowExternalReferences": false
+                        }
+                    }
+                    ]
+                }
+                }
+
+        .. note:: Please have a quick look on this policy. You can notice several violations are enabled in order to cover the different OWASP categories
+
+    #. Now, create a new ``nginx.conf`` in the ``policy_owasp_top10`` folder. Do not overwrite the existing ``/etc/nginx/nginx.conf`` file, we need it for the next labs.
+
+        .. code-block:: bash
+
+            vi ./policy_owasp_top10/nginx.conf
+
+        .. code-block:: bash
+
+            user nginx;
+
+            worker_processes 1;
+            load_module modules/ngx_http_app_protect_module.so;
+
+            error_log /var/log/nginx/error.log debug;
+
+            events {
+                worker_connections  1024;
+            }
+
+            http {
+                include       /etc/nginx/mime.types;
+                default_type  application/octet-stream;
+                sendfile        on;
+                keepalive_timeout  65;
+
+                server {
+                    listen       80;
+                    server_name  localhost;
+                    proxy_http_version 1.1;
+
+                    app_protect_enable on;
+                    app_protect_security_log_enable on;
+                    app_protect_policy_file "/etc/nginx/policy/policy_owasp_top10.json";
+                    app_protect_security_log "/etc/nginx/log-default.json" syslog:server=10.1.20.6:5144;
+
+                    location / {
+                        resolver 10.1.1.9;
+                        resolver_timeout 5s;
+                        client_max_body_size 0;
+                        default_type text/html;
+                        proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
+                    }
+                }
+            }
+ 
+        .. note:: You can notice we get back to a very simple policy. This is what DevOps and DevSecOps expect when they deploy NAP. Simple policy for OWASP Top10 attacks.
+
+    #. Last step is to run a new container (and delete the previous one) referring to these new files for OWASP Top 10 protection.
+
+        .. code-block:: bash
+
+            docker rm -f app-protect
+            docker run -dit --name app-protect -p 80:80 -v /home/ubuntu/policy_owasp_top10/nginx.conf:/etc/nginx/nginx.conf -v /home/ubuntu/policy_owasp_top10/policy_owasp_top10.json:/etc/nginx/policy/policy_owasp_top10.json app-protect:20200316
+
+    #. Check that the ``app-protect:20200316`` container is running 
+
+        .. code-block:: bash
+
+            docker ps
+
+        .. image:: ../pictures/module5/docker-ps-owasp.png
+           :align: center
+
+    #. RDP to the Jumhost as ``user:user`` and click on bookmark ``Arcadia NAP Docker``
+
+        .. image:: ../pictures/module5/arcadia-adv.png
+           :align: center
+    
+
+|
+
 **Video of this module (force HD 1080p in the video settings)**
 
 .. raw:: html
