@@ -399,64 +399,53 @@ Steps:
                         "alarm": true,
                         "block": true,
                         "description": "Modified NAP cookie",
-                        "learn": false,
                         "name": "VIOL_ASM_COOKIE_MODIFIED"
                         },
                         {
                         "alarm": true,
                         "block": true,
                         "description": "XML data does not comply with format settings",
-                        "learn": false,
                         "name": "VIOL_XML_FORMAT"
                         },
                         {
                         "name": "VIOL_FILETYPE",
                         "alarm": true,
-                        "block": true,
-                        "learn": false
+                        "block": true
                         }
                     ],
                     "evasions": [
                         {
                         "description": "Bad unescape",
-                        "enabled": true,
-                        "learn": false
+                        "enabled": true
                         },
                         {
                         "description": "Apache whitespace",
-                        "enabled": true,
-                        "learn": false
+                        "enabled": true
                         },
                         {
                         "description": "Bare byte decoding",
-                        "enabled": true,
-                        "learn": false
+                        "enabled": true
                         },
                         {
                         "description": "IIS Unicode codepoints",
-                        "enabled": true,
-                        "learn": false
+                        "enabled": true
                         },
                         {
                         "description": "IIS backslashes",
-                        "enabled": true,
-                        "learn": false
+                        "enabled": true
                         },
                         {
                         "description": "%u decoding",
-                        "enabled": true,
-                        "learn": false
+                        "enabled": true
                         },
                         {
                         "description": "Multiple decoding",
                         "enabled": true,
-                        "learn": false,
                         "maxDecodingPasses": 3
                         },
                         {
                         "description": "Directory traversals",
-                        "enabled": true,
-                        "learn": false
+                        "enabled": true
                         }
                     ]
                     },
