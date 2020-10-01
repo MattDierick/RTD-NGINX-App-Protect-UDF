@@ -188,11 +188,11 @@ Steps:
 
             sudo yum downgrade app-protect-attack-signatures-2019.07.16
 
-    #. Restart NGINX process to apply the new signatures:
+    #. Reload NGINX process to apply the new signatures:
 
         .. code-block:: bash
 
-            sudo systemctl restart nginx
+            sudo nginx -s reload
 
     #. Check the **new** signatures package date:
 
@@ -221,11 +221,11 @@ Steps :
 
             sudo yum install app-protect-threat-campaigns
     
-    #. Restart NGINX process to apply the new signatures:
+    #. Reload NGINX process to apply the new signatures:
 
         .. code-block:: bash
 
-            sudo systemctl restart nginx
+            sudo sudo nginx -s reload
 
     #. Check the **new** Threat Campaign package date:
 
