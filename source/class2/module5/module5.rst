@@ -380,7 +380,6 @@ Steps:
                     "template": {
                     "name": "POLICY_TEMPLATE_NGINX_BASE"
                     },
-                    "fullPath": "/Common/Complete_OWASP_Top_Ten",
                     "enforcementMode":"blocking",
                     "signature-settings":{
                         "signatureStaging": false,
