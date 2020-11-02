@@ -64,11 +64,6 @@ The pipeline is as below:
         git url: 'http://10.1.20.4/nginx-app-protect/ansible_deploy.git'
         sh 'ansible-galaxy install -r requirements.yml --force'
    
-    stage name: 'Deploy NGINX Plus', concurrency: 1
-            dir("${env.WORKSPACE}"){
-            ansiblePlaybook inventory: 'hosts', playbook: 'install-nginx-plus.yml'
-            }
-
     stage name: 'Deploy NAP', concurrency: 1
             dir("${env.WORKSPACE}"){
             ansiblePlaybook inventory: 'hosts', playbook: 'app-protect.yml'
