@@ -28,18 +28,18 @@ Steps for the lab
 *****************
 
     #. SSH (or WebSSH) to ``App Protect in CentOS``
-    #. Go to ``/etc/nginx``
+    #. Go to ``cd /etc/nginx``
     #. ``ls`` and check the files created during the previous CI/CD pipeline job
 
         .. code-block:: console
 
             [centos@ip-10-1-1-7 nginx]$ ls
-            conf.d          koi-utf  log-default.json  modules                      nginx.conf               NginxStrictPolicy.json  uwsgi_params
-            fastcgi_params  koi-win  mime.types        NginxApiSecurityPolicy.json  NginxDefaultPolicy.json  scgi_params             win-utf    
+            app-protect-log-policy.json       conf.d          koi-utf  mime.types  NginxApiSecurityPolicy.json  nginx.conf.orig          NginxStrictPolicy.json  uwsgi_params
+            app-protect-security-policy.json  fastcgi_params  koi-win  modules     nginx.conf                   NginxDefaultPolicy.json  scgi_params             win-utf   
 
         .. note :: You can notice a NAP policy ``NginxApiSecurityPolicy.json`` exists. This is template for API Security. We will use it.
 
-    #. Edit ``sudo vi NginxApiSecurityPolicy.json`` and modify it with the ``link`` to the OAS file for Arcadia API. This file resides in SwaggerHub.
+    #. Edit ``sudo vi NginxApiSecurityPolicy.json`` and modify it with the ``link`` to the OAS file for Arcadia API. This file resides in SwaggerHub. Don't forget the {}
 
         .. code-block:: JSON
 
@@ -91,8 +91,8 @@ Steps for the lab
                 access_log  /var/log/nginx/access.log  main;
 
                 server {
-                listen       80;
-                    server_name  localhost;
+                    listen 80;
+                    server_name localhost;
                     proxy_http_version 1.1;
 
                     app_protect_enable on;
@@ -144,4 +144,3 @@ Test your API
     #. Check in ELK the violation.
     #. You can make more tests with the other ``API calls``
 
-    
