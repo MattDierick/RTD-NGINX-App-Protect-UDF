@@ -1,4 +1,4 @@
-Step 13 - Pot Protection
+Step 13 - Bot Protection
 ########################
 
 Coming Soon
