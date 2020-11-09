@@ -9,20 +9,20 @@ As a reminder, in ``Steps 9 and 10``, we deployed NAP in CentOS.
 #. Step 9 manually
 #. Step 10 via CI/CD pipelines
 
-The Arcadia web application has several API in order to:
+The Arcadia web application has several APIs in order to:
 
 #. Buy stocks
 #. Sell stocks
 #. Transfer money to friends
 
-In order to protect this API, we will push (or pull) an ``OpenAPI specification file`` into NAP so that it can build the WAF policy from this file.
+In order to protect these APIs, we will push (or pull) an ``OpenAPI specification file`` into NAP so that it can build the WAF policy from this file.
 
 You can find the ``Arcadia Application OAS3`` file here : https://app.swaggerhub.com/apis/F5EMEASSA/Arcadia-OAS3/2.0.1-schema
 
 .. image:: ../pictures/module1/swaggerhub.png
    :align: center
 
-.. note :: As you can notice, there are 4 URL in this API. And a JSON schema has been created so that every JSON parameter is known.
+.. note :: As you can notice, there are 4 URLs in this API. And a JSON schema has been created so that every JSON parameter is known.
 
 Steps for the lab
 *****************
@@ -53,7 +53,7 @@ Steps for the lab
 
                 "open-api-files" : [
                     {
-                "link": "https://api.swaggerhub.com/apis/F5EMEASSA/Arcadia-OAS3/2.0.1-schema/swagger.json"
+                        "link": "https://api.swaggerhub.com/apis/F5EMEASSA/Arcadia-OAS3/2.0.1-schema/swagger.json"
                     }
                 ],
 
@@ -123,7 +123,7 @@ Test your API
             :align: center
             :scale: 50%
 
-    #. Send your first API CAll with ``Last Transactions``. You should see the last transcations. This is just a GET.
+    #. Send your first API Call with ``Last Transactions``. You should see the last transactions. This is just a GET.
 
         .. image:: ../pictures/module1/last_trans.png
             :align: center
