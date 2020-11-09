@@ -8,5 +8,6 @@
         "latex",
         "plaintext",
         "restructuredtext"
-    ]
+    ],
+    "python.pythonPath": "/usr/local/bin/python3"
 }
