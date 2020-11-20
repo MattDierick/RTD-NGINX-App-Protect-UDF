@@ -87,7 +87,7 @@ The pipeline is as below:
     #. The last playbook is just there to fix an issue in UDF for the DNS resolver
 
 
-.. image:: ../pictures/module2/gitlab_pipeline-ok.png
+.. image:: ../pictures/module2/gitlab_pipeline_ok.png
    :align: center
    :scale: 40%
 
