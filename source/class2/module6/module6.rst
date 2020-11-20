@@ -73,7 +73,7 @@ Steps:
            :align: center
            :scale: 50%
 
-    #. SSH (or WebSSH) to ``CICD server (Jenkins, Terraform, Ansible) + Bind``
+    #. SSH (or WebSSH) to ``CICD server (Gitlab runner, Terraform, Ansible)``
 
         #. Run this command in order to determine the latest Signature Package date: ``yum info app-protect-attack-signatures``
         #. You may notice the version date. In my case, when I write this lab ``2020.06.30`` was the most recent version of the signatures package. We will use this date as a Docker tag, but this will be done automatically by the CI/CD pipeline.
