@@ -111,8 +111,8 @@ Step 8 - Deploy NAP with a CI/CD toolchain
 
 Task:
 
-    #. Upload a new signature package into the local repo (gitlab) 
-    #. GitLab webhook to trigger a Jenkins Pipeline building a new version of the NAP image with this new signature package
+    #. Upload a new signature package into the local repo (gitlab) or ask for an update
+    #. GitLab CI build a new version of the NAP image with this new signature package
     #. Deploy and run this new version of the NAP image in front of Arcadia
     #. Check the signature package date
 
@@ -149,3 +149,14 @@ Task:
 
     #. Pull NGINX+ KIC image from my private Gitlab repo
     #. Deploy a new Ingress configuration with NAP annotations and configuration
+
+Step 12 - API Security with OpenAPI file import 
+***********************************************
+
+.. note :: Goal is to deploy NAP in Centos to protect an API
+
+Tasks:
+
+    #. Push OpenAPI file to a repo (swaggerhub in this lab)
+    #. Create a new NAP policy based on this OAS file
+

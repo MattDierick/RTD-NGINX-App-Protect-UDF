@@ -6,7 +6,7 @@ In this class, we will deploy a modern application (Arcadia Finance app) with mo
 What are modern tools:
    - Ansible
    - Terraform
-   - Jenkins
+   - Gitlab and Gitlab CI
 
 What is a modern environment:
    - Kubernetes

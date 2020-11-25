@@ -9,8 +9,8 @@ In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to 
 
     #. Check if a new Signature Package is available
     #. Simulate a Commit in GitLab (Goal is to simulate a full automated process checking Signature Package date every day)
-    #. This commit triggers a webhook in Jenkins
-    #. Jenkins runs the pipeline
+    #. This commit triggers a webhook in Gitlab CI
+    #. Gitlab CI runs the pipeline
     
         #. Build a new Docker NAP image with a new tag ``date of the signature package``
         #. Destroy the previous running NAP container
@@ -18,43 +18,43 @@ In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to 
 
 .. note:: Goal of this module is not to learn how to do it, but understand how I did it.
 
-**Check the Jenkins file**
+**Check the Gitlab CI file**
 
-.. code-block:: groovy
+.. code-block:: yaml
 
-    node {
-    def mvnHome
-    stage('Preparation') {
-        // Get some code from a GitHub repository
-        git 'http://10.1.20.4/nginx-app-protect/signature-update.git'
+    stages:
+        - Build_image
+        - Push_image
+        - Run_docker
 
-    }
-    stage('Build Docker') {
-        // Build the Docker image with the date of the signature package as a docker tag
-        withEnv(["MVN_HOME=$mvnHome"]) {
-            registry = "10.1.20.7:5000/app-protect"
-            // Define the docker tag by requesting information of the yum package (signature date)
-            tag = sh (script: "yum info app-protect-attack-signatures | grep Version | cut -d':' -f2", returnStdout: true).trim()
-            echo "${tag}"  
-            script {
-            docker.build registry + ":${tag}"
-            }
-        }
-    }
-    stage('Push Docker') {
-        withEnv(["MVN_HOME=$mvnHome"]) {
-            sh "sudo docker push 10.1.20.7:5000/app-protect:${tag}"
-            }
-    }
-    
-        stage name: 'Run Docker', concurrency: 1
-                withEnv(["MVN_HOME=$mvnHome"]) {
-                ansiblePlaybook inventory: 'hosts', 
-                playbook: 'playbook.yaml',
-                extraVars: [dockertag: "${tag}"]
-                }
+    before_script:
+        - docker info
 
-    }
+    Build_image:
+        stage: Build_image
+        script:
+            - TAG=`yum info app-protect-attack-signatures | grep Version | cut -d':' -f2`
+            - echo $TAG
+            - docker build -t 10.1.20.7:5000/app-protect:`echo $TAG` .
+            - echo export TAG=`echo $TAG` > $CI_PROJECT_DIR/variables
+        artifacts:
+            paths:
+            - variables
+
+    Push_image:
+        stage: Push_image
+        script:
+            - source $CI_PROJECT_DIR/variables
+            - echo $TAG
+            - docker push 10.1.20.7:5000/app-protect:`echo $TAG`
+
+    Run_docker:
+        stage: Run_docker
+        script:
+            - source $CI_PROJECT_DIR/variables
+            - echo $TAG
+            - ansible-playbook -i hosts playbook.yaml --extra-var dockertag=`echo $TAG`
+
 
 
 .. note:: The challenge here was to retrieve the date of the package and tag the image with this date in order to have one image per signature package date. This is useful if you need to roll back to a previous version of the signatures.
@@ -64,22 +64,16 @@ In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to 
 Steps:
 
     #. RDP to the Jumphost and open ``Chrome``
-    #. Open 2 tabs ``Dashboard [Jenkins]`` and ``Gitlab``
+    #. Open ``Gitlab``
 
-        #. If Jenkins is not available (502 error), restart the GitLab Docker container. SSH to the GitLab VM and run ``docker restart gitlab`` 
-    #. In Jenkins, open ``Update_Docker_signatures`` pipeline
-
-        .. image:: ../pictures/module6/jenkins_favorite.png
-           :align: center
-           :scale: 50%
-    
+        #. If Gitlab is not available (502 error), restart the GitLab Docker container. SSH to the GitLab VM and run ``docker restart gitlab`` 
     #. In GitLab, open ``NGINX App Protect / signature-update`` project
 
         .. image:: ../pictures/module6/gitlab_project.png
            :align: center
            :scale: 50%
 
-    #. SSH (or WebSSH) to ``CICD server (Jenkins, Terraform, Ansible) + Bind``
+    #. SSH (or WebSSH) to ``CICD server (Gitlab runner, Terraform, Ansible)``
 
         #. Run this command in order to determine the latest Signature Package date: ``yum info app-protect-attack-signatures``
         #. You may notice the version date. In my case, when I write this lab ``2020.06.30`` was the most recent version of the signatures package. We will use this date as a Docker tag, but this will be done automatically by the CI/CD pipeline.
@@ -98,21 +92,21 @@ Steps :
     #. In GitLab, click on ``Repository`` and ``Tags`` in the left menu
     #. Create a new tag and give it a name like ``Sig-<version date>`` where ideally ``<version_date>`` should be replaced by the package version information found in the result of the ``yum info`` step above. But it does not matter, you can put anything you want in this tag.
     #. Click ``Create tag``
-    #. At this moment, the Jenkins pipeline starts (thanks to a webhook between GitLab and Jenkins)
-    #. In Chrome on the Jenkins tab, you should see a new ``RUN``, click on it
+    #. At this moment, the ``Gitlab CI`` pipeline starts
+    #. In Gitlab, in the ``signature-update`` repository, click ``CI / CD`` > ``Pipelines``
 
-        .. image:: ../pictures/module6/jenkins_run.png
+        .. image:: ../pictures/module6/github_cicd.png
            :align: center   
 
-    #. Wait for the pipeline to finish. You can click on every task to check the steps
+    #. Enter into the pipeline by clicking on the ``running or passed`` button. And wait for the pipeline to finish. You can click on every job/stage to check the steps
 
-        .. image:: ../pictures/module6/jenkins_pipeline.png
+        .. image:: ../pictures/module6/github_pipeline.png
            :align: center 
     
     #. Check if the new image created and pushed by the pipeline is available in the Docker Registry.
         #. In ``Chrome`` open bookmark ``Docker Registry UI``
         #. Click on ``App Protect`` Repository
-        #. You can see your new image with the tag ``2020.06.30``
+        #. You can see your new image with the tag ``2020.06.30`` - or any other tag based on the latest package date.
 
         .. image:: ../pictures/module6/registry-ui.png
            :align: center 
@@ -124,8 +118,5 @@ Steps :
        2020/07/06 09:32:05 [notice] 12#12: APP_PROTECT { "event": "configuration_load_success", "software_version": "3.74.0", "attack_signatures_package":{"revision_datetime":"2020-06-30T10:08:35Z","version":"2020.06.30"},"completed_successfully":true,"threat_campaigns_package":{}}
 
 
-.. note:: Congratulations, you ran a CI/CD pipeline based on a GitLab webhook. This webhook was based on a Signature Package update, but it could have also been associated with an application commit.
+.. note:: Congratulations, you ran a CI/CD pipeline with a GitLab CI.
 
-.. raw:: html
-
-    <iframe width="1120" height="630" src="https://www.youtube.com/embed/nEvKCM3zYVM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
