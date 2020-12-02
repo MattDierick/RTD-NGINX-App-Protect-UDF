@@ -48,7 +48,7 @@ In this module, we will build manually our first NAP Docker image via command li
 
    1. Check if the app-protect Docker image is available locally by running ``docker images``
 
-   .. image:: ../pictures/module3/docker_images.png
+   .. image:: ../pictures/module1/docker_images.png
       :align: center
 
 |
@@ -56,7 +56,7 @@ In this module, we will build manually our first NAP Docker image via command li
    2. Run a container with this image ``docker run -dit --name app-protect -p 80:80 -v /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf app-protect:nosig``
    3. Check that the Docker container is running ``docker ps``
 
-   .. image:: ../pictures/module3/docker_run.png
+   .. image:: ../pictures/module1/docker_run.png
       :align: center
 
 |
