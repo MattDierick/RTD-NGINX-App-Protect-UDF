@@ -139,6 +139,7 @@ An action can be configured for each bot class, or may also be configured per ea
 #. THe project is sending HTTP requests to the NAP with a public IP address (known as ``bad reputation``) and with a Bot ``User-Agent``. We will simulate bots by changing the user agent.
 #. You can expand ``Thread Group`` and click on ``View Results Tree`` to see each request sent.
 #. Now, go to ``ELK - Kibana`` from ``Chrome``, and look at your ``Overview`` dashboard.
+#. You can notice the widget ``Bots Categories`` is now populated.
 #. You can notice Good and Bad request in the widgets, but let's focus on the logs at the bottom of the dashboard
 
     .. image:: ../pictures/module1/dashboard.png

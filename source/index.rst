@@ -1,5 +1,5 @@
-Welcome to NGINX APP Protect lab guide Dev
-##########################################
+Welcome to NGINX APP Protect lab guide
+######################################
 
 Publish and protect modern applications
 ***************************************
