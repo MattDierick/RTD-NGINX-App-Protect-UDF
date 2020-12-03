@@ -104,7 +104,12 @@ In order to install this package, we need to update our ``Dockerfile``. I create
 
    #. RDP to the ``Jumphost`` (user / user)
    #. Open ``Postman`` and select the collection ``NAP - Threat Campaign``
-   #. Run the 3 calls. They will trigger 3 different Threat Campaign rules.
+   #. Run 2 calls. 
+
+      #. Strust2 Jakarta attack
+      #. Drupal attack
+      #. The NMAP attack is now detected as a Bot. We added Bot Protection in NAP v2.1. Do not run it.
+
    #. In the next module, we will check the logs in Kibana.
 
 
