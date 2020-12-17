@@ -19,6 +19,7 @@
 import sys
 import sphinx
 import sphinx_rtd_theme
+import f5_sphinx_theme
 from sphinx.errors import VersionRequirementError
 
 
@@ -44,8 +45,7 @@ needs_sphinx = '3.3'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx_copybutton',
-    'sphinx_rtd_theme'
+    'sphinx_copybutton'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -81,7 +81,7 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = 'f5_sphinx_theme'
 html_theme_path = ["_themes", ]
 
 # Theme options are theme-specific and customize the look and feel of a theme
