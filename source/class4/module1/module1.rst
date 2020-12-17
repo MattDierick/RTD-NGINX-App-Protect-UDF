@@ -3,12 +3,12 @@ Step 11 - Deploy a new version of the NGINX Plus Ingress Controller
 
 As a reminder, in ``Class 1 - Step 2 - Publish Arcadia App with a NGINX Plus Ingress Controller`` we deployed a NGINX Plus instance as an Ingress Controller in our Kubernetes cluster.
 
-.. image:: ../pictures/module3/NAP_index.png
+.. image:: ../pictures/module1/NAP_index.png
    :align: center
 
 Now, with NAP v1.3, we can deploy this NGINX Plus instance with the NAP module enabled. 
 
-.. image:: ../pictures/module3/nap_kic.png
+.. image:: ../pictures/module1/nap_kic.png
    :align: center
 
 To do so, we will:
@@ -26,7 +26,7 @@ To do so, we will:
     #. Check the Ingress ``arcadia-ingress`` (in the ``default`` namespace) by clicking on the 3 dots on the right and ``edit``
     #. Scroll down and check the specs
 
-.. image:: ../pictures/module3/arcadia-ingress.png
+.. image:: ../pictures/module1/arcadia-ingress.png
    :align: center
 
 As you can notice, we added few lines in our Ingress declaration. To do so, I followed the guide (https://docs.nginx.com/nginx-ingress-controller/app-protect/installation/)
