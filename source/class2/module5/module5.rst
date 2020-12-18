@@ -156,6 +156,7 @@ Steps:
             vi ./policy-adv/nginx.conf
 
         .. code-block:: bash
+            :emphasize-lines: 32,40,48,56
 
             user nginx;
 
