@@ -130,6 +130,7 @@ An action can be configured for each bot class, or may also be configured per ea
 
     .. image:: ../pictures/module1/open_recent.png
        :align: center
+       :scale: 70%
 
 #. Now, run the project by click on the ``GREEN PLAY BUTTON``
 
