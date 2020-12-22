@@ -21,7 +21,7 @@ The signatures are provided by F5 with an RPM package. The best way to update th
 
    # Add NGINX Plus repo to yum
    RUN wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/nginx-plus-7.repo
-   RUN wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/app-protect-signatures-7.repo
+   RUN wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/app-protect-security-updates-7.repo
 
    # Install NGINX App Protect
    RUN yum -y install app-protect app-protect-attack-signatures\

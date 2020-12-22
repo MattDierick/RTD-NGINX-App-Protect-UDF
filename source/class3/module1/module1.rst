@@ -158,11 +158,11 @@ Steps:
 
 Steps:
 
-    #. To add NGINX Plus App Protect signatures repository, download the file app-protect-signatures-7.repo to /etc/yum.repos.d:
+    #. To add NGINX Plus App Protect signatures repository, download the file https://cs.nginx.com/static/files/app-protect-security-updates-7.repo to /etc/yum.repos.d:
 
         .. code-block:: bash
             
-            sudo wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/app-protect-signatures-7.repo
+            sudo wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/app-protect-security-updates-7.repo
 
     #. Update attack signatures:
 
@@ -213,7 +213,7 @@ Steps:
 
 Steps :
 
-    #. As the repo has been already added, no need to add it. TC and Signatures use the same repo ``https://cs.nginx.com/static/files/app-protect-signatures-7.repo``
+    #. As the repo has been already added, no need to add it. TC and Signatures use the same repo ``https://cs.nginx.com/static/files/app-protect-security-updates-7.repo``
 
     #. Install the package 
 
