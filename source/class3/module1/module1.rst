@@ -115,6 +115,7 @@ Steps:
 
         .. code-block:: bash
 
+            sudo systemctl enable nginx.service
             sudo systemctl start nginx
 
     #. Check everything is running 
