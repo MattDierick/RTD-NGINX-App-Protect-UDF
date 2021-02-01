@@ -5,7 +5,7 @@ In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to 
 
 .. note:: When a new signature package is available, the CI/CD pipeline will build a new version of the Docker image and run it in front of Arcadia Application
 
-**This is the workflow we will run**
+**This is the workflow we will run (the steps to run are later in this page)**
 
     #. Check if a new Signature Package is available
     #. Simulate a Commit in GitLab (Goal is to simulate a full automated process checking Signature Package date every day)

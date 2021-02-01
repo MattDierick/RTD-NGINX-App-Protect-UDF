@@ -182,10 +182,10 @@ Steps:
 
                     app_protect_enable on;
                     app_protect_security_log_enable on;
-                    app_protect_security_log "/etc/nginx/log-default.json" syslog:server=10.1.20.6:5144;
+                    app_protect_security_log "/etc/nginx/log-default.json" syslog:server=10.1.20.11:5144;
 
                     location / {
-                        resolver 10.1.1.9;
+                        resolver 10.1.1.8:5353;
                         resolver_timeout 5s;
                         client_max_body_size 0;
                         default_type text/html;
@@ -193,7 +193,7 @@ Steps:
                         proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
                     }
                     location /files {
-                        resolver 10.1.1.9;
+                        resolver 10.1.1.8:5353;
                         resolver_timeout 5s;
                         client_max_body_size 0;
                         default_type text/html;
@@ -201,7 +201,7 @@ Steps:
                         proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
                     }
                     location /api {
-                        resolver 10.1.1.9;
+                        resolver 10.1.1.8:5353;
                         resolver_timeout 5s;
                         client_max_body_size 0;
                         default_type text/html;
@@ -209,7 +209,7 @@ Steps:
                         proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
                     }
                     location /app3 {
-                        resolver 10.1.1.9;
+                        resolver 10.1.1.8:5353;
                         resolver_timeout 5s;
                         client_max_body_size 0;
                         default_type text/html;
@@ -278,19 +278,15 @@ As a reminder, this is the base policy we created:
 Steps :
 
 #. RDP to ``Jumphost`` and connect to ``GitLab`` (root / F5twister$)
-#. Click on the project named ``NGINX App Protect / reference-blocking-page``
+#. Click on the project named ``NGINX App Protect / nap-reference-blocking-page``
 
     .. image:: ../pictures/module5/gitlab-1.png
        :align: center
        :scale: 50%
 
-#. Add a new file and name it ``blocking-custom-1.txt``
 
-    .. image:: ../pictures/module5/gitlab-2.png
-       :align: center
-       :scale: 50%
 
-#. Paste the text below
+#. Check the file ``blocking-custom-1.txt``
 
     .. code-block :: JSON
 
@@ -303,7 +299,7 @@ Steps :
             }
         ]
 
-#. Click ``Commit Changes``
+#. This is a custom Blocking Response config page. We will refer to it into the ``policy_base.json``
 
 #. SSH to ``Docker App Protect + Docker repo`` VM
 
@@ -329,7 +325,7 @@ Steps :
             "applicationLanguage": "utf-8",
             "enforcementMode": "blocking",
             "responsePageReference": {
-                "link": "http://10.1.20.4/nginx-app-protect/reference-blocking-page/-/raw/master/blocking-custom-1.txt"
+                "link": "http://10.1.1.7/ngnix-app-protect/nap-reference-blocking-page/-/raw/master/blocking-custom-1.txt"
             }
         }
 
