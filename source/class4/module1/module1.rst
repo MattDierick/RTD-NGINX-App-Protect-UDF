@@ -22,7 +22,36 @@ To do so, we will:
 
     #. SSH (or WebSSH and ``cd /home/ubuntu/``) to CICD Server
     #. Run this command in order to delete the previous KIC ``kubectl delete -f /home/ubuntu/k8s_ingress/full_ingress_arcadia.yaml``
-    #. Run this command in order to push the new version of the KIC ``kubectl apply -f /home/ubuntu/k8s_ingress/full_ingress_arcadia_nap.yaml``
+    #. Run this command in order to pull and install NGINX KIC from NGINX Repo
+
+        .. code-block:: BASH
+
+            helm install nginx-ingress nginx-stable/nginx-ingress  \
+            --namespace nginx-ingress  \
+            --set controller.kind=deployment \
+            --set controller.replicaCount=2 \
+            --set controller.nginxplus=true \
+            --set controller.appprotect.enable=true \
+            --set controller.image.repository=registry.gitlab.com/mattdierick/nginxpluskic-nap \
+            --set controller.image.tag=1.10.0 \
+            --set controller.service.type=NodePort \
+            --set controller.service.httpPort.nodePort=30274 \
+            --set controller.service.httpsPort.nodePort=30275 \
+            --set controller.serviceAccount.imagePullSecretName=gitlab-token-auth \
+            --set controller.ingressClass=ingressclass1
+
+        .. note:: This command uses HELM in order to download all the required config files from Nginx repo (CRD ...). What's more, you can see it download the Ingress image (the NGINX Plus image with NAP) from a private repo in Gitlab.com
+
+    #. At this moment, the Ingress pod is up and running. But it is empty, there is no configuration (ingress, nap policy, logs).
+    #. Rune this commands in order to create the NAP policy, the log profile and the ingress object (the object routing the traffic to the right service)
+
+        .. code-block:: BASH
+
+            kubectl apply -f /home/ubuntu/k8s_ingress/deploy_policy_and_logs.yaml
+            kubectl apply -f /home/ubuntu/k8s_ingress/ingress_arcadia_nap.yaml
+
+        .. note:: This 2 commands will create the WAF policy and the log profile for Arcadia App, and will create the Ingress resource (the config to route the traffic to the right services/pods)
+
     #. Check the Ingress ``arcadia-ingress`` (in the ``default`` namespace) by clicking on the 3 dots on the right and ``edit``
     #. Scroll down and check the specs
 
