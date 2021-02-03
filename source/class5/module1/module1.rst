@@ -75,7 +75,8 @@ An action can be configured for each bot class, or may also be configured per ea
 
         sudo vi /etc/nginx/nginx.conf
 
-    .. code-block :: bash
+    .. code-block:: bash
+        :emphasize-lines: 24
 
         user nginx;
 
