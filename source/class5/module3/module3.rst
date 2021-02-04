@@ -98,10 +98,10 @@ Steps for the lab
                     app_protect_enable on;
                     app_protect_policy_file "/etc/nginx/NginxApiSecurityPolicy.json";
                     app_protect_security_log_enable on;
-                    app_protect_security_log "/etc/nginx/log-default.json" syslog:server=10.1.20.6:5144;
+                    app_protect_security_log "/etc/nginx/log-default.json" syslog:server=10.1.20.11:5144;
 
                     location / {
-                        resolver 10.1.1.9;
+                        resolver 10.1.1.8:5353;
                         resolver_timeout 5s;
                         client_max_body_size 0;
                         default_type text/html;
