@@ -1,9 +1,11 @@
-Class 5 - API Security
-######################
+Class 6 - Advanced features
+###########################
 
-In this class, we will protect the Arcadia API with NAP.
+In this class, we will advanced features offered by the latest NAP release.
 
-#. API Security with OpenAPI file import
+#. Bot Protection
+#. Cryptonice integration
+#. A.WAF/ASM Policy converter
 
 
 .. warning:: In this lab, there are cert + keys to download the packages from official NGINX repo. It is forbidden to share them with anyone.
