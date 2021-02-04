@@ -63,7 +63,7 @@ In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to 
 
 Steps:
 
-    #. RDP to the Jumphost and open ``Chrome``
+    #. RDP to the Jumphost and open ``Edge Browser``
     #. Open ``Gitlab``
 
         #. If Gitlab is not available (502 error), restart the GitLab Docker container. SSH to the GitLab VM and run ``docker restart gitlab`` 
@@ -104,7 +104,7 @@ Steps :
            :align: center 
     
     #. Check if the new image created and pushed by the pipeline is available in the Docker Registry.
-        #. In ``Chrome`` open bookmark ``Docker Registry UI``
+        #. In ``Edge Browser`` open bookmark ``Docker Registry UI``
         #. Click on ``App Protect`` Repository
         #. You can see your new image with the tag ``2020.06.30`` - or any other tag based on the latest package date.
 

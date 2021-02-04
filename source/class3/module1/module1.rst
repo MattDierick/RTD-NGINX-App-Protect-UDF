@@ -150,7 +150,7 @@ Steps:
 
     #. RDP to the Jumphost with credentials ``user:user``
 
-    #. Open Chrome and click ``Arcadia NAP CentOS``
+    #. Open Edge Browser and click ``Arcadia NAP CentOS``
 
     #. Run the same tests as the Docker lab and check the logs in Kibana
 

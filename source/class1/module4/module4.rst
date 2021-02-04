@@ -57,7 +57,7 @@ To do so, I prepared a ``kubectl`` Kubernetes Deployment in YAML.
 
 **Steps:**
 
-    #. In Chrome, click on the bookmark ``Arcadia k8s``
+    #. In Edge Browser, click on the bookmark ``Arcadia k8s``
     #. Click on ``Login``
     #. Login with ``matt:ilovef5``
     #. You should see all the apps running (main, back, app2 and app3)

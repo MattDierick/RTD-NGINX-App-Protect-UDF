@@ -99,9 +99,9 @@ As you can notice, we added few lines in our Ingress declaration. To do so, I fo
             serviceName: app3
             servicePort: 80
 
-Please a make a new test by clicking on ``Arcadia k8s`` Chrome bookmark.
+Please a make a new test by clicking on ``Arcadia k8s`` Edge Browser bookmark.
 
-    #. Open ``Chrome``
+    #. Open ``Edge Browser``
     #. Click on ``Arcadia k8s`` bookmark
     #. Now, you are connecting to Arcadia App from a new KIC with NAP enabled
     #. Send an attack (like a XSS in the address bar) by appending ``?a=<script>``

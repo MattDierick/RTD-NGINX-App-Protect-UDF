@@ -337,7 +337,7 @@ Steps :
 
         docker run -dit --name app-protect -p 80:80 -v /home/ubuntu/policy-adv/nginx.conf:/etc/nginx/nginx.conf -v /home/ubuntu/policy-adv/policy_base.json:/etc/nginx/policy/policy_base.json -v /home/ubuntu/policy-adv/policy_mongo_linux_JSON.json:/etc/nginx/policy/policy_mongo_linux_JSON.json  app-protect:tc       
 
-#. In the ``Jumphost``, open ``Chrome`` and connect to ``Arcadia NAP Docker`` bookmark
+#. In the ``Jumphost``, open ``Edge Browser`` and connect to ``Arcadia NAP Docker`` bookmark
 
 #. Enter this URL with a XSS attack ``http://app-protect.arcadia-finance.io/?a=<script>``
 

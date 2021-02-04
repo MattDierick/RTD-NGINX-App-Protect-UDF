@@ -68,7 +68,7 @@ I prepared this YAML file below (this is only for the main app container). You c
     #. Run this command ``kubectl apply -f /home/ubuntu/Arcadia_k8S/all_apps.yaml``
 
     #. RDP to the jumphost with ``user:user`` as credentials
-    #. Open Chrome
+    #. Open Edge Browser
     #. Open Kubernetes Dashboard bookmark (if not already opened)
     #. Click ``skip`` on the logon page
     #. You should see the services and the pods

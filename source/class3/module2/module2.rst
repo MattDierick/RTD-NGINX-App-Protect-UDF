@@ -44,7 +44,7 @@ Steps:
 
     #. RDP to the Jumphost with credentials ``user:user``
 
-    #. Open ``Chrome`` and open ``Gitlab`` (if not already opened)
+    #. Open ``Edge Browser`` and open ``Gitlab`` (if not already opened)
 
     #. Select the repository ``ansible-deploy`` and go to ``CI /CD``
 
@@ -92,7 +92,7 @@ The pipeline is as below:
    :scale: 40%
 
 
-When the pipeline is finished executing, perform a browser test within ``Chrome`` using the ``Arcadia NAP CentOS`` bookmark
+When the pipeline is finished executing, perform a browser test within ``Edge Browser`` using the ``Arcadia NAP CentOS`` bookmark
 
 
 .. note :: Congrats, you deployed ``NGINX Plus`` and ``NAP`` with a CI/CD pipeline. You can check the pipelines in ``GitLab`` if you are interested to see what has been coded behind the scenes. But it is straight forward as the Ansible modules are provided by F5/NGINX.

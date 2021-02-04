@@ -125,7 +125,7 @@ An action can be configured for each bot class, or may also be configured per ea
 **Generate simulated Bot traffic** 
 
 #. RDP to Windows ``Jumphost`` as ``user``:``user``
-#. Open ``Chrome`` and check your can acces Arcadia Web Application via the Bookmark ``Arcadia NAP CentOS``
+#. Open ``Edge Browser`` and check your can acces Arcadia Web Application via the Bookmark ``Arcadia NAP CentOS``
 #. Now, on the ``Desktop``, launch ``Jmeter``
 #. In Jmeter, open the project in ``File`` >> ``Open Recent`` >> ``HTTP Request Bots.jmx``. This file is located in folder Desktop > lab-links > jmeter_files
 
@@ -140,7 +140,7 @@ An action can be configured for each bot class, or may also be configured per ea
 
 #. THe project is sending HTTP requests to the NAP with a public IP address (known as ``bad reputation``) and with a Bot ``User-Agent``. We will simulate bots by changing the user agent.
 #. You can expand ``Thread Group`` and click on ``View Results Tree`` to see each request sent.
-#. Now, go to ``ELK - Kibana`` from ``Chrome``, and look at your ``Overview`` dashboard.
+#. Now, go to ``ELK - Kibana`` from ``Edge Browser``, and look at your ``Overview`` dashboard.
 #. You can notice Good and Bad request in the widgets, but let's focus on the logs at the bottom of the dashboard
 
     .. image:: ../pictures/module1/dashboard.png
