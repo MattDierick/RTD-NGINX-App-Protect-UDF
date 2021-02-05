@@ -226,7 +226,7 @@ Steps :
 
         .. code-block:: bash
 
-            sudo sudo nginx -s reload
+            sudo nginx -s reload
 
     #. Check the **new** Threat Campaign package date:
 
