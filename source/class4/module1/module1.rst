@@ -13,8 +13,10 @@ Now, with NAP v1.3, we can deploy this NGINX Plus instance with the NAP module e
 
 To do so, we will:
 
-#. Deploy a new version of the Pod (NGINX r22 + NAP v1.3)
+#. Deploy a new version of the Pod (NGINX r23 + NAP v1.10)
 #. Deploy a new Ingress configuration template (with NAP configuration files)
+
+.. note:: In this lab, we will not learn how to build the Nginx Ingress image. Follow the doc from docs.nginx.com to learn how to built the docker image. Straight forward, copy-paste the dockerfile and built it.
 
 .. warning:: The NGINX Plus Ingress Controller image is available on my private Gitlab repo. Don't share the key.
 
@@ -40,7 +42,7 @@ To do so, we will:
             --set controller.serviceAccount.imagePullSecretName=gitlab-token-auth \
             --set controller.ingressClass=ingressclass1
 
-        .. note:: This command uses HELM in order to download all the required config files from Nginx repo (CRD ...). What's more, you can see it download the Ingress image (the NGINX Plus image with NAP) from a private repo in Gitlab.com
+        .. note:: This command uses HELM in order to download all the required config files from Nginx repo (CRD ...). What's more, you can notice, it downloads the Ingress image (the NGINX Plus image with NAP) from a private repo in Gitlab.com
 
     #. At this moment, the Ingress pod is up and running. But it is empty, there is no configuration (ingress, nap policy, logs).
     #. Rune this commands in order to create the NAP policy, the log profile and the ingress object (the object routing the traffic to the right service)
@@ -75,7 +77,7 @@ As you can notice, we added few lines in our Ingress declaration. To do so, I fo
         appprotect.f5.com/app-protect-enable: "True"
         appprotect.f5.com/app-protect-security-log-enable: "True"
         appprotect.f5.com/app-protect-security-log: "default/logconf"
-        appprotect.f5.com/app-protect-security-log-destination: "syslog:server=10.1.20.6:5144"
+        appprotect.f5.com/app-protect-security-log-destination: "syslog:server=10.1.20.11:5144"
 
     spec:
     rules:
