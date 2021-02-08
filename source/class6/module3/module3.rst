@@ -31,7 +31,7 @@ This converter tool is not a bash or shell utility. It a docker image we will ru
 
     .. code-block:: bash
 
-      docker run -v /home/ubuntu/awaf-policy/:/tmp/convert policy-converter:latest /opt/app_protect/bin/convert-policy -i /tmp/convert/sharepoint-awaf.xml -o /tmp/convert/sharepoint-nap.json | jq
+      docker run --rm -v /home/ubuntu/awaf-policy/:/tmp/convert policy-converter:latest /opt/app_protect/bin/convert-policy -i /tmp/convert/sharepoint-awaf.xml -o /tmp/convert/sharepoint-nap.json | jq
 
     .. note:: Look at the command. You can notice the ``input`` and the ``output``
 
