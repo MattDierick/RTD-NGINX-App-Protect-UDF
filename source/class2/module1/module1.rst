@@ -61,12 +61,12 @@ In this module, we will build manually our first NAP Docker image via command li
 
 |
 
-   4. Check the signature package date included in this image (by default) ``docker exec -it app-protect more /var/log/nginx/error.log``
+   4. Check the signature package date included in this image (by default) ``docker logs app-protect -f`` wait while the docker image boots and you would see the log below.
 
 
    .. code-block:: bash
       
-      2020/05/19 16:59:29 [notice] 12#12: APP_PROTECT { "event": "configuration_load_success", "attack_signatures_package":{"revision_datetime":"2019-07-16T12:21:31Z"},"completed_successfully":true}
+      2021/02/16 14:40:52 [notice] 13#13: APP_PROTECT { "event": "configuration_load_success", "software_version": "3.332.0", "user_signatures_packages":[],"attack_signatures_package":{"revision_datetime":"2019-07-16T12:21:31Z"},"completed_successfully":true,"threat_campaigns_package":{}}
 
 
 **It's time to test your lab**
