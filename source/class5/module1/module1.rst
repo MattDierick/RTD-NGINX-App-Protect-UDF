@@ -27,7 +27,7 @@ You can find the ``Arcadia Application OAS3`` file here : https://app.swaggerhub
 Steps for the lab
 *****************
 
-    #. SSH (or WebSSH) to ``App Protect in CentOS``
+    #. SSH from Jumpbox commandline ``ssh centos@10.1.1.10`` (or WebSSH) to ``App Protect in CentOS``
     #. Go to ``cd /etc/nginx``
     #. ``ls`` and check the files created during the previous CI/CD pipeline job
 
@@ -130,7 +130,8 @@ Test your API
         .. image:: ../pictures/module1/last_trans.png
             :align: center
             :scale: 50%
-
+       Make sure the URL is ``http://app-protect-centos.arcadia-finance.io/trading/transactions.php``
+       
     #. Now, send a POST, with ``POST Buy Stocks``. Check the request content (headers, body), and compare with the OAS3 file in SwaggerHub.
 
         .. image:: ../pictures/module1/buy.png

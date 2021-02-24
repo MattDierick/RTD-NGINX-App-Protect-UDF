@@ -29,7 +29,14 @@ Steps:
                 "name": "policy_name",
                 "template": { "name": "POLICY_TEMPLATE_NGINX_BASE" },
                 "applicationLanguage": "utf-8",
-                "enforcementMode": "blocking"
+                "enforcementMode": "blocking",
+                "response-pages": [
+                        {
+                            "responsePageType": "ajax",
+                            "ajaxEnabled": true,
+                            "ajaxPopupMessage": "My customized popup message! Your support ID is: <%TS.request.ID()%>"
+                        }
+                        ]
             }
 
     #. Create another policy file named ``policy_mongo_linux_JSON.json`` and paste the content below
@@ -236,7 +243,7 @@ Steps:
         .. image:: ../pictures/module5/docker-ps.png
            :align: center
 
-    #. RDP to the Jumhost as ``user:user`` and click on bookmark ``Arcadia NAP Docker``
+    #. RDP to the Jumhost as ``user:user`` and click on bookmark ``Arcadia NAP Docker`` Click Login and use matt:ilovef5
 
         .. image:: ../pictures/module5/arcadia-adv.png
            :align: center
@@ -268,12 +275,19 @@ As a reminder, this is the base policy we created:
 
     .. code-block:: json
 
-        {
-            "name": "policy_name",
-            "template": { "name": "POLICY_TEMPLATE_NGINX_BASE" },
-            "applicationLanguage": "utf-8",
-            "enforcementMode": "blocking"
-        }
+            {
+                "name": "policy_name",
+                "template": { "name": "POLICY_TEMPLATE_NGINX_BASE" },
+                "applicationLanguage": "utf-8",
+                "enforcementMode": "blocking",
+                "response-pages": [
+                        {
+                            "responsePageType": "ajax",
+                            "ajaxEnabled": true,
+                            "ajaxPopupMessage": "My customized popup message! Your support ID is: <%TS.request.ID()%>"
+                        }
+                        ]
+            }
 
 Steps :
 

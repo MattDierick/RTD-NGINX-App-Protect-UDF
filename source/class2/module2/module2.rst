@@ -45,7 +45,7 @@ The signatures are provided by F5 with an RPM package. The best way to update th
 
 **Follow the steps below to build the new Docker image:**
 
-   #. SSH to Docker App Protect + Docker repo VM
+   #. SSH from jumphost commandline ``ssh ubuntu@10.1.1.12`` to Docker App Protect + Docker repo VM
    #. Run the command ``docker build -t app-protect:20200316 -f Dockerfile-sig .`` <-- Be careful, there is a "." (dot) at the end of the command
    #. Wait until you see the message: ``Successfully tagged app-protect:20200316``
 
@@ -73,12 +73,11 @@ The signatures are provided by F5 with an RPM package. The best way to update th
 
 |
 
-   5. Check the signature package date included in the new Docker container ``docker exec -it app-protect more /var/log/nginx/error.log``
+   5. Check the signature package date included in this image (by default) ``docker logs app-protect -f`` wait while the docker image boots and you would see the log below.
 
-
-   .. code-block:: bash
+.. code-block:: bash
       
-      2020/05/20 09:30:20 [notice] 12#12: APP_PROTECT { "event": "configuration_load_success", "attack_signatures_package":{"revision_datetime":"2020-03-16T14:11:52Z","version":"2020.03.16"},"completed_successfully":true}
+      2021/02/16 14:40:52 [notice] 13#13: APP_PROTECT { "event": "configuration_load_success", "software_version": "3.332.0", "user_signatures_packages":[],"attack_signatures_package":{"revision_datetime":"2019-07-16T12:21:31Z"},"completed_successfully":true,"threat_campaigns_package":{}}
 
 .. note:: Congrats, you are running a new version of NAP with an updated signature package.
 

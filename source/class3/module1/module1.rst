@@ -7,7 +7,7 @@ In this module, we will manually install the NGINX Plus and NGINX App Protect mo
 
 Steps:
 
-    #. SSH to the App Protect in CentOS VM
+    #. SSH from Jumpbox commandline ``ssh centos@10.1.1.10`` (or WebSSH) to the App Protect in CentOS
 
     #. Add NGINX Plus repository by downloading the file ``nginx-plus-7.repo`` to ``/etc/yum.repos.d``:
 
@@ -35,7 +35,9 @@ Steps:
             sudo mv nginx.conf nginx.conf.old
             sudo vi nginx.conf
 
-        Paste the below configuration into ``nginx.conf`` and save it
+        If you get E427 terminal error quit vi by typing ``:q!`` then once back on commandline run ``export TERM=xterm``
+
+        Paste the below configuration into ``nginx.conf`` and save it ``:wq``
 
         .. code-block:: bash
 

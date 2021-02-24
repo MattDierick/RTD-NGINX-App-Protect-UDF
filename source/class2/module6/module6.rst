@@ -67,13 +67,13 @@ Steps:
     #. Open ``Gitlab``
 
         #. If Gitlab is not available (502 error), restart the GitLab Docker container. SSH to the GitLab VM and run ``docker restart gitlab`` 
-    #. In GitLab, open ``NGINX App Protect / signature-update`` project
+    #. In GitLab, open ``NGINX App Protect / nap-docker-signature`` project
 
-        .. image:: ../pictures/module6/gitlab_project.png
+        .. image:: ../pictures/module6/gitlab_project_updated.png
            :align: center
            :scale: 50%
 
-    #. SSH (or WebSSH) to ``CICD server (Gitlab runner, Terraform, Ansible)``
+    #. SSH from Jumpbox commandline ``ssh ubuntu@10.1.1.8`` (or WebSSH) to ``CICD server (runner, Terraform, Ansible)``
 
         #. Run this command in order to determine the latest Signature Package date: ``yum info app-protect-attack-signatures``
         #. You may notice the version date. In my case, when I write this lab ``2020.06.30`` was the most recent version of the signatures package. We will use this date as a Docker tag, but this will be done automatically by the CI/CD pipeline.
@@ -104,18 +104,18 @@ Steps :
            :align: center 
     
     #. Check if the new image created and pushed by the pipeline is available in the Docker Registry.
-        #. In ``Edge Browser`` open bookmark ``Docker Registry UI``
+        #. In ``Edge Browser`` open bookmark ``Docker Registry UI`` which is inside the ``extras`` bookmark folder
         #. Click on ``App Protect`` Repository
         #. You can see your new image with the tag ``2020.06.30`` - or any other tag based on the latest package date.
 
         .. image:: ../pictures/module6/registry-ui.png
            :align: center 
 
-    #. Connect in SSH to the Docker App Protect + Docker repo VM, and check the signature package date running ``docker exec -it app-protect more /var/log/nginx/error.log``
+    #. Connect in SSH from Jumpbox commandline ``ssh ubuntu@10.1.1.12`` to the Docker App Protect + Docker repo VM, and check the signature package date running ``docker logs app-protect``
     
     .. code-block:: bash
        
-       2020/07/06 09:32:05 [notice] 12#12: APP_PROTECT { "event": "configuration_load_success", "software_version": "3.74.0", "attack_signatures_package":{"revision_datetime":"2020-06-30T10:08:35Z","version":"2020.06.30"},"completed_successfully":true,"threat_campaigns_package":{}}
+       2021/02/24 13:59:24 [notice] 13#13: APP_PROTECT { "event": "configuration_load_success", "software_version": "3.332.0", "user_signatures_packages":[],"attack_signatures_package":{"revision_datetime":"2021-01-28T20:04:14Z","version":"2021.01.28"},"completed_successfully":true,"threat_campaigns_package":{}}
 
 
 .. note:: Congratulations, you ran a CI/CD pipeline with a GitLab CI.

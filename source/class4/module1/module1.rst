@@ -20,9 +20,17 @@ To do so, we will:
 
 .. warning:: The NGINX Plus Ingress Controller image is available on my private Gitlab repo. Don't share the key.
 
+
+**Test Attack before NAP on ingress added**
+
+    #. Open ``Edge Browser``
+    #. Click on ``Arcadia k8s`` bookmark
+    #. Now, you are connecting to Arcadia App from a new KIC with NAP enabled
+    #. Send an attack (like a XSS in the address bar) by appending ``?a=<script>``
+
 **Steps**
 
-    #. SSH (or WebSSH and ``cd /home/ubuntu/``) to CICD Server
+    #. SSH from Jumpbox commandline ``ssh ubuntu@10.1.1.8`` (or WebSSH and ``cd /home/ubuntu/``) to CICD Server
     #. Run this command in order to delete the previous KIC ``kubectl delete -f /home/ubuntu/k8s_ingress/full_ingress_arcadia.yaml``
     #. Run this command in order to pull and install NGINX KIC from NGINX Repo
 
@@ -54,6 +62,8 @@ To do so, we will:
 
         .. note:: This 2 commands will create the WAF policy and the log profile for Arcadia App, and will create the Ingress resource (the config to route the traffic to the right services/pods)
 
+    #. Open ``Kubernetes Dashboard`` bookmark in Edge Browser 
+    #. Scroll down on the left to ``Discovery and Load Balancing`` and click on ``Ingresses`` 
     #. Check the Ingress ``arcadia-ingress`` (in the ``default`` namespace) by clicking on the 3 dots on the right and ``edit``
     #. Scroll down and check the specs
 
@@ -63,6 +73,8 @@ To do so, we will:
 As you can notice, we added few lines in our Ingress declaration. To do so, I followed the guide (https://docs.nginx.com/nginx-ingress-controller/app-protect/installation/)
 
     #. I added NAP specifications (from the guide)
+
+
     #. I added NAP annotations for Arcadia app (see below)
 
 .. code-block:: YAML
@@ -108,7 +120,10 @@ Please a make a new test by clicking on ``Arcadia k8s`` Edge Browser bookmark.
     #. Now, you are connecting to Arcadia App from a new KIC with NAP enabled
     #. Send an attack (like a XSS in the address bar) by appending ``?a=<script>``
     #. Attack is blocked
-    #. Open ELK and check your logs
+    #. Open ``Kibana`` bookmark and click on ``Discover`` to find the log
+
+.. image:: ../pictures/module1/kibana_WAF_log.png
+   :align: center
 
 
 .. note:: if you want to delete/uninstall this Ingress Controller, you have to run this command ``helm uninstall nginx-ingress -n nginx-ingress`` This command will delete the Ingress Controller only. You have to delete the YAML deployments as well

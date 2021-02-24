@@ -17,7 +17,7 @@ An action can be configured for each bot class, or may also be configured per ea
 
 **Steps for the lab**
 
-#. SSH (or WebSSH) to ``App Protect in CentOS``
+#. SSH from Jumpbox commandline ``ssh centos@10.1.1.10`` (or WebSSH) to ``App Protect in CentOS``
 #. Go to ``cd /etc/nginx``
 #. ``ls`` and check the files created during the previous CI/CD pipeline job (steps 10)
 
@@ -140,7 +140,7 @@ An action can be configured for each bot class, or may also be configured per ea
 
 #. THe project is sending HTTP requests to the NAP with a public IP address (known as ``bad reputation``) and with a Bot ``User-Agent``. We will simulate bots by changing the user agent.
 #. You can expand ``Thread Group`` and click on ``View Results Tree`` to see each request sent.
-#. Now, go to ``ELK - Kibana`` from ``Edge Browser``, and look at your ``Overview`` dashboard.
+#. Now, go to ``ELK - Kibana`` from ``Edge Browser``, Click on Dashboards then ``Overview`` dashboard.
 #. You can notice Good and Bad request in the widgets, but let's focus on the logs at the bottom of the dashboard
 
     .. image:: ../pictures/module1/dashboard.png

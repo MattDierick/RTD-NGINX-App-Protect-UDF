@@ -8,7 +8,7 @@ In this module, we will install NGINX Plus and App Protect packages on CentOS wi
 
 **Uninstall the previous running NAP**
 
-    #. SSH to the App Protect in CentOS VM
+    #. SSH from Jumpbox commandline ``ssh centos@10.1.1.10`` to the App Protect in CentOS
 
     #. Uninstall NAP in order to start from scratch
 
@@ -46,7 +46,7 @@ Steps:
 
     #. Open ``Edge Browser`` and open ``Gitlab`` (if not already opened)
 
-    #. Select the repository ``ansible-deploy`` and go to ``CI /CD``
+    #. Select the repository ``nap-deploy-centos`` and go to ``CI /CD``
 
 
     .. image:: ../pictures/module2/gitlab_pipeline.png
