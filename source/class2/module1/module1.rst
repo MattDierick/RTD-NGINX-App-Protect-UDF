@@ -5,7 +5,7 @@ In this module, we will build manually our first NAP Docker image via command li
 
 **Follow the step below to build the Docker image:**
 
-   #. SSH (or WebSSH and ``cd /home/ubuntu/``) to Docker App Protect + Docker repo VM
+   #. SSH from jumphost commandline ``ssh ubuntu@10.1.1.12`` (or WebSSH and ``cd /home/ubuntu/``) to Docker App Protect + Docker repo VM
    #. Run the command ``docker build -t app-protect:nosig .`` <-- Be careful, there is a "." (dot) at the end of the command
    #. Wait until you see the message: ``Successfully tagged app-protect:nosig``
 

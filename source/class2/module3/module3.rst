@@ -106,7 +106,7 @@ In order to install this package, we need to update our ``Dockerfile``. I create
 
    #. RDP to the ``Jumphost`` (user / user)
    #. Open ``Postman`` and select the collection ``NAP - Threat Campaign``
-   #. Run the 3 calls. They will trigger 3 different Threat Campaign rules.
+   #. Run the 2 calls. They will trigger 2 different Threat Campaign rules.
    #. In the next module, we will check the logs in Kibana.
 
 
