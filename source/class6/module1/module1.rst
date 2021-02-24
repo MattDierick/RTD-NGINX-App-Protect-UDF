@@ -17,15 +17,6 @@ An action can be configured for each bot class, or may also be configured per ea
 
 **Steps for the lab**
 
-#. Undeploy NAP for Ingress and redeploy normal Ingress
-
-SSH from Jumpbox commandline ``ssh ubuntu@10.1.1.8`` or WebSSH to CI/CD Server
-
-    .. code-block:: console
-        helm uninstall nginx-ingress -n nginx-ingress
-        kubectl apply -f /home/ubuntu/k8s_ingress/deploy_policy_and_logs.yaml
-        kubectl apply -f /home/ubuntu/k8s_ingress/ingress_arcadia_nap.yaml
-
 #. SSH from Jumpbox commandline ``ssh centos@10.1.1.10`` (or WebSSH) to ``App Protect in CentOS``
 #. Go to ``cd /etc/nginx``
 #. ``ls`` and check the files created during the previous CI/CD pipeline job (steps 10)
