@@ -111,4 +111,10 @@ Please a make a new test by clicking on ``Arcadia k8s`` Edge Browser bookmark.
     #. Open ELK and check your logs
 
 
+.. note:: if you want to delete/uninstall this Ingress Controller, you have to run this command ``helm uninstall nginx-ingress -n nginx-ingress`` This command will delete the Ingress Controller only. You have to delete the YAML deployments as well
 
+        .. code-block:: BASH
+
+            helm uninstall nginx-ingress -n nginx-ingress
+            kubectl apply -f /home/ubuntu/k8s_ingress/deploy_policy_and_logs.yaml
+            kubectl apply -f /home/ubuntu/k8s_ingress/ingress_arcadia_nap.yaml
