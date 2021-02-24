@@ -15,6 +15,9 @@ An action can be configured for each bot class, or may also be configured per ea
 
 .. note :: We could stop the lab here, and run Bot requests. As Bot protection is ``enabled`` by ``default``, the default protection will apply. But in order to understand to customise the config, let's create a new Policy JSON file.
 
+.. warning :: Don't forget to follow the steps to uninstall the NAP Ingress and re-deploy the NginxPlus Ingress. Steps are in Class6 home page https://rtd-nginx-app-protect-udf.readthedocs.io/en/dev/class6/class6.html
+
+
 **Steps for the lab**
 
 #. SSH from Jumpbox commandline ``ssh centos@10.1.1.10`` (or WebSSH) to ``App Protect in CentOS``
