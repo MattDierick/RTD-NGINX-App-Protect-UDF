@@ -64,10 +64,9 @@ I prepared this YAML file below (this is only for the main app container). You c
 
 **Steps :**
 
+    #. RDP to the jumphost with ``user:user`` as credentials
     #. SSH from jumphost commandline ``ssh ubuntu@10.1.1.8`` (or WebSSH and ``cd /home/ubuntu/``) to CICD Server
     #. Run this command ``kubectl apply -f /home/ubuntu/Arcadia_k8S/all_apps.yaml``
-
-    #. RDP to the jumphost with ``user:user`` as credentials
     #. Open Edge Browser
     #. Open Kubernetes Dashboard bookmark (if not already opened)
     #. Click ``skip`` on the logon page
