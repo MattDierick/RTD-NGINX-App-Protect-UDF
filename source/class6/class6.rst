@@ -6,6 +6,7 @@ In this class, we will advanced features offered by the latest NAP release.
 #. Bot Protection
 #. Cryptonice integration
 #. A.WAF/ASM Policy converter
+#. gRPC Protection
 
 |
 
