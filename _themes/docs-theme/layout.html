@@ -1,0 +1,287 @@
+{#
+    basic/layout.html
+    ~~~~~~~~~~~~~~~~~
+
+    Master layout template for Sphinx themes.
+
+    :copyright: Copyright 2007-2015 by the Sphinx team, see AUTHORS.
+    :license: BSD, see LICENSE for details.
+#}
+{%- block doctype -%}
+<!DOCTYPE html>
+{%- endblock %}
+{%- set reldelim1 = reldelim1 is not defined and ' &raquo;' or reldelim1 %}
+{%- set reldelim2 = reldelim2 is not defined and ' |' or reldelim2 %}
+{%- set render_sidebar = (not embedded) and (not theme_nosidebar|tobool) and
+                         (sidebars != []) %}
+{%- set url_root = pathto('', 1) %}
+{# XXX necessary? #}
+{%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
+{%- if not embedded and docstitle %}
+  {%- set titlesuffix = " | "|safe + docstitle|e %}
+{%- else %}
+  {%- set titlesuffix = "" %}
+{%- endif %}
+
+
+{%- macro relbar() %}
+    <div class="related" aria-label="related navigation">
+      <h3>{{ _('Navigation') }}</h3>
+      <ul>
+        {%- for rellink in rellinks %}
+        <li class="right" {% if loop.first %}style="margin-right: 10px"{% endif %}>
+          <a href="{{ pathto(rellink[0]) }}" title="{{ rellink[1]|striptags|e }}"
+             {{ accesskey(rellink[2]) }}>{{ rellink[3] }}</a>
+          {%- if not loop.first %}{{ reldelim2 }}{% endif %}</li>
+        {%- endfor %}
+        {%- block rootrellink %}
+        <li class="nav-item nav-item-0"><a href="{{ pathto(master_doc) }}">{{ site_name|e }}</a>{{ reldelim1 }}</li>
+        {%- endblock %}
+        {%- for parent in parents %}
+          <li class="nav-item nav-item-{{ loop.index }}"><a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey("U") }}{% endif %}>{{ parent.title }}</a>{{ reldelim1 }}</li>
+        {%- endfor %}
+        {%- block relbaritems %} {% endblock %}
+      </ul>
+    </div>
+{%- endmacro %}
+
+{%- macro sidebar() %}
+<!-- All codes have been moved to sidebar.html -->
+{%- endmacro %}
+
+
+{%- macro script() %}
+    <script>
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '{{ url_root }}',
+        VERSION:     '{{ release|e }}',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '{{ '' if no_search_suffix else file_suffix }}',
+        HAS_SOURCE:  {{ has_source|lower }},
+        SOURCELINK_SUFFIX: '{{ sourcelink_suffix }}'
+      };
+    </script>
+    
+    {%- for scriptfile in script_files %}
+    <script src="{{ pathto(scriptfile, 1) }}?var={{timestamp}}"></script>
+    {%- endfor %}
+    <script type="text/javascript">
+    //some global vars. DO NOT change these variables names. These variables are being used in GTM.
+    var NX_GDPR_FUNCTIONAL_COOKIE_CONSENT = "no"; // possible values are 'yes' and 'no'
+    var NX_GDPR_SOCIAL_COOKIE_CONSENT = "no"; // possible values are 'yes' and 'no'
+    //end global vars
+    </script>
+    <script type="text/javascript" src="{{ pathto('_static/js/nginx-cookie.js', 1) }}?var={{timestamp}}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/nginx-gdpr2.js', 1) }}?var={{timestamp}}"></script>
+{%- endmacro %}
+
+{%- macro css() %}
+    <link rel="stylesheet" href="{{ pathto('_static/css/style.css', 1) }}?var={{timestamp}}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ pathto('_static/css/nginx-site-header.css', 1) }}?var={{timestamp}}" type="text/css" media="all">
+    
+    <!-- <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" /> -->
+    <link rel="stylesheet" href="{{ pathto('_static/pygments.css', 1) }}?var={{timestamp}}" type="text/css" />
+    {%- for cssfile in css_files %}
+    <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}?var={{timestamp}}" type="text/css" />
+    {%- endfor %}
+{%- endmacro %}
+
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset={{ encoding }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    {{ metatags }}
+    {%- block htmltitle %}
+    <title>{{site_shortname|e}} | {{ title|striptags|e }}</title>
+    {%- endblock %}
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{site_shortname|e}} | {{ title|striptags|e }}" />
+    <meta property="og:description" content="{{nx_meta_description}}" />
+    <meta property="og:url" content="{{site_url}}/{{ pagename | replace('/index','') }}/" />
+    <meta property="og:site_name" content="{{site_name}}" />
+    <meta property="article:publisher" content="{{facebook_url}}" />
+    <meta property="og:image" content="{{site_url}}/_static/images/nginx-documentation-500x300.png" />
+    <meta property="og:image:width" content="500" />
+    <meta property="og:image:height" content="300" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="{{nx_meta_description}}" />
+    <meta name="twitter:title" content="{{site_shortname|e}} | {{ title|striptags|e }}" />
+    <meta name="twitter:site" content="@{{twitter_username}}" />
+    <meta name="twitter:image" content="{{site_url}}/_static/images/nginx-documentation-500x300.png" />
+    <meta name="twitter:creator" content="@{{twitter_username}}" />
+
+    {{ css() }}
+    {%- if not embedded %}
+    {{ script() }}
+    {%- if use_opensearch %}
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="{% trans docstitle=docstitle|e %}Search within {{ docstitle }}{% endtrans %}"
+          href="{{ pathto('_static/opensearch.xml', 1) }}"/>
+    {%- endif %}
+    {%- if favicon %}
+    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
+    {%- endif %}
+    <link rel="icon" type="image/png" href="{{ pathto('_static/favicon-48x48.ico', 1) }}" sizes="48x48">
+    <link rel="icon" type="image/png" href="{{ pathto('_static/favicon-64x46.ico', 1) }}" sizes="64x64">
+    {%- endif %}
+{%- block linktags %}
+    {%- if hasdoc('about') %}
+    <link rel="author" title="{{ _('About these documents') }}" href="{{ pathto('about') }}" />
+    {%- endif %}
+    {%- if hasdoc('genindex') %}
+    <link rel="index" title="{{ _('Index') }}" href="{{ pathto('genindex') }}" />
+    {%- endif %}
+    {%- if hasdoc('search') %}
+    <link rel="search" title="{{ _('Search') }}" href="{{ pathto('search') }}" />
+    {%- endif %}
+    {%- if hasdoc('copyright') %}
+    <link rel="copyright" title="{{ _('Copyright') }}" href="{{ pathto('copyright') }}" />
+    {%- endif %}
+    <!-- <link rel="top" title="{{ docstitle|e }}" href="{{ pathto(master_doc) }}" /> -->
+    {%- if parents %}
+    <!-- <link rel="up" title="{{ parents[-1].title|striptags|e }}" href="{{ parents[-1].link|e }}" /> -->
+    {%- endif %}
+    {%- if next %}
+    <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
+    {%- endif %}
+    {%- if prev %}
+    <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
+    {%- endif %}
+{%- endblock %}
+{%- block extrahead %} {% endblock %}
+    
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K5HG9JT');</script>
+  <!-- End Google Tag Manager -->
+
+</head>
+<body>
+  <!-- GDPR Section Start -->
+  
+  <!-- GDPR Section End -->
+
+  <!-- Header Section Start -->
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5HG9JT"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div id="page" class="hfeed site page-{{ pagename | replace('/','-') }}">
+  <!-- Header Section Start -->
+
+  {% include 'includes/header.html' %}
+  <!-- Header Section End -->
+  <div id="nx_fake_header"><!-- a fake div to fix the auto padding of next element of #masthead div--></div>
+  <!-- Navigation Section Start -->
+  {%- block header %}{% endblock %}
+
+  {%- block relbar1 %}{{ relbar() }}{% endblock %}
+  <!-- Navigation Section End -->
+  <div class="wrapper-content">
+    <div class="nginx-doc-container">
+    <!-- Start Sidebar block -->
+      {%- block sidebar2 %}
+         {%- if render_sidebar %}
+           {% include 'includes/sidebar.html' %}
+         {%- endif %}
+      {% endblock %}
+    <!-- End Sidebar block -->
+
+      {% if pagename == 'index' %} 
+        {% include 'includes/home_page_body.html' %}
+      {% else %}
+        <div class="nginx-doc-content">
+          <div class="nginx-doc-content-inner">
+          {%- block content %}
+            {%- block sidebar1 %} {# possible location for sidebar #} {% endblock %}
+            <article>
+              <h1 id="page_title">{{ title }}</h1>
+              
+              {%- if edit_on_github_url %}
+              <!-- <div class="nginx-doc-meta-block"><a href="{{ edit_on_github_url }}" rel="nofollow">{{ _('Edit on GitHub') }}</a></div> -->
+              {%- endif %}
+              
+              <!-- Start main document block -->
+              {%- block document %}
+                  <div id="page_content">
+                    <!-- Current page table of content -->
+                    <div class="nginx-doc-table-of-content-wrap" style="display:none;">
+                      <h2>Table of Contents</h2>
+                      {{ toc }}
+                    </div>
+                    <!-- end Current page table of content -->
+
+                    {% block body %} {% endblock %}
+                  </div><!-- end #page_content -->
+              
+              {%- endblock %}
+              <!-- End main document block -->
+            </article>
+  
+            {%- if edit_on_github_url %}
+            <!-- <div class="nginx-doc-meta-block"><a href="{{ edit_on_github_url }}" rel="nofollow">{{ _('Edit on GitHub') }}</a></div> -->
+            {%- endif %}
+
+            <div class="nginx-doc-footer">
+              {%- if prev %}
+              <div class="prev-block">
+                <a href="{{ prev.link|e }}" class="next-prev-btn">previous</a>
+                <a href="{{ prev.link|e }}" class="prev-icon">&larr;</a>
+                <h4><a href="{{ prev.link|e }}">{{ prev.title }}</a></h4>
+              </div>
+              {%- endif %}
+              {%- if next %}
+              <div class="next-block">
+                <a href="{{ next.link|e }}" class="next-prev-btn">next</a>
+                <a href="{{ next.link|e }}" class="next-icon">&rarr;</a>
+                <h4><a href="{{ next.link|e }}">{{ next.title }}</a></h4>
+              </div>
+              {%- endif %}
+            </div>
+
+          {%- endblock %}
+          <!-- end block content -->
+  
+          {%- block relbar2 %}{{ relbar() }}{% endblock %}
+          </div><!-- end .nginx-doc-content-inner -->  
+        </div><!-- end .nginx-doc-content -->
+      {% endif %}
+    </div><!-- end .nginx-doc-container -->
+    
+    <!-- Pre Footer Section Start -->
+    {% include 'includes/pre_footer.html' %}
+    <!-- Pre Footer Section End -->
+  
+  </div> <!-- End .wrapper-content -->
+
+{%- block footer %}
+
+  <!-- Footer Section Start -->
+  {% include 'includes/footer.html' %}
+  <!-- Footer Section End -->
+ 
+   <!-- Js From old design --> 
+   <!-- /#page -->
+  <script src="{{ pathto('_static/nginx-theme.js', 1) }}?var={{timestamp}}"></script>
+  <!-- End Piwik Code -->
+  
+  <!-- Js Files new for design -->
+  <!-- jQuery is automatically included in header -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+  <script src="{{ pathto('_static/js/nginx-site-header.js', 1) }}?var={{timestamp}}"></script>
+  <script src="{{ pathto('_static/js/main.js', 1) }}?var={{timestamp}}"></script>
+  {% if pagename == 'search' %} 
+  <script src="{{ pathto('_static/js/meta-data-list.js', 1) }}?var={{timestamp}}"></script>
+  <script src="{{ pathto('_static/js/search-page.js', 1) }}?var={{timestamp}}"></script>
+  {% endif %}
+ {%- endblock %} 
+ </div><!-- /#page -->
+</body>
+</html>

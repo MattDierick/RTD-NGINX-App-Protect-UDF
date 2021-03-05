@@ -1,0 +1,44 @@
+<!-- start sidebar -->
+<div class="nginx-doc-sidebar">
+  <div class="nginx-doc-sidebar-inner">
+    {% if domain_name == 'docs.nginx.com/nginx-controller' %}
+    <!-- <h3><a href="{{ pathto(master_doc) }}">NGINX documentation</a></h3> -->
+    {% else %}
+    <h3><a href="{{ pathto(master_doc) }}">NGINX Documentation</a></h3>
+    {% endif %}
+
+    <!-- Search Box Start -->
+    {%- block sidebarsearch %}
+    {%- include "searchbox.html" %}
+    {%- endblock %}
+    <!-- Search Box End -->
+    <!-- Start nav -->
+    {% set current_class = "current" %}
+    {% if pagename == 'index' %} 
+      {% set current_class = "" %}
+    {% endif %}
+
+    <div class="nginx-doc-sidenav">
+        
+        {% block menu %}
+              {#
+                The singlehtml builder doesn't handle this toctree call when the
+                toctree is empty. Skip building this for now.
+              #}
+              {% if 'singlehtml' not in builder %}
+                {% set global_toc = toctree(maxdepth=theme_navigation_depth|int, collapse=theme_collapse_navigation, titles_only=True,  includehidden=True) %}
+              {% endif %}
+              {% if global_toc %}
+                {{ global_toc }}
+              {% else %}
+                <!-- Local TOC -->
+                <div class="local-toc">{{ toc }}</div>
+              {% endif %}
+          {% endblock %}
+            
+    </div>
+    <!-- End nav -->
+
+  </div>
+</div>
+<!-- end sidebar -->
