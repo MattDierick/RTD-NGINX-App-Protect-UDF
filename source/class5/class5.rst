@@ -1,16 +1,17 @@
-Class 5 - API Security
-######################
+Welcome to NGINX APP Protect lab guide
+######################################
 
-In this class, we will protect the Arcadia API with NAP.
+Publish and protect modern applications
+***************************************
 
-#. API Security with OpenAPI file import
+.. warning :: For any remark or mistake in this lab, please send a Teams chat to Matthieu DIERICK.
 
-
-.. warning:: In this lab, there are cert + keys to download the packages from official NGINX repo. It is forbidden to share them with anyone.
+.. image:: NAP_index.png
+   :align: center
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
+   :caption: Contents:
    :glob:
 
    module*/module*
-
