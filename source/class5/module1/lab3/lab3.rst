@@ -73,16 +73,16 @@ I prepared this YAML file below (this is only for the main app container). You c
     #. You should see the services and the pods
 
 
-.. image:: ../pictures/module3/pods.png
+.. image:: ../pictures/lab3/pods.png
    :align: center
 
-.. image:: ../pictures/module3/services.png
+.. image:: ../pictures/lab3/services.png
    :align: center
 
 
 .. warning:: Arcadia Application is running but not yet available for the customers. We need to publish it.
 
-**Video of this module (force HD 1080p in the video settings)**
+**Video of this lab (force HD 1080p in the video settings)**
 
 .. raw:: html
 

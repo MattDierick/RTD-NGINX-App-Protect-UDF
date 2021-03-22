@@ -19,7 +19,7 @@ To do so, I prepared a ``kubectl`` Kubernetes Deployment in YAML.
     #. Scroll down and check the specs
 
 
-.. image:: ../pictures/module4/arcadia-ingress.png
+.. image:: ../pictures/lab4/arcadia-ingress.png
    :align: center
 
 .. code-block:: YAML

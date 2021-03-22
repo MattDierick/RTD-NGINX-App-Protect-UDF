@@ -1,7 +1,7 @@
 Step 4 - Update the Docker image with the latest WAF signatures
 ###############################################################
 
-In this module, we will update the signature package in the Docker image.
+In this lab, we will update the signature package in the Docker image.
 
 .. warning:: There are several ways to update the signatures. All of them have pros and cons. In this lab, I decided to create a new Docker image with the new signature package to preserve immutability. And then destroy and run a new Docker container from this new image in front of Arcadia App.
 
@@ -56,7 +56,7 @@ The signatures are provided by F5 with an RPM package. The best way to update th
 
    1. Check if the new app-protect Docker image is available locally by running ``docker images``. You will notice the new image with a tag of ``20200316``.
 
-      .. image:: ../pictures/module2/docker_images.png
+      .. image:: ../pictures/lab2/docker_images.png
          :align: center
 
 |
@@ -68,7 +68,7 @@ The signatures are provided by F5 with an RPM package. The best way to update th
 
    4. Check that the Docker container is running ``docker ps``
 
-      .. image:: ../pictures/module2/docker_run.png
+      .. image:: ../pictures/lab2/docker_run.png
          :align: center
 
 |
@@ -81,7 +81,7 @@ The signatures are provided by F5 with an RPM package. The best way to update th
 
 .. note:: Congrats, you are running a new version of NAP with an updated signature package.
 
-**Video of this module (force HD 1080p in the video settings)**
+**Video of this lab (force HD 1080p in the video settings)**
 
 .. note :: You can notice some differences between the video and the lab. When I did the video, the dockerfile was different. But the concept remains the same.
 

@@ -168,7 +168,7 @@ Steps:
             user nginx;
 
             worker_processes 1;
-            load_module modules/ngx_http_app_protect_module.so;
+            load_module labs/ngx_http_app_protect_module.so;
 
             error_log /var/log/nginx/error.log debug;
 
@@ -240,12 +240,12 @@ Steps:
 
             docker ps
 
-        .. image:: ../pictures/module5/docker-ps.png
+        .. image:: ../pictures/lab5/docker-ps.png
            :align: center
 
     #. RDP to the Jumhost as ``user:user`` and click on bookmark ``Arcadia NAP Docker`` Click Login and use matt:ilovef5
 
-        .. image:: ../pictures/module5/arcadia-adv.png
+        .. image:: ../pictures/lab5/arcadia-adv.png
            :align: center
 
 
@@ -294,7 +294,7 @@ Steps :
 #. RDP to ``Jumphost`` and connect to ``GitLab`` (root / F5twister$)
 #. Click on the project named ``NGINX App Protect / nap-reference-blocking-page``
 
-    .. image:: ../pictures/module5/gitlab-1.png
+    .. image:: ../pictures/lab5/gitlab-1.png
        :align: center
        :scale: 50%
 
@@ -484,7 +484,7 @@ Steps:
             user nginx;
 
             worker_processes 1;
-            load_module modules/ngx_http_app_protect_module.so;
+            load_module labs/ngx_http_app_protect_module.so;
 
             error_log /var/log/nginx/error.log debug;
 
@@ -533,18 +533,18 @@ Steps:
 
             docker ps
 
-        .. image:: ../pictures/module5/docker-ps-owasp.png
+        .. image:: ../pictures/lab5/docker-ps-owasp.png
            :align: center
 
     #. RDP to the Jumhost as ``user:user`` and click on bookmark ``Arcadia NAP Docker``
 
-        .. image:: ../pictures/module5/arcadia-adv.png
+        .. image:: ../pictures/lab5/arcadia-adv.png
            :align: center
     
 
 |
 
-**Video of this module (force HD 1080p in the video settings)**
+**Video of this lab (force HD 1080p in the video settings)**
 
 .. raw:: html
 

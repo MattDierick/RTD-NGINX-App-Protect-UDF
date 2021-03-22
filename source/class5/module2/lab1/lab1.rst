@@ -1,7 +1,7 @@
 Step 3 - Build your first NAP (NGINX App Protect) Docker image
 ##############################################################
 
-In this module, we will build manually our first NAP Docker image via command line.
+In this lab, we will build manually our first NAP Docker image via command line.
 
 **Follow the step below to build the Docker image:**
 
@@ -48,7 +48,7 @@ In this module, we will build manually our first NAP Docker image via command li
 
    1. Check if the app-protect Docker image is available locally by running ``docker images``
 
-   .. image:: ../pictures/module1/docker_images.png
+   .. image:: ../pictures/lab1/docker_images.png
       :align: center
 
 |
@@ -56,7 +56,7 @@ In this module, we will build manually our first NAP Docker image via command li
    2. Run a container with this image ``docker run -dit --name app-protect -p 80:80 -v /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf app-protect:nosig``
    3. Check that the Docker container is running ``docker ps``
 
-   .. image:: ../pictures/module1/docker_run.png
+   .. image:: ../pictures/lab1/docker_run.png
       :align: center
 
 |
@@ -85,7 +85,7 @@ In this module, we will build manually our first NAP Docker image via command li
 
 .. note:: Did you notice the blocking page is similar to ASM and Adv. WAF ?
 
-**Video of this module (force HD 1080p in the video settings)**
+**Video of this lab (force HD 1080p in the video settings)**
 
 .. warning :: You can notice some differences between the video and the lab. When I did the video, the dockerfile was different. But the concept remains the same.
 

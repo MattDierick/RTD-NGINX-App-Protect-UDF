@@ -1,7 +1,7 @@
 Step 9 - Install the NGINX Plus and App Protect packages manually
 #################################################################
 
-In this module, we will manually install the NGINX Plus and NGINX App Protect modules in CentOS from the official repository.
+In this lab, we will manually install the NGINX Plus and NGINX App Protect labs in CentOS from the official repository.
 
 .. warning:: NGINX Plus private key and cert are already installed on the CentOS. Don't share them.
 
@@ -47,7 +47,7 @@ Steps:
             error_log  /var/log/nginx/error.log notice;
             pid        /var/run/nginx.pid;
 
-            load_module modules/ngx_http_app_protect_module.so;
+            load_module labs/ngx_http_app_protect_module.so;
 
             events {
                 worker_connections 1024;
@@ -238,7 +238,7 @@ Steps :
 
 .. note :: We don't spend more time on Threat Campaign in this lab as we did it already in the Docker lab (Class 2 - Step 5)
 
-**Video of this module (force HD 1080p in the video settings)**
+**Video of this lab (force HD 1080p in the video settings)**
 
 .. raw:: html
 

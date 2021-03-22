@@ -19,7 +19,7 @@ In order to protect these APIs, we will push (or pull) an ``OpenAPI specificatio
 
 You can find the ``Arcadia Application OAS3`` file here : https://app.swaggerhub.com/apis/F5EMEASSA/Arcadia-OAS3/2.0.1-schema
 
-.. image:: ../pictures/module1/swaggerhub.png
+.. image:: ../pictures/lab1/swaggerhub.png
    :align: center
 
 .. note :: As you can notice, there are 4 URLs in this API. And a JSON schema has been created so that every JSON parameter is known.
@@ -35,7 +35,7 @@ Steps for the lab
 
             [centos@ip-10-1-1-7 nginx]$ ls
             app-protect-log-policy.json       conf.d          koi-utf  mime.types  NginxApiSecurityPolicy.json  nginx.conf.orig          NginxStrictPolicy.json  uwsgi_params
-            app-protect-security-policy.json  fastcgi_params  koi-win  modules     nginx.conf                   NginxDefaultPolicy.json  scgi_params             win-utf   
+            app-protect-security-policy.json  fastcgi_params  koi-win  labs     nginx.conf                   NginxDefaultPolicy.json  scgi_params             win-utf   
 
         .. note :: You can notice a NAP policy ``NginxApiSecurityPolicy.json`` exists. This is template for API Security. We will use it.
 
@@ -74,7 +74,7 @@ Steps for the lab
             error_log  /var/log/nginx/error.log notice;
             pid        /var/run/nginx.pid;
 
-            load_module modules/ngx_http_app_protect_module.so;
+            load_module labs/ngx_http_app_protect_module.so;
 
             events {
                 worker_connections 1024;
@@ -121,26 +121,26 @@ Test your API
     #. Open ``Postman```
     #. Open Collection ``Arcadia API``
 
-        .. image:: ../pictures/module1/collec.png
+        .. image:: ../pictures/lab1/collec.png
             :align: center
             :scale: 50%
 
     #. Send your first API Call with ``Last Transactions``. You should see the last transactions. This is just a GET.
 
-        .. image:: ../pictures/module1/last_trans.png
+        .. image:: ../pictures/lab1/last_trans.png
             :align: center
             :scale: 50%
        Make sure the URL is ``http://app-protect-centos.arcadia-finance.io/trading/transactions.php``
        
     #. Now, send a POST, with ``POST Buy Stocks``. Check the request content (headers, body), and compare with the OAS3 file in SwaggerHub.
 
-        .. image:: ../pictures/module1/buy.png
+        .. image:: ../pictures/lab1/buy.png
             :align: center
             :scale: 50%
 
     #. Last test, send an attack. Send ``POST Buy Stocks XSS attack``. Your request will be blocked.
 
-        .. image:: ../pictures/module1/buy_attack.png
+        .. image:: ../pictures/lab1/buy_attack.png
             :align: center
             :scale: 50%
 

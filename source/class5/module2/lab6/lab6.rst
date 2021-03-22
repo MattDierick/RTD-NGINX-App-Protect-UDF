@@ -1,7 +1,7 @@
 Step 8 - Deploy NAP with a CI/CD toolchain
 ##########################################
 
-In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to the app, so when DevOps commits a new app (or a new version), the CI/CD pipeline has to deploy a new NAP component in front. In order to avoid repeating what we did previously, we will use a Signature package update as a trigger.
+In this lab, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to the app, so when DevOps commits a new app (or a new version), the CI/CD pipeline has to deploy a new NAP component in front. In order to avoid repeating what we did previously, we will use a Signature package update as a trigger.
 
 .. note:: When a new signature package is available, the CI/CD pipeline will build a new version of the Docker image and run it in front of Arcadia Application
 
@@ -16,7 +16,7 @@ In this module, we will deploy deploy NAP with a CI/CD pipeline. NAP is tied to 
         #. Destroy the previous running NAP container
         #. Run a new NAP container with this new Signature Package
 
-.. note:: Goal of this module is not to learn how to do it, but understand how I did it.
+.. note:: Goal of this lab is not to learn how to do it, but understand how I did it.
 
 **Check the Gitlab CI file**
 
@@ -69,7 +69,7 @@ Steps:
         #. If Gitlab is not available (502 error), restart the GitLab Docker container. SSH to the GitLab VM and run ``docker restart gitlab`` 
     #. In GitLab, open ``NGINX App Protect / nap-docker-signature`` project
 
-        .. image:: ../pictures/module6/gitlab_project_updated.png
+        .. image:: ../pictures/lab6/gitlab_project_updated.png
            :align: center
            :scale: 50%
 
@@ -78,7 +78,7 @@ Steps:
         #. Run this command in order to determine the latest Signature Package date: ``yum info app-protect-attack-signatures``
         #. You may notice the version date. In my case, when I write this lab ``2020.06.30`` was the most recent version of the signatures package. We will use this date as a Docker tag, but this will be done automatically by the CI/CD pipeline.
 
-        .. image:: ../pictures/module6/yum-date.png
+        .. image:: ../pictures/lab6/yum-date.png
            :align: center
            :scale: 50%
 
@@ -95,12 +95,12 @@ Steps :
     #. At this moment, the ``Gitlab CI`` pipeline starts
     #. In Gitlab, in the ``signature-update`` repository, click ``CI / CD`` > ``Pipelines``
 
-        .. image:: ../pictures/module6/github_cicd.png
+        .. image:: ../pictures/lab6/github_cicd.png
            :align: center   
 
     #. Enter into the pipeline by clicking on the ``running or passed`` button. And wait for the pipeline to finish. You can click on every job/stage to check the steps
 
-        .. image:: ../pictures/module6/github_pipeline.png
+        .. image:: ../pictures/lab6/github_pipeline.png
            :align: center 
     
     #. Check if the new image created and pushed by the pipeline is available in the Docker Registry.
@@ -108,7 +108,7 @@ Steps :
         #. Click on ``App Protect`` Repository
         #. You can see your new image with the tag ``2020.06.30`` - or any other tag based on the latest package date.
 
-        .. image:: ../pictures/module6/registry-ui.png
+        .. image:: ../pictures/lab6/registry-ui.png
            :align: center 
 
     #. Connect in SSH from Jumpbox commandline ``ssh ubuntu@10.1.1.12`` to the Docker App Protect + Docker repo VM, and check the signature package date running ``docker logs app-protect``

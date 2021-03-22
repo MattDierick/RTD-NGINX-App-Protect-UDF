@@ -1,7 +1,7 @@
 Step 6 - Check logs in Kibana
 #############################
 
-In this module, we will check the logs in ELK (Elastic, Logstash, Kibana)
+In this lab, we will check the logs in ELK (Elastic, Logstash, Kibana)
 
 **Check how logs are sent and how to set the destination syslog server**
 
@@ -32,7 +32,7 @@ Steps:
          user nginx;
 
          worker_processes 1;
-         load_module modules/ngx_http_app_protect_module.so;
+         load_module labs/ngx_http_app_protect_module.so;
 
          error_log /var/log/nginx/error.log debug;
 
@@ -75,7 +75,7 @@ Steps:
 
    #. In UDF, find the ELK VM and click Access > ELK
 
-      .. image:: ../pictures/module4/ELK_access.png
+      .. image:: ../pictures/lab4/ELK_access.png
          :align: center
          :scale: 50%
 
@@ -83,7 +83,7 @@ Steps:
 
    #. In Kibana, click on ``Dashboard > Overview``
 
-      .. image:: ../pictures/module4/ELK_dashboard.png
+      .. image:: ../pictures/lab4/ELK_dashboard.png
          :align: center
          :scale: 50%
 
@@ -95,7 +95,7 @@ Steps:
 
 .. note:: The default time window in this Kibana dashboard is **Last 15 minutes**. If you do not see any requests, you may need to extend the time window to a larger setting
 
-**Video of this module (force HD 1080p in the video settings)**
+**Video of this lab (force HD 1080p in the video settings)**
 
 .. raw:: html
 

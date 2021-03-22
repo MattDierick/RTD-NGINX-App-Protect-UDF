@@ -28,7 +28,7 @@ An action can be configured for each bot class, or may also be configured per ea
 
         [centos@ip-10-1-1-7 nginx]$ ls
         app-protect-log-policy.json       conf.d          koi-utf  mime.types  NginxApiSecurityPolicy.json  nginx.conf.orig          NginxStrictPolicy.json  uwsgi_params
-        app-protect-security-policy.json  fastcgi_params  koi-win  modules     nginx.conf                   NginxDefaultPolicy.json  scgi_params             win-utf   
+        app-protect-security-policy.json  fastcgi_params  koi-win  labs     nginx.conf                   NginxDefaultPolicy.json  scgi_params             win-utf   
 
 #. Create a new NAP policy JSON file with Bot
 
@@ -84,7 +84,7 @@ An action can be configured for each bot class, or may also be configured per ea
         user nginx;
 
         worker_processes 1;
-        load_module modules/ngx_http_app_protect_module.so;
+        load_module labs/ngx_http_app_protect_module.so;
 
         error_log /var/log/nginx/error.log debug;
 
@@ -132,13 +132,13 @@ An action can be configured for each bot class, or may also be configured per ea
 #. Now, on the ``Desktop``, launch ``Jmeter``
 #. In Jmeter, open the project in ``File`` >> ``Open Recent`` >> ``HTTP Request Bots.jmx``. This file is located in folder Desktop > lab-links > jmeter_files
 
-    .. image:: ../pictures/module1/open_recent.png
+    .. image:: ../pictures/lab1/open_recent.png
        :align: center
        :scale: 70%
 
 #. Now, run the project by click on the ``GREEN PLAY BUTTON``
 
-    .. image:: ../pictures/module1/play.png
+    .. image:: ../pictures/lab1/play.png
        :align: center
 
 #. THe project is sending HTTP requests to the NAP with a public IP address (known as ``bad reputation``) and with a Bot ``User-Agent``. We will simulate bots by changing the user agent.
@@ -146,19 +146,19 @@ An action can be configured for each bot class, or may also be configured per ea
 #. Now, go to ``ELK - Kibana`` from ``Edge Browser``, Click on Dashboards then ``Overview`` dashboard.
 #. You can notice Good and Bad request in the widgets, but let's focus on the logs at the bottom of the dashboard
 
-    .. image:: ../pictures/module1/dashboard.png
+    .. image:: ../pictures/lab1/dashboard.png
        :align: center
 
     .. note :: You can notice we were able to ``locate`` the source of the request because jmeter inject an XFF header. 
 
 #. Open the logs in full screen
 
-    .. image:: ../pictures/module1/full_screen.png
+    .. image:: ../pictures/lab1/full_screen.png
        :align: center
 
 #. Look at the logs, and open up one or two logs ``alerted`` or ``blocked``. You can notice the ``Bot Category``, the ``violation`` ...
 
-    .. image:: ../pictures/module1/log.png
+    .. image:: ../pictures/lab1/log.png
        :align: center
 
 .. note :: Now, your NAP is protecting against ``known bots`` and you can customize your policy in order to make it more strick or not.

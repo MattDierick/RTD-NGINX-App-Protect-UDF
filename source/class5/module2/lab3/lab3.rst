@@ -1,7 +1,7 @@
 Step 5 - Update the Docker image with the Threat Campaign package
 #################################################################
 
-In this module, we will install the package Threat Campaign into a new Docker image.
+In this lab, we will install the package Threat Campaign into a new Docker image.
 
 Threat Campaign is a **feed** from F5 Threat Intelligence team. This team is collecting 24/7 threats from internet and darknet. 
 They use several bots and honeypotting networks in order to know in advance what the hackers (humans or robots) will target and how.
@@ -72,7 +72,7 @@ In order to install this package, we need to update our ``Dockerfile``. I create
 
    1. Check if the new app-protect Docker image is available locally by running ``docker images``. You will notice the new image with a tag of ``tc``.
 
-      .. image:: ../pictures/module3/docker_images.png
+      .. image:: ../pictures/lab3/docker_images.png
          :align: center
 
 |
@@ -84,7 +84,7 @@ In order to install this package, we need to update our ``Dockerfile``. I create
 
    4. Check that the Docker container is running ``docker ps``
 
-      .. image:: ../pictures/module3/docker_run.png
+      .. image:: ../pictures/lab3/docker_run.png
          :align: center
 
 |
@@ -107,13 +107,13 @@ In order to install this package, we need to update our ``Dockerfile``. I create
    #. RDP to the ``Jumphost`` (user / user)
    #. Open ``Postman`` and select the collection ``NAP - Threat Campaign``
    #. Run the 2 calls. They will trigger 2 different Threat Campaign rules.
-   #. In the next module, we will check the logs in Kibana.
+   #. In the next lab, we will check the logs in Kibana.
 
 
 .. note:: Congrats, you are running a new version of NAP with the latest Threat Campaign package and ruleset.
 
 
-**Video of this module (force HD 1080p in the video settings)**
+**Video of this lab (force HD 1080p in the video settings)**
 
 .. raw:: html
 

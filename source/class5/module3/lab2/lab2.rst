@@ -1,7 +1,7 @@
 Step 10 - Deploy App Protect via CI/CD pipeline
 ###############################################
 
-In this module, we will install NGINX Plus and App Protect packages on CentOS with a CI/CD toolchain. NGINX teams created Ansible modules to deploy it easily in a few seconds.
+In this lab, we will install NGINX Plus and App Protect packages on CentOS with a CI/CD toolchain. NGINX teams created Ansible labs to deploy it easily in a few seconds.
 
 .. note:: The official Ansible NAP role is available here https://github.com/nginxinc/ansible-role-nginx-app-protect and the NGINX Plus role here https://github.com/nginxinc/ansible-role-nginx 
 
@@ -16,7 +16,7 @@ In this module, we will install NGINX Plus and App Protect packages on CentOS wi
 
             sudo yum remove -y app-protect*
 
-        .. image:: ../pictures/module2/yum-remove-app-protect.png
+        .. image:: ../pictures/lab2/yum-remove-app-protect.png
            :align: center
            :scale: 50%
 
@@ -27,7 +27,7 @@ In this module, we will install NGINX Plus and App Protect packages on CentOS wi
 
             sudo yum remove -y nginx-plus*
 
-        .. image:: ../pictures/module2/yum-remove-nginx-plus.png
+        .. image:: ../pictures/lab2/yum-remove-nginx-plus.png
            :align: center
            :scale: 70%
 
@@ -49,7 +49,7 @@ Steps:
     #. Select the repository ``nap-deploy-centos`` and go to ``CI /CD``
 
 
-    .. image:: ../pictures/module2/gitlab_pipeline.png
+    .. image:: ../pictures/lab2/gitlab_pipeline.png
        :align: center
        :scale: 50%
 
@@ -79,7 +79,7 @@ The pipeline is as below:
             - ansible-playbook -i hosts copy-nginx-conf.yml
 
 
-.. note:: As you can notice, the ``Requirements`` stage installs the ``requirements``. We use the parameter ``--force`` in order to be sure we download and install the latest version of the module.
+.. note:: As you can notice, the ``Requirements`` stage installs the ``requirements``. We use the parameter ``--force`` in order to be sure we download and install the latest version of the lab.
 
 .. note:: This pipeline executes 2 Ansible playbooks. 
     
@@ -87,7 +87,7 @@ The pipeline is as below:
     #. The last playbook is just there to fix an issue in UDF for the DNS resolver
 
 
-.. image:: ../pictures/module2/gitlab_pipeline_ok.png
+.. image:: ../pictures/lab2/gitlab_pipeline_ok.png
    :align: center
    :scale: 40%
 
@@ -95,4 +95,4 @@ The pipeline is as below:
 When the pipeline is finished executing, perform a browser test within ``Edge Browser`` using the ``Arcadia NAP CentOS`` bookmark
 
 
-.. note :: Congrats, you deployed ``NGINX Plus`` and ``NAP`` with a CI/CD pipeline. You can check the pipelines in ``GitLab`` if you are interested to see what has been coded behind the scenes. But it is straight forward as the Ansible modules are provided by F5/NGINX.
+.. note :: Congrats, you deployed ``NGINX Plus`` and ``NAP`` with a CI/CD pipeline. You can check the pipelines in ``GitLab`` if you are interested to see what has been coded behind the scenes. But it is straight forward as the Ansible labs are provided by F5/NGINX.

@@ -16,7 +16,7 @@ Cryptonice is built heavily upon the excellent SSLyze and Cryptography Python li
 You can find more information on how to use Cryptonice here : https://cryptonice.readthedocs.io/en/latest/
 
 
-.. image:: ../pictures/module2/cryptonice_example.png
+.. image:: ../pictures/lab2/cryptonice_example.png
    :align: center
 
 .. note :: The goal here, with NAP, is to examine all websites published by our CI/CD pipeline.
@@ -85,12 +85,12 @@ The variable ``fqdn`` will be replaced by the FQDN you will set in the pipeline.
 #. In the left menu, click on ``CI / CD`` and ``Pipelines``
 #. Click ``Run Pipeline``
 
-    .. image:: ../pictures/module2/pipelines.png
+    .. image:: ../pictures/lab2/pipelines.png
        :align: center
 
 #. Define the variable ``CI_FQDN`` with any FQDN you want to test. Some websites like www.f5.com, or Facebook will raise some recommandations.
 
-    .. image:: ../pictures/module2/run_pipeline.png
+    .. image:: ../pictures/lab2/run_pipeline.png
        :align: center
 
 #. Click ``Run Pipeline`` and Wait :)
@@ -106,24 +106,24 @@ Now, it is time to see the results and what we can do with the information provi
 #. In ``Edge Browser``, open ``Kibana`` or use the Remote Access ``ELK`` in UDF if you prefer to connect from your laptop.
 #. In ``ELK`` left menu, click on ``Discover``
 
-    .. image:: ../pictures/module2/discover.png
+    .. image:: ../pictures/lab2/discover.png
        :align: center
 
 #. Then select ``Demo-crypto*``
 
-    .. image:: ../pictures/module2/discover_index.png
+    .. image:: ../pictures/lab2/discover_index.png
        :align: center
 
 #. You should now see some logs. If not, change the time range on the top right corner. You can open a log and look at the content.
 #. Now, go to the ``Dashbboards`` and click on ``Cryptonice`` dashboard
 
-    .. image:: ../pictures/module2/dashboards.png
+    .. image:: ../pictures/lab2/dashboards.png
        :align: center
 
 #. Change the time range to ``Last 1 year`` so that you can see all tests done so far (I did some for you)
 #. You can see now an example of a ``Cryptonice`` dashboard. Feel free to create your own.
 
-    .. image:: ../pictures/module2/outcomes.png
+    .. image:: ../pictures/lab2/outcomes.png
        :align: center
 
 
