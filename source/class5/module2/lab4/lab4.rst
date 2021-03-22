@@ -12,7 +12,8 @@ Steps:
    #. You can see 2 files ``log-default.json`` and ``nginx.conf``
    #. Open log-default.json ``less log-default.json``. You will notice we log all requests.
 
-      .. code-block:: JSON
+      .. code-block:: js
+         :caption: log-default.json
 
          {
          "filter": {
@@ -27,7 +28,8 @@ Steps:
 
    #. Open nginx.conf ``less nginx.conf``
 
-      .. code-block:: bash
+      .. code-block:: nginx
+         :caption: nginx.conf
 
          user nginx;
 

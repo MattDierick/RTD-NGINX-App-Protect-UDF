@@ -23,7 +23,8 @@ Steps:
 
             vi ./policy-adv/policy_base.json
 
-        .. code-block:: json
+        .. code-block:: js
+           :caption: policy_base.json
 
             {
                 "name": "policy_name",
@@ -45,7 +46,8 @@ Steps:
 
             vi ./policy-adv/policy_mongo_linux_JSON.json
 
-        .. code-block:: json
+        .. code-block:: js
+           :caption: policy_mongo_linux_JSON.json
 
             {
                 "policy":{
@@ -162,7 +164,7 @@ Steps:
 
             vi ./policy-adv/nginx.conf
 
-        .. code-block:: bash
+        .. code-block:: nginx
             :emphasize-lines: 32,40,48,56
 
             user nginx;
@@ -273,7 +275,7 @@ In this lab, we will create a ``custom blocking page`` and host this page in Git
 
 As a reminder, this is the base policy we created:
 
-    .. code-block:: json
+    .. code-block:: js
 
             {
                 "name": "policy_name",
@@ -302,7 +304,7 @@ Steps :
 
 #. Check the file ``blocking-custom-1.txt``
 
-    .. code-block :: JSON
+    .. code-block :: js
 
         [
             {
@@ -331,7 +333,7 @@ Steps :
 
 #. Modify the JSON as below
 
-    .. code-block:: bash
+    .. code-block:: js
 
         {
             "name": "policy_name",
@@ -382,7 +384,8 @@ Steps:
 
             vi ./policy_owasp_top10/policy_owasp_top10.json
 
-        .. code-block:: json
+        .. code-block:: js
+           :caption: policy_owasp_top10.json
 
                 {
                 "policy": {
@@ -479,7 +482,8 @@ Steps:
 
             vi ./policy_owasp_top10/nginx.conf
 
-        .. code-block:: bash
+        .. code-block:: nginx
+           :caption: nginx.conf
 
             user nginx;
 

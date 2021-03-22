@@ -26,7 +26,7 @@ High level lab steps:
 
         sudo vi /etc/nginx/nginx.conf
 
-    .. code-block :: bash
+    .. code-block :: nginx
 
         user  nginx;
         worker_processes  auto;
@@ -82,7 +82,7 @@ High level lab steps:
         
         sudo vi /etc/nginx/online-boutique-policy.json
 
-    .. code-block:: json
+    .. code-block:: js
 
         {
             "policy": {
@@ -156,7 +156,7 @@ High level lab steps:
 
         sudo vi /etc/nginx/nginx.conf
 
-    .. code-block :: bash
+    .. code-block :: nginx
 
         user  nginx;
         worker_processes  auto;

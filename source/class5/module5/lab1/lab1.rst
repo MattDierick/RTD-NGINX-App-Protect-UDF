@@ -41,7 +41,7 @@ Steps for the lab
 
     #. Edit ``sudo vi NginxApiSecurityPolicy.json`` and modify it with the ``link`` to the OAS file for Arcadia API. This file resides in SwaggerHub. Don't forget the {}
 
-        .. code-block:: JSON
+        .. code-block:: js
            :emphasize-lines: 11
 
             {
@@ -65,7 +65,7 @@ Steps for the lab
     
     #. Now, edit ``sudo vi nginx.conf`` and modify it as below. We refer to the new WAF policy created previously
 
-        .. code-block:: bash
+        .. code-block:: nginx
            :emphasize-lines: 31
 
             user  nginx;

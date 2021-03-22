@@ -39,7 +39,8 @@ Steps:
 
         Paste the below configuration into ``nginx.conf`` and save it ``:wq``
 
-        .. code-block:: bash
+        .. code-block:: nginx
+           :caption: nginx.conf
 
             user  nginx;
             worker_processes  auto;
@@ -93,7 +94,8 @@ Steps:
 
         Paste the configuration below into ``log-default.json`` and save it
 
-        .. code-block:: json
+        .. code-block:: js
+           :caption: log-default.json
 
             {
                 "filter": {

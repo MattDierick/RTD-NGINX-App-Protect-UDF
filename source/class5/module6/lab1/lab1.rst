@@ -38,7 +38,8 @@ An action can be configured for each bot class, or may also be configured per ea
         
         sudo vi /etc/nginx/policy_bots.json
 
-    .. code-block:: json
+    .. code-block:: js
+       :caption: policy_bots.json
 
         {
             "policy": {
@@ -78,7 +79,7 @@ An action can be configured for each bot class, or may also be configured per ea
 
         sudo vi /etc/nginx/nginx.conf
 
-    .. code-block:: bash
+    .. code-block:: nginx
         :emphasize-lines: 24
 
         user nginx;
