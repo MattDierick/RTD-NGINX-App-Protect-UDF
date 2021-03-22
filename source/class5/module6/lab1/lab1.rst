@@ -84,7 +84,7 @@ An action can be configured for each bot class, or may also be configured per ea
         user nginx;
 
         worker_processes 1;
-        load_module labs/ngx_http_app_protect_module.so;
+        load_module modules/ngx_http_app_protect_module.so;
 
         error_log /var/log/nginx/error.log debug;
 

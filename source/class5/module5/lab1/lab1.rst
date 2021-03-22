@@ -74,7 +74,7 @@ Steps for the lab
             error_log  /var/log/nginx/error.log notice;
             pid        /var/run/nginx.pid;
 
-            load_module labs/ngx_http_app_protect_module.so;
+            load_module modules/ngx_http_app_protect_module.so;
 
             events {
                 worker_connections 1024;
